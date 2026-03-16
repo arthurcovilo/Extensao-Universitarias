@@ -16,7 +16,7 @@
             android:id="@+id/txtTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Calendário"
+            android:text="@string/titulo_calendario"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginBottom="16dp" />
@@ -30,14 +30,14 @@
             android:id="@+id/btnNovoEvento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Novo Evento"
+            android:text="@string/botao_novo_evento"
             android:layout_marginTop="16dp" />
 
         <TextView
             android:id="@+id/txtDataSelecionada"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nenhuma data selecionada"
+            android:text="@string/texto_data_nao_selecionada"
             android:textSize="18sp"
             android:layout_marginTop="16dp" />
 

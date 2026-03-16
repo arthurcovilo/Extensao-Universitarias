@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Extensao</string>
+
+    <string name="titulo_calendario">Calendário</string>
+    <string name="botao_novo_evento">Novo Evento</string>
+    <string name="texto_data_nao_selecionada">Nenhuma data selecionada</string>
+
+    <string name="menu_calendario">Calendário</string>
+    <string name="menu_eventos">Eventos</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_contato">Contato</string>
+
+    <string name="botao_inscrever">Inscrever-se</string>
 </resources>

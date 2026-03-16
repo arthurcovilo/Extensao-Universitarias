@@ -4,21 +4,21 @@
     <item
         android:id="@+id/nav_calendario"
         android:icon="@android:drawable/ic_menu_month"
-        android:title="Calendário" />
+        android:title="@string/menu_calendario" />
 
     <item
         android:id="@+id/nav_eventos"
         android:icon="@android:drawable/ic_menu_agenda"
-        android:title="Eventos" />
+        android:title="@string/menu_eventos" />
 
     <item
         android:id="@+id/nav_perfil"
         android:icon="@android:drawable/ic_menu_myplaces"
-        android:title="Perfil" />
+        android:title="@string/menu_perfil" />
 
     <item
         android:id="@+id/nav_contato"
         android:icon="@android:drawable/ic_menu_call"
-        android:title="Contato" />
+        android:title="@string/menu_contato" />
 
 </menu>
