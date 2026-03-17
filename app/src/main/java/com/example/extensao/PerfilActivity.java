@@ -2,6 +2,7 @@ package com.example.extensao;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class PerfilActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+    Button btnSair;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +19,15 @@ public class PerfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_perfil);
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
+        btnSair = findViewById(R.id.btnSair);
+
         bottomNavigationView.setSelectedItemId(R.id.nav_perfil);
+
+        btnSair.setOnClickListener(v -> {
+            Intent intent = new Intent(PerfilActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
