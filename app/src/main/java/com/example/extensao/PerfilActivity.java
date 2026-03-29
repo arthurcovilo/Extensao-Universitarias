@@ -24,7 +24,11 @@ public class PerfilActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.nav_perfil);
 
         btnSair.setOnClickListener(v -> {
+            SessionManager sessionManager = new SessionManager(PerfilActivity.this);
+            sessionManager.clearSession();
+
             Intent intent = new Intent(PerfilActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         });
