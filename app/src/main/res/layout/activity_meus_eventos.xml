@@ -46,3 +46,36 @@
                     layout="@layout/item_meus_eventos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+                <include
+                    layout="@layout/item_meus_eventos"
+                    android:layout_width="match_parent"
+                    tools:ignore="IncludeLayoutParam" />
+
+                <include
+                    layout="@layout/item_meus_eventos"
+                    android:layout_width="match_parent"
+                    tools:ignore="IncludeLayoutParam" />
+
+                <include
+                    layout="@layout/item_meus_eventos"
+                    android:layout_width="match_parent"
+                    tools:ignore="IncludeLayoutParam" />
+
+                <include
+                    layout="@layout/item_meus_eventos"
+                    android:layout_width="match_parent"
+                    tools:ignore="IncludeLayoutParam" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_menu" />
+
+</LinearLayout>
