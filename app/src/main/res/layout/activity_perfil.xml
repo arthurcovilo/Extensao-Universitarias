@@ -39,7 +39,7 @@
                 android:textColor="#666666" />
 
             <TextView
-                android:id="@+id/txtNomeUsuario"
+                android:id="@+id/txtNotificacoes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nome do usuário"
