@@ -17,6 +17,64 @@ public class AuthApiClient {
     private static final String BASE_URL = "http://10.0.2.2:8080";
     private static final String LOGIN_ENDPOINT = "/auth/login";
 
+    public LoginResult loginComGoogle(String idToken) {
+        HttpURLConnection connection = null;
+
+        try {
+            URL url = new URL(BASE_URL + "/auth/google");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setConnectTimeout(10000);
+            connection.setReadTimeout(10000);
+            connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
+
+            JSONObject body = new JSONObject();
+            body.put("idToken", idToken);
+
+            try (OutputStream os = connection.getOutputStream()) {
+                byte[] input = body.toString().getBytes(StandardCharsets.UTF_8);
+                os.write(input);
+            }
+
+            int responseCode = connection.getResponseCode();
+            String responseBody = readBody(responseCode >= 200 && responseCode < 300
+                    ? connection.getInputStream()
+                    : connection.getErrorStream());
+
+            if (responseCode >= 200 && responseCode < 300) {
+                JSONObject json = new JSONObject(responseBody);
+                String token = json.optString("accessToken", "");
+                JSONObject user = json.optJSONObject("user");
+                String userName = user != null ? user.optString("name", "") : "";
+                String userEmail = user != null ? user.optString("email", "") : "";
+
+                if (token.trim().isEmpty()) {
+                    return LoginResult.error("Resposta inválida do servidor (token ausente)");
+                }
+
+                return LoginResult.success(token, userEmail, userName);
+            }
+
+            JSONObject errorJson = tryParseJson(responseBody);
+            String errorMessage = errorJson != null
+                    ? errorJson.optString("message", "Erro ao autenticar com Google")
+                    : "Erro ao autenticar com Google";
+
+            if (responseCode >= 500) {
+                errorMessage = "Servidor indisponível. Tente novamente em instantes.";
+            }
+
+            return LoginResult.error(errorMessage);
+
+        } catch (Exception e) {
+            return LoginResult.error("Falha de conexão. Verifique internet e URL da API.");
+        } finally {
+            if (connection != null) connection.disconnect();
+        }
+    }
+
     public LoginResult login(String email, String senha) {
         HttpURLConnection connection = null;
 

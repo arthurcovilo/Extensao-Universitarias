@@ -4,9 +4,13 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
+const { OAuth2Client } = require('google-auth-library');
 
 const app = express();
 app.use(express.json());
+
+const WEB_CLIENT_ID = '487621614650-ekd8795v6uu6ac2uco886h95f09lrta4.apps.googleusercontent.com';
+const googleClient = new OAuth2Client(WEB_CLIENT_ID);
 
 // ── Conexão com o banco ──────────────────────────────────────────────────────
 const pool = new Pool({
@@ -62,6 +66,63 @@ app.post('/auth/login', async (req, res) => {
   } catch (err) {
     console.error('Erro no login:', err.message);
     return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
+// ── POST /auth/google ─────────────────────────────────────────────────────────
+app.post('/auth/google', async (req, res) => {
+  const { idToken } = req.body;
+
+  if (!idToken) {
+    return res.status(400).json({ message: 'idToken é obrigatório' });
+  }
+
+  try {
+    // Valida o token com o Google
+    const ticket = await googleClient.verifyIdToken({
+      idToken,
+      audience: WEB_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    const googleEmail = payload.email.toLowerCase().trim();
+    const googleName = payload.name || googleEmail;
+
+    // Busca ou cria o usuário no banco
+    let result = await pool.query(
+      'SELECT id, name, email FROM users WHERE email = $1',
+      [googleEmail]
+    );
+
+    let user;
+    if (result.rows.length === 0) {
+      // Primeiro acesso — cria o usuário sem senha
+      const insert = await pool.query(
+        'INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3) RETURNING id, name, email',
+        [googleName, googleEmail, '']
+      );
+      user = insert.rows[0];
+    } else {
+      user = result.rows[0];
+    }
+
+    const accessToken = jwt.sign(
+      { sub: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    return res.status(200).json({
+      accessToken,
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+    });
+
+  } catch (err) {
+    console.error('Erro no login Google:', err.message);
+    return res.status(401).json({ message: 'Token Google inválido' });
   }
 });
 
