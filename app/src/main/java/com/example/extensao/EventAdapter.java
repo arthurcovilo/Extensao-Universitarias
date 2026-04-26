@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -20,6 +21,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     private List<Event> events;
     private OnEventClickListener listener;
     private boolean isAdmin;
+    private List<Integer> registeredEventIds;
 
     public interface OnEventClickListener {
         void onRegisterClick(Event event, Button btnInscrever);
@@ -31,6 +33,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         this.events = events;
         this.isAdmin = isAdmin;
         this.listener = listener;
+        this.registeredEventIds = new ArrayList<>();
+    }
+
+    public void setRegisteredEventIds(List<Integer> ids) {
+        this.registeredEventIds = ids != null ? ids : new ArrayList<>();
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -97,29 +105,30 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             if (isAdmin) {
                 btnInscrever.setText("Gerenciar");
                 btnInscrever.setEnabled(true);
+                btnInscrever.setBackgroundTintList(null);
                 btnInscrever.setOnClickListener(v -> {
-                    if (listener != null) {
-                        listener.onEventClick(event);
-                    }
+                    if (listener != null) listener.onEventClick(event);
                 });
+            } else if (registeredEventIds.contains(event.id)) {
+                // Já inscrito
+                btnInscrever.setText("Inscrito ✓");
+                btnInscrever.setEnabled(false);
+                btnInscrever.setBackgroundTintList(
+                        android.content.res.ColorStateList.valueOf(0xFFAAAAAA));
+            } else if (event.isOpen() && !event.isFull()) {
+                btnInscrever.setText("Inscrever-se");
+                btnInscrever.setEnabled(true);
+                btnInscrever.setBackgroundTintList(
+                        android.content.res.ColorStateList.valueOf(0xFFF04E3E));
+                btnInscrever.setOnClickListener(v -> {
+                    if (listener != null) listener.onRegisterClick(event, btnInscrever);
+                });
+            } else if (event.isFull()) {
+                btnInscrever.setText("Lotado");
+                btnInscrever.setEnabled(false);
             } else {
-                if (event.isOpen() && !event.isFull()) {
-                    btnInscrever.setText("Inscrever-se");
-                    btnInscrever.setEnabled(true);
-                    btnInscrever.setBackgroundTintList(
-                            android.content.res.ColorStateList.valueOf(0xFFF04E3E));
-                    btnInscrever.setOnClickListener(v -> {
-                        if (listener != null) {
-                            listener.onRegisterClick(event, btnInscrever);
-                        }
-                    });
-                } else if (event.isFull()) {
-                    btnInscrever.setText("Lotado");
-                    btnInscrever.setEnabled(false);
-                } else {
-                    btnInscrever.setText("Encerrado");
-                    btnInscrever.setEnabled(false);
-                }
+                btnInscrever.setText("Encerrado");
+                btnInscrever.setEnabled(false);
             }
 
             // Cor das vagas

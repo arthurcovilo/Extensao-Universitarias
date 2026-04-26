@@ -292,6 +292,22 @@ app.post('/events/:id/register', authenticateToken, async (req, res) => {
   }
 });
 
+// ── GET /user/registrations ─────────────────────────────────────────────────
+app.get('/user/registrations', authenticateToken, async (req, res) => {
+  const userId = req.user.sub;
+  try {
+    const result = await pool.query(
+      'SELECT event_id FROM event_registrations WHERE user_id = $1',
+      [userId]
+    );
+    const eventIds = result.rows.map(r => r.event_id);
+    return res.json({ registeredEventIds: eventIds });
+  } catch (err) {
+    console.error('Erro ao buscar inscrições do usuário:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
 // ── GET /events/:id/is-registered ───────────────────────────────────────────
 app.get('/events/:id/is-registered', authenticateToken, async (req, res) => {
   const { id } = req.params;

@@ -87,7 +87,11 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
     private void carregarEventos() {
         executor.execute(() -> {
             List<Event> events = eventApiClient.getEvents();
+            List<Integer> registeredIds = sessionManager.isAdmin()
+                    ? new java.util.ArrayList<>()
+                    : eventApiClient.getUserRegisteredEventIds(sessionManager.getAccessToken());
             runOnUiThread(() -> {
+                eventAdapter.setRegisteredEventIds(registeredIds);
                 eventAdapter.updateEvents(events);
                 if (events.isEmpty()) {
                     Toast.makeText(this, "Nenhum evento encontrado", Toast.LENGTH_SHORT).show();

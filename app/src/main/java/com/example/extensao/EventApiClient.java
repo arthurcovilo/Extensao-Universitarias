@@ -183,6 +183,38 @@ public class EventApiClient {
         }
     }
 
+    public List<Integer> getUserRegisteredEventIds(String accessToken) {
+        List<Integer> ids = new ArrayList<>();
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL(BASE_URL + "/user/registrations");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(10000);
+            connection.setReadTimeout(10000);
+            connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode >= 200 && responseCode < 300) {
+                String body = readBody(connection.getInputStream());
+                JSONObject json = tryParseJson(body);
+                if (json != null) {
+                    JSONArray arr = json.optJSONArray("registeredEventIds");
+                    if (arr != null) {
+                        for (int i = 0; i < arr.length(); i++) {
+                            ids.add(arr.getInt(i));
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) connection.disconnect();
+        }
+        return ids;
+    }
+
     public boolean isUserRegistered(int eventId, String accessToken) {
         HttpURLConnection connection = null;
         try {
