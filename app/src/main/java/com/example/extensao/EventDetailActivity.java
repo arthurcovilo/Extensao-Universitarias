@@ -257,10 +257,18 @@ public class EventDetailActivity extends AppCompatActivity {
             EventApiClient.ApiResult result = eventApiClient.registerForEvent(eventId, sessionManager.getAccessToken());
             runOnUiThread(() -> {
                 setLoading(false);
-                Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
                 if (result.success) {
-                    // Recarrega evento para atualizar contador
-                    carregarEvento();
+                    // Redireciona para tela de sucesso
+                    Intent intent = new Intent(this, InscricaoSucessoActivity.class);
+                    intent.putExtra("event_id", evento.id);
+                    intent.putExtra("event_title", evento.title);
+                    intent.putExtra("event_date", evento.eventDate);
+                    intent.putExtra("event_location", evento.location);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    // Mostra erro
+                    Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
                 }
             });
         });
