@@ -68,6 +68,10 @@ public class AdminEventActivity extends AppCompatActivity {
         if (getIntent().hasExtra("event_id")) {
             eventId = getIntent().getIntExtra("event_id", -1);
             carregarEvento(eventId);
+        } else if (getIntent().hasExtra("selected_date")) {
+            // Pré-preenche a data vinda do calendário
+            String selectedDate = getIntent().getStringExtra("selected_date");
+            preencherDataSelecionada(selectedDate);
         }
     }
 
@@ -98,6 +102,17 @@ public class AdminEventActivity extends AppCompatActivity {
         btnSalvar.setOnClickListener(v -> salvarEvento());
         btnExcluir.setOnClickListener(v -> confirmarExclusao());
         btnVerInscritos.setOnClickListener(v -> verInscritos());
+    }
+
+    private void preencherDataSelecionada(String dataIso) {
+        dataSelecionada = dataIso;
+        try {
+            SimpleDateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            SimpleDateFormat displayFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            btnSelecionarData.setText(displayFormat.format(parseFormat.parse(dataIso)));
+        } catch (Exception e) {
+            btnSelecionarData.setText(dataIso);
+        }
     }
 
     private void mostrarDatePicker() {

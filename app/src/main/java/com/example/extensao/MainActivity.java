@@ -2,14 +2,16 @@ package com.example.extensao;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,12 +20,19 @@ public class MainActivity extends AppCompatActivity {
     Button btnNovoEvento;
     BottomNavigationView bottomNavigationView;
 
-    String dataSelecionada = "";
+    private SessionManager sessionManager;
+
+    // Data no formato yyyy-MM-dd para enviar ao AdminEventActivity
+    private String dataSelecionadaIso = "";
+    // Data no formato dd/MM/yyyy para exibir na tela
+    private String dataSelecionadaDisplay = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sessionManager = new SessionManager(this);
 
         calendarView = findViewById(R.id.calendarView);
         txtDataSelecionada = findViewById(R.id.txtDataSelecionada);
@@ -32,17 +41,21 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView.setSelectedItemId(R.id.nav_calendario);
 
+        // Só exibe o botão "Novo Evento" para admins
+        btnNovoEvento.setVisibility(sessionManager.isAdmin() ? View.VISIBLE : View.GONE);
+
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            dataSelecionada = dayOfMonth + "/" + (month + 1) + "/" + year;
-            txtDataSelecionada.setText("Data selecionada: " + dataSelecionada);
+            dataSelecionadaIso = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, month + 1, dayOfMonth);
+            dataSelecionadaDisplay = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year);
+            txtDataSelecionada.setText("Data selecionada: " + dataSelecionadaDisplay);
         });
 
         btnNovoEvento.setOnClickListener(v -> {
-            if (dataSelecionada.isEmpty()) {
-                Toast.makeText(MainActivity.this, "Selecione uma data", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(MainActivity.this, "Novo evento em: " + dataSelecionada, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, AdminEventActivity.class);
+            if (!dataSelecionadaIso.isEmpty()) {
+                intent.putExtra("selected_date", dataSelecionadaIso);
             }
+            startActivity(intent);
         });
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
