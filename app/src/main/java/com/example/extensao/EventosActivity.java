@@ -97,12 +97,17 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
     }
 
     @Override
-    public void onRegisterClick(Event event) {
+    public void onRegisterClick(Event event, android.widget.Button btnInscrever) {
         executor.execute(() -> {
             EventApiClient.ApiResult result = eventApiClient.registerForEvent(event.id, sessionManager.getAccessToken());
             runOnUiThread(() -> {
                 if (result.success) {
-                    // Redireciona para tela de sucesso
+                    // Marca botão como inscrito imediatamente
+                    btnInscrever.setText("Inscrito ✓");
+                    btnInscrever.setEnabled(false);
+                    btnInscrever.setBackgroundTintList(
+                            android.content.res.ColorStateList.valueOf(0xFFAAAAAA));
+                    // Navega para tela de sucesso
                     Intent intent = new Intent(EventosActivity.this, InscricaoSucessoActivity.class);
                     intent.putExtra("event_id", event.id);
                     intent.putExtra("event_title", event.title);
@@ -111,7 +116,6 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 } else {
-                    // Mostra erro
                     Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
                 }
             });

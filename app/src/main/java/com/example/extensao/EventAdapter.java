@@ -22,7 +22,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     private boolean isAdmin;
 
     public interface OnEventClickListener {
-        void onRegisterClick(Event event);
+        void onRegisterClick(Event event, Button btnInscrever);
         void onEventClick(Event event);
         void onCardClick(Event event);
     }
@@ -106,9 +106,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 if (event.isOpen() && !event.isFull()) {
                     btnInscrever.setText("Inscrever-se");
                     btnInscrever.setEnabled(true);
+                    btnInscrever.setBackgroundTintList(null); // restaura cor original
                     btnInscrever.setOnClickListener(v -> {
                         if (listener != null) {
-                            listener.onRegisterClick(event);
+                            listener.onRegisterClick(event, btnInscrever);
                         }
                     });
                 } else if (event.isFull()) {

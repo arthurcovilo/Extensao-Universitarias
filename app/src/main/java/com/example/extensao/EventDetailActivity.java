@@ -87,13 +87,15 @@ public class EventDetailActivity extends AppCompatActivity {
         setLoading(true);
         executor.execute(() -> {
             Event event = buscarEventoPorId(eventId);
+            boolean jaInscrito = !sessionManager.isAdmin() &&
+                    eventApiClient.isUserRegistered(eventId, sessionManager.getAccessToken());
             runOnUiThread(() -> {
                 setLoading(false);
                 if (event != null) {
                     evento = event;
                     exibirEvento(event);
-                    configurarVisibilidadeBotoes(event);
-                    
+                    configurarVisibilidadeBotoes(event, jaInscrito);
+
                     if (sessionManager.isAdmin()) {
                         carregarInscritos();
                     }
@@ -177,30 +179,36 @@ public class EventDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void configurarVisibilidadeBotoes(Event event) {
+    private void configurarVisibilidadeBotoes(Event event, boolean jaInscrito) {
         if (sessionManager.isAdmin()) {
-            // Admin vê botões de editar e excluir
             btnEditarDetalhe.setVisibility(View.VISIBLE);
             btnExcluirDetalhe.setVisibility(View.VISIBLE);
             btnInscreverDetalhe.setVisibility(View.GONE);
         } else {
-            // User vê botão de inscrição se o evento estiver aberto e não lotado
-            if (event.isOpen() && !event.isFull()) {
-                btnInscreverDetalhe.setVisibility(View.VISIBLE);
-                btnInscreverDetalhe.setEnabled(true);
-            } else if (event.isFull()) {
-                btnInscreverDetalhe.setVisibility(View.VISIBLE);
-                btnInscreverDetalhe.setText("Evento Lotado");
-                btnInscreverDetalhe.setEnabled(false);
-            } else {
-                btnInscreverDetalhe.setVisibility(View.VISIBLE);
-                btnInscreverDetalhe.setText("Evento Encerrado");
-                btnInscreverDetalhe.setEnabled(false);
-            }
-            
             btnEditarDetalhe.setVisibility(View.GONE);
             btnExcluirDetalhe.setVisibility(View.GONE);
+            btnInscreverDetalhe.setVisibility(View.VISIBLE);
+
+            if (jaInscrito) {
+                marcarComoInscrito();
+            } else if (event.isFull()) {
+                btnInscreverDetalhe.setText("Evento Lotado");
+                btnInscreverDetalhe.setEnabled(false);
+            } else if (!event.isOpen()) {
+                btnInscreverDetalhe.setText("Evento Encerrado");
+                btnInscreverDetalhe.setEnabled(false);
+            } else {
+                btnInscreverDetalhe.setText("Inscrever-se");
+                btnInscreverDetalhe.setEnabled(true);
+            }
         }
+    }
+
+    private void marcarComoInscrito() {
+        btnInscreverDetalhe.setText("Inscrito ✓");
+        btnInscreverDetalhe.setEnabled(false);
+        btnInscreverDetalhe.setBackgroundTintList(
+                android.content.res.ColorStateList.valueOf(0xFFAAAAAA));
     }
 
     private void carregarInscritos() {
@@ -258,7 +266,7 @@ public class EventDetailActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 setLoading(false);
                 if (result.success) {
-                    // Redireciona para tela de sucesso
+                    marcarComoInscrito();
                     Intent intent = new Intent(this, InscricaoSucessoActivity.class);
                     intent.putExtra("event_id", evento.id);
                     intent.putExtra("event_title", evento.title);
@@ -268,7 +276,6 @@ public class EventDetailActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    // Mostra erro
                     Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
                 }
             });

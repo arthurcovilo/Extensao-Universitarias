@@ -183,8 +183,31 @@ public class EventApiClient {
         }
     }
 
-    public ApiResult deleteEvent(int eventId, String accessToken) {
+    public boolean isUserRegistered(int eventId, String accessToken) {
         HttpURLConnection connection = null;
+        try {
+            URL url = new URL(BASE_URL + "/events/" + eventId + "/is-registered");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(10000);
+            connection.setReadTimeout(10000);
+            connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode >= 200 && responseCode < 300) {
+                String body = readBody(connection.getInputStream());
+                JSONObject json = tryParseJson(body);
+                return json != null && json.optBoolean("registered", false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) connection.disconnect();
+        }
+        return false;
+    }
+
+    public ApiResult deleteEvent(int eventId, String accessToken) {        HttpURLConnection connection = null;
 
         try {
             URL url = new URL(BASE_URL + "/events/" + eventId);

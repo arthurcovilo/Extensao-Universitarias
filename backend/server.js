@@ -292,6 +292,23 @@ app.post('/events/:id/register', authenticateToken, async (req, res) => {
   }
 });
 
+// ── GET /events/:id/is-registered ───────────────────────────────────────────
+app.get('/events/:id/is-registered', authenticateToken, async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.sub;
+
+  try {
+    const result = await pool.query(
+      'SELECT id FROM event_registrations WHERE user_id = $1 AND event_id = $2',
+      [userId, id]
+    );
+    return res.json({ registered: result.rows.length > 0 });
+  } catch (err) {
+    console.error('Erro ao verificar inscrição:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
 // ── GET /events/:id/registrations ───────────────────────────────────────────
 app.get('/events/:id/registrations', authenticateToken, requireAdmin, async (req, res) => {
   const { id } = req.params;
