@@ -78,8 +78,8 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
         if (sessionManager.isAdmin()) {
             fabAddEvent.setVisibility(android.view.View.VISIBLE);
             fabAddEvent.setOnClickListener(v -> {
-                // TODO: Abrir tela de criação de evento
-                Toast.makeText(this, "Criar evento (em desenvolvimento)", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(EventosActivity.this, AdminEventActivity.class);
+                startActivity(intent);
             });
         }
     }
@@ -112,8 +112,9 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
 
     @Override
     public void onEventClick(Event event) {
-        // TODO: Abrir tela de detalhes/edição do evento para admin
-        Toast.makeText(this, "Gerenciar evento: " + event.title + " (em desenvolvimento)", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(EventosActivity.this, AdminEventActivity.class);
+        intent.putExtra("event_id", event.id);
+        startActivity(intent);
     }
 
     @Override

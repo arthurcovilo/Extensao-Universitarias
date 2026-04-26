@@ -133,6 +133,89 @@ public class EventApiClient {
         }
     }
 
+    public ApiResult updateEvent(Event event, String accessToken) {
+        HttpURLConnection connection = null;
+
+        try {
+            URL url = new URL(BASE_URL + "/events/" + event.id);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("PUT");
+            connection.setConnectTimeout(10000);
+            connection.setReadTimeout(10000);
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+            connection.setDoOutput(true);
+
+            JSONObject body = new JSONObject();
+            body.put("title", event.title);
+            body.put("description", event.description);
+            body.put("event_date", event.eventDate);
+            body.put("location", event.location);
+            body.put("status", event.status);
+            if (event.maxParticipants > 0) {
+                body.put("max_participants", event.maxParticipants);
+            }
+
+            try (OutputStream os = connection.getOutputStream()) {
+                byte[] input = body.toString().getBytes(StandardCharsets.UTF_8);
+                os.write(input);
+            }
+
+            int responseCode = connection.getResponseCode();
+            String responseBody = readBody(responseCode >= 200 && responseCode < 300
+                    ? connection.getInputStream()
+                    : connection.getErrorStream());
+
+            if (responseCode >= 200 && responseCode < 300) {
+                return ApiResult.success("Evento atualizado com sucesso!");
+            } else {
+                JSONObject errorJson = tryParseJson(responseBody);
+                String errorMessage = errorJson != null
+                        ? errorJson.optString("message", "Erro ao atualizar evento")
+                        : "Erro ao atualizar evento";
+                return ApiResult.error(errorMessage);
+            }
+
+        } catch (Exception e) {
+            return ApiResult.error("Falha de conexão. Verifique sua internet.");
+        } finally {
+            if (connection != null) connection.disconnect();
+        }
+    }
+
+    public ApiResult deleteEvent(int eventId, String accessToken) {
+        HttpURLConnection connection = null;
+
+        try {
+            URL url = new URL(BASE_URL + "/events/" + eventId);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("DELETE");
+            connection.setConnectTimeout(10000);
+            connection.setReadTimeout(10000);
+            connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+            int responseCode = connection.getResponseCode();
+            String responseBody = readBody(responseCode >= 200 && responseCode < 300
+                    ? connection.getInputStream()
+                    : connection.getErrorStream());
+
+            if (responseCode >= 200 && responseCode < 300) {
+                return ApiResult.success("Evento excluído com sucesso!");
+            } else {
+                JSONObject errorJson = tryParseJson(responseBody);
+                String errorMessage = errorJson != null
+                        ? errorJson.optString("message", "Erro ao excluir evento")
+                        : "Erro ao excluir evento";
+                return ApiResult.error(errorMessage);
+            }
+
+        } catch (Exception e) {
+            return ApiResult.error("Falha de conexão. Verifique sua internet.");
+        } finally {
+            if (connection != null) connection.disconnect();
+        }
+    }
+
     private String readBody(InputStream stream) throws Exception {
         if (stream == null) return "";
 

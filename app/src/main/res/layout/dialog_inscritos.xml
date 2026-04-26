@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txtTituloInscritos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inscritos"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#222222"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/txtListaInscritos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="15sp"
+        android:textColor="#444444"
+        android:lineSpacingExtra="6dp" />
+
+</LinearLayout>
