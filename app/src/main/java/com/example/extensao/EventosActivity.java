@@ -108,6 +108,7 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
                     intent.putExtra("event_title", event.title);
                     intent.putExtra("event_date", event.eventDate);
                     intent.putExtra("event_location", event.location);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 } else {
                     // Mostra erro

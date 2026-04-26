@@ -264,6 +264,7 @@ public class EventDetailActivity extends AppCompatActivity {
                     intent.putExtra("event_title", evento.title);
                     intent.putExtra("event_date", evento.eventDate);
                     intent.putExtra("event_location", evento.location);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                 } else {
