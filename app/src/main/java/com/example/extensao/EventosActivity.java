@@ -101,10 +101,14 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
         executor.execute(() -> {
             EventApiClient.ApiResult result = eventApiClient.registerForEvent(event.id, sessionManager.getAccessToken());
             runOnUiThread(() -> {
-                Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
                 if (result.success) {
-                    // Recarrega eventos para atualizar contador
-                    carregarEventos();
+                    Intent intent = new Intent(EventosActivity.this, InscricaoConfirmadaActivity.class);
+                    intent.putExtra("event_title", event.title);
+                    intent.putExtra("event_date", event.eventDate);
+                    intent.putExtra("event_location", event.location);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
                 }
             });
         });
