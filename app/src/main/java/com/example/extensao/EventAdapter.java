@@ -24,6 +24,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     public interface OnEventClickListener {
         void onRegisterClick(Event event);
         void onEventClick(Event event);
+        void onCardClick(Event event);
     }
 
     public EventAdapter(List<Event> events, boolean isAdmin, OnEventClickListener listener) {
@@ -84,6 +85,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             } catch (ParseException e) {
                 txtDataEvento.setText(event.eventDate);
             }
+
+            // Click no card inteiro abre detalhes
+            itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onCardClick(event);
+                }
+            });
 
             // Configurar botão baseado no status e permissões
             if (isAdmin) {

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Header do Evento -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_evento"
+            android:padding="20dp"
+            android:layout_margin="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:id="@+id/txtTituloDetalhe"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Título do Evento"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222" />
+
+                <TextView
+                    android:id="@+id/txtStatusDetalhe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ABERTO"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="@android:color/holo_green_dark"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingRight="12dp"
+                    android:paddingBottom="6dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📅 "
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtDataDetalhe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15/11/2025"
+                    android:textSize="16sp"
+                    android:textColor="#666666" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📍 "
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtLocalDetalhe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Local do Evento"
+                    android:textSize="16sp"
+                    android:textColor="#666666" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="👥 "
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtVagasDetalhe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20 vagas disponíveis"
+                    android:textSize="16sp"
+                    android:textColor="#666666" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Descrição -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_evento"
+            android:padding="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sobre o Evento"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/txtDescricaoDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descrição do evento..."
+                android:textSize="15sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp" />
+
+        </LinearLayout>
+
+        <!-- Área de Inscritos (só para ADMIN) -->
+        <LinearLayout
+            android:id="@+id/layoutInscritos"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_evento"
+            android:padding="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inscritos"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/txtListaInscritos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Carregando..."
+                android:textSize="14sp"
+                android:textColor="#444444"
+                android:lineSpacingExtra="4dp" />
+
+        </LinearLayout>
+
+        <!-- Botões de Ação -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Botão Inscrever (USER) -->
+            <Button
+                android:id="@+id/btnInscreverDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Inscrever-se"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bg_botao_inscrever"
+                android:visibility="gone"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Botões Admin -->
+            <Button
+                android:id="@+id/btnEditarDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Editar Evento"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:visibility="gone"
+                android:layout_marginBottom="12dp" />
+
+            <Button
+                android:id="@+id/btnExcluirDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Excluir Evento"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#D32F2F"
+                android:visibility="gone"
+                android:layout_marginBottom="12dp" />
+
+            <ProgressBar
+                android:id="@+id/progressDetalhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

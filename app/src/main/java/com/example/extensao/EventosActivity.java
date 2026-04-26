@@ -118,6 +118,13 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
     }
 
     @Override
+    public void onCardClick(Event event) {
+        Intent intent = new Intent(EventosActivity.this, EventDetailActivity.class);
+        intent.putExtra("event_id", event.id);
+        startActivity(intent);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         carregarEventos(); // Recarrega quando volta para a tela
