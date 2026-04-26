@@ -17,3 +17,4 @@ local.properties
 # Backend
 backend/.env
 backend/node_modules/
+backend/.env.shared
