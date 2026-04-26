@@ -207,8 +207,9 @@ public class EventDetailActivity extends AppCompatActivity {
     private void marcarComoInscrito() {
         btnInscreverDetalhe.setText("Inscrito ✓");
         btnInscreverDetalhe.setEnabled(false);
-        btnInscreverDetalhe.setBackgroundTintList(
-                android.content.res.ColorStateList.valueOf(0xFFAAAAAA));
+        btnInscreverDetalhe.setBackground(
+                new android.graphics.drawable.ColorDrawable(0xFFAAAAAA));
+        btnInscreverDetalhe.setTextColor(0xFFFFFFFF);
     }
 
     private void carregarInscritos() {
@@ -325,7 +326,11 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private void setLoading(boolean loading) {
         progressDetalhe.setVisibility(loading ? View.VISIBLE : View.GONE);
-        btnInscreverDetalhe.setEnabled(!loading);
+        // Não reabilita o botão se já estiver marcado como inscrito
+        if (loading || (btnInscreverDetalhe.getText() != null
+                && !btnInscreverDetalhe.getText().toString().startsWith("Inscrito"))) {
+            btnInscreverDetalhe.setEnabled(!loading);
+        }
         btnEditarDetalhe.setEnabled(!loading);
         btnExcluirDetalhe.setEnabled(!loading);
     }

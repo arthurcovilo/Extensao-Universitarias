@@ -106,7 +106,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 if (event.isOpen() && !event.isFull()) {
                     btnInscrever.setText("Inscrever-se");
                     btnInscrever.setEnabled(true);
-                    btnInscrever.setBackgroundTintList(null); // restaura cor original
+                    btnInscrever.setBackgroundTintList(null);
+                    btnInscrever.setBackground(
+                            android.graphics.drawable.AppCompatResources.getDrawable(
+                                    itemView.getContext(), R.drawable.bg_botao_inscrever));
                     btnInscrever.setOnClickListener(v -> {
                         if (listener != null) {
                             listener.onRegisterClick(event, btnInscrever);

@@ -105,8 +105,8 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
                     // Marca botão como inscrito imediatamente
                     btnInscrever.setText("Inscrito ✓");
                     btnInscrever.setEnabled(false);
-                    btnInscrever.setBackgroundTintList(
-                            android.content.res.ColorStateList.valueOf(0xFFAAAAAA));
+                    btnInscrever.setBackground(
+                            new android.graphics.drawable.ColorDrawable(0xFFAAAAAA));
                     // Navega para tela de sucesso
                     Intent intent = new Intent(EventosActivity.this, InscricaoSucessoActivity.class);
                     intent.putExtra("event_id", event.id);
