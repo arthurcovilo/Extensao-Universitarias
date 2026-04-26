@@ -3,6 +3,7 @@ package com.example.extensao;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,19 +13,29 @@ public class PerfilActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     Button btnSair;
+    TextView txtNomeUsuario, txtEmailUsuario, txtTipoUsuario;
+
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
+        sessionManager = new SessionManager(this);
+
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         btnSair = findViewById(R.id.btnSair);
+        txtNomeUsuario = findViewById(R.id.txtNotificacoes); // Reutilizando o ID existente
+        txtEmailUsuario = findViewById(R.id.txtEmailUsuario);
+        txtTipoUsuario = findViewById(R.id.txtTipoUsuario);
 
         bottomNavigationView.setSelectedItemId(R.id.nav_perfil);
 
+        // Carrega dados do usuário
+        carregarDadosUsuario();
+
         btnSair.setOnClickListener(v -> {
-            SessionManager sessionManager = new SessionManager(PerfilActivity.this);
             sessionManager.clearSession();
 
             Intent intent = new Intent(PerfilActivity.this, LoginActivity.class);
@@ -54,5 +65,17 @@ public class PerfilActivity extends AppCompatActivity {
 
             return false;
         });
+    }
+
+    private void carregarDadosUsuario() {
+        String nome = sessionManager.getUserName();
+        String email = sessionManager.getUserEmail();
+        String role = sessionManager.getUserRole();
+
+        txtNomeUsuario.setText(nome.isEmpty() ? "Usuário" : nome);
+        txtEmailUsuario.setText(email.isEmpty() ? "email@exemplo.com" : email);
+        
+        String tipoUsuario = "ADMIN".equals(role) ? "Administrador" : "Voluntário";
+        txtTipoUsuario.setText(tipoUsuario);
     }
 }

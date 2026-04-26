@@ -49,12 +49,13 @@ public class AuthApiClient {
                 JSONObject user = json.optJSONObject("user");
                 String userName = user != null ? user.optString("name", "") : "";
                 String userEmail = user != null ? user.optString("email", "") : "";
+                String userRole = user != null ? user.optString("role", "USER") : "USER";
 
                 if (token.trim().isEmpty()) {
                     return LoginResult.error("Resposta inválida do servidor (token ausente)");
                 }
 
-                return LoginResult.success(token, userEmail, userName);
+                return LoginResult.success(token, userEmail, userName, userRole);
             }
 
             JSONObject errorJson = tryParseJson(responseBody);
@@ -108,12 +109,13 @@ public class AuthApiClient {
                 JSONObject user = json.optJSONObject("user");
                 String userName = user != null ? user.optString("name", "") : "";
                 String userEmail = user != null ? user.optString("email", email) : email;
+                String userRole = user != null ? user.optString("role", "USER") : "USER";
 
                 if (token.trim().isEmpty()) {
                     return LoginResult.error("Resposta inválida do servidor (token ausente)");
                 }
 
-                return LoginResult.success(token, userEmail, userName);
+                return LoginResult.success(token, userEmail, userName, userRole);
             }
 
             JSONObject errorJson = tryParseJson(responseBody);
@@ -163,21 +165,23 @@ public class AuthApiClient {
         public final String accessToken;
         public final String userEmail;
         public final String userName;
+        public final String userRole;
 
-        private LoginResult(boolean success, String message, String accessToken, String userEmail, String userName) {
+        private LoginResult(boolean success, String message, String accessToken, String userEmail, String userName, String userRole) {
             this.success = success;
             this.message = message;
             this.accessToken = accessToken;
             this.userEmail = userEmail;
             this.userName = userName;
+            this.userRole = userRole;
         }
 
-        public static LoginResult success(String accessToken, String userEmail, String userName) {
-            return new LoginResult(true, "Login realizado com sucesso", accessToken, userEmail, userName);
+        public static LoginResult success(String accessToken, String userEmail, String userName, String userRole) {
+            return new LoginResult(true, "Login realizado com sucesso", accessToken, userEmail, userName, userRole);
         }
 
         public static LoginResult error(String message) {
-            return new LoginResult(false, message, "", "", "");
+            return new LoginResult(false, message, "", "", "", "USER");
         }
     }
 }

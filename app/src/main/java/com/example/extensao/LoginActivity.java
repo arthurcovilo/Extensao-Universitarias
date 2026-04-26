@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     setLoading(false);
                     if (result.success) {
-                        sessionManager.saveSession(result.accessToken, result.userEmail, result.userName);
+                        sessionManager.saveSession(result.accessToken, result.userEmail, result.userName, result.userRole);
                         abrirTelaPrincipal();
                     } else {
                         Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     setLoading(false);
                     if (result.success) {
-                        sessionManager.saveSession(result.accessToken, result.userEmail, result.userName);
+                        sessionManager.saveSession(result.accessToken, result.userEmail, result.userName, result.userRole);
                         abrirTelaPrincipal();
                     } else {
                         Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
