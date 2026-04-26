@@ -173,7 +173,7 @@
             android:textAllCaps="false"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
-            android:backgroundTint="#1976D2"
+            android:backgroundTint="#6750A4"
             android:layout_marginBottom="12dp" />
 
         <Button
@@ -182,8 +182,8 @@
             android:layout_height="wrap_content"
             android:text="Voltar para Lista de Eventos"
             android:textAllCaps="false"
-            android:textColor="#444444"
-            android:backgroundTint="#EEEEEE"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#6750A4"
             android:layout_marginBottom="40dp" />
 
     </LinearLayout>
