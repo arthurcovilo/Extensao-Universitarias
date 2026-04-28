@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -38,10 +39,12 @@ public class VoluntariosActivity extends AppCompatActivity implements VolunteerA
     // ── Views ────────────────────────────────────────────────────────────────
     private RecyclerView recyclerVoluntarios;
     private VolunteerAdapter adapter;
-    private TextView txtContador, txtVazio, btnLimparFiltros;
+    private TextView txtContador, txtVazio, btnLimparFiltros, txtSetaFiltros;
     private EditText editBusca;
     private ChipGroup chipGroupAreas, chipGroupDias, chipGroupAtivos;
     private HorizontalScrollView scrollFiltrosAtivos;
+    private LinearLayout conteudoFiltros;
+    private boolean filtrosExpandidos = false;
 
     // ── Estado ───────────────────────────────────────────────────────────────
     private SessionManager sessionManager;
@@ -70,6 +73,8 @@ public class VoluntariosActivity extends AppCompatActivity implements VolunteerA
         chipGroupAtivos      = findViewById(R.id.chipGroupAtivos);
         scrollFiltrosAtivos  = findViewById(R.id.scrollFiltrosAtivos);
         btnLimparFiltros     = findViewById(R.id.btnLimparFiltros);
+        txtSetaFiltros       = findViewById(R.id.txtSetaFiltros);
+        conteudoFiltros      = findViewById(R.id.conteudoFiltros);
 
         recyclerVoluntarios.setLayoutManager(new LinearLayoutManager(this));
         adapter = new VolunteerAdapter(new ArrayList<>(), this);
@@ -78,10 +83,24 @@ public class VoluntariosActivity extends AppCompatActivity implements VolunteerA
         findViewById(R.id.btnVoltar).setOnClickListener(v -> finish());
         btnLimparFiltros.setOnClickListener(v -> limparTodosFiltros());
 
+        // Expandir/recolher filtros ao tocar no cabeçalho
+        findViewById(R.id.headerFiltros).setOnClickListener(v -> {
+            filtrosExpandidos = !filtrosExpandidos;
+            conteudoFiltros.setVisibility(filtrosExpandidos ? View.VISIBLE : View.GONE);
+            txtSetaFiltros.setText(filtrosExpandidos ? "▲" : "▼");
+        });
+
         configurarBusca();
         criarChipsAreas();
         criarChipsDias();
         carregarVoluntarios();
+    }
+
+    // ── Normaliza texto removendo acentos e convertendo para minúsculo ───────
+    private String normalizar(String texto) {
+        if (texto == null) return "";
+        String normalizado = Normalizer.normalize(texto, Normalizer.Form.NFD);
+        return normalizado.replaceAll("\\p{InCombiningDiacriticalMarks}+", "").toLowerCase();
     }
 
     // ── Busca por nome ───────────────────────────────────────────────────────
@@ -91,7 +110,7 @@ public class VoluntariosActivity extends AppCompatActivity implements VolunteerA
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
             @Override
             public void afterTextChanged(Editable s) {
-                filtroBusca = s.toString().trim().toLowerCase();
+                filtroBusca = normalizar(s.toString().trim());
                 aplicarFiltros();
             }
         });
@@ -265,8 +284,8 @@ public class VoluntariosActivity extends AppCompatActivity implements VolunteerA
         List<Volunteer> filtrados = new ArrayList<>();
 
         for (Volunteer v : todosVoluntarios) {
-            // Filtro de busca por nome
-            if (!filtroBusca.isEmpty() && !v.name.toLowerCase().contains(filtroBusca)) {
+            // Filtro de busca por nome (ignora acentos e maiúsculas)
+            if (!filtroBusca.isEmpty() && !normalizar(v.name).contains(filtroBusca)) {
                 continue;
             }
             // Filtro de áreas: voluntário deve ter PELO MENOS UMA das áreas selecionadas
