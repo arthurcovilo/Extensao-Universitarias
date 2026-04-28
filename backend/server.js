@@ -402,14 +402,17 @@ app.get('/volunteers', authenticateToken, requireAdmin, async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT 
+        u.id,
         u.name,
         u.email,
         vp.areas,
         vp.availability_days,
-        COUNT(er.id) as events_participated
+        COUNT(er.id) as events_participated,
+        COALESCE(SUM(COALESCE(e.duration_hours, 2)), 0) as total_hours
       FROM users u
       LEFT JOIN volunteer_profiles vp ON u.id = vp.user_id
       LEFT JOIN event_registrations er ON u.id = er.user_id
+      LEFT JOIN events e ON er.event_id = e.id
       WHERE u.role = 'USER'
       GROUP BY u.id, u.name, u.email, vp.areas, vp.availability_days
       ORDER BY u.name ASC
@@ -468,6 +471,49 @@ app.get('/user/stats', authenticateToken, async (req, res) => {
     });
   } catch (err) {
     console.error('Erro ao buscar estatísticas do usuário:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
+// ── GET /volunteers/:email/history ──────────────────────────────────────
+app.get('/volunteers/:email/history', authenticateToken, requireAdmin, async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    const userResult = await pool.query(
+      'SELECT id, name, email FROM users WHERE email = $1',
+      [email.toLowerCase().trim()]
+    );
+
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ message: 'Voluntário não encontrado' });
+    }
+
+    const user = userResult.rows[0];
+
+    const eventsResult = await pool.query(`
+      SELECT 
+        e.id,
+        e.title,
+        e.event_date,
+        e.location,
+        e.status,
+        er.registered_at
+      FROM event_registrations er
+      JOIN events e ON er.event_id = e.id
+      WHERE er.user_id = $1
+      ORDER BY e.event_date DESC
+    `, [user.id]);
+
+    return res.json({
+      volunteer: {
+        name: user.name,
+        email: user.email
+      },
+      events: eventsResult.rows
+    });
+  } catch (err) {
+    console.error('Erro ao buscar histórico do voluntário:', err.message);
     return res.status(500).json({ message: 'Erro interno do servidor' });
   }
 });

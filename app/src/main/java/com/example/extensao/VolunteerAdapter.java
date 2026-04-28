@@ -12,10 +12,16 @@ import java.util.List;
 
 public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.VolunteerViewHolder> {
 
-    private List<Volunteer> volunteers;
+    public interface OnVolunteerClickListener {
+        void onVolunteerClick(Volunteer volunteer);
+    }
 
-    public VolunteerAdapter(List<Volunteer> volunteers) {
+    private List<Volunteer> volunteers;
+    private final OnVolunteerClickListener listener;
+
+    public VolunteerAdapter(List<Volunteer> volunteers, OnVolunteerClickListener listener) {
         this.volunteers = volunteers;
+        this.listener = listener;
     }
 
     public void updateVolunteers(List<Volunteer> newVolunteers) {
@@ -33,7 +39,11 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.Volu
 
     @Override
     public void onBindViewHolder(@NonNull VolunteerViewHolder holder, int position) {
-        holder.bind(volunteers.get(position));
+        Volunteer volunteer = volunteers.get(position);
+        holder.bind(volunteer);
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) listener.onVolunteerClick(volunteer);
+        });
     }
 
     @Override
@@ -42,15 +52,17 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.Volu
     }
 
     static class VolunteerViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNome, txtEmail, txtAreas, txtDias, txtEventos;
+        TextView txtNome, txtEmail, txtAreas, txtDias, txtEventos, txtHoras, txtBadge;
 
         public VolunteerViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtNome = itemView.findViewById(R.id.txtNomeVoluntario);
-            txtEmail = itemView.findViewById(R.id.txtEmailVoluntario);
-            txtAreas = itemView.findViewById(R.id.txtAreasVoluntario);
-            txtDias = itemView.findViewById(R.id.txtDiasVoluntario);
+            txtNome    = itemView.findViewById(R.id.txtNomeVoluntario);
+            txtEmail   = itemView.findViewById(R.id.txtEmailVoluntario);
+            txtAreas   = itemView.findViewById(R.id.txtAreasVoluntario);
+            txtDias    = itemView.findViewById(R.id.txtDiasVoluntario);
             txtEventos = itemView.findViewById(R.id.txtEventosVoluntario);
+            txtHoras   = itemView.findViewById(R.id.txtHorasVoluntario);
+            txtBadge   = itemView.findViewById(R.id.txtBadgeArea);
         }
 
         public void bind(Volunteer volunteer) {
@@ -59,8 +71,12 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.Volu
 
             if (volunteer.areas != null && !volunteer.areas.isEmpty()) {
                 txtAreas.setText("Áreas: " + String.join(", ", volunteer.areas));
+                // Badge mostra a primeira área
+                txtBadge.setText(volunteer.areas.get(0));
+                txtBadge.setVisibility(View.VISIBLE);
             } else {
                 txtAreas.setText("Áreas: não informado");
+                txtBadge.setVisibility(View.GONE);
             }
 
             if (volunteer.availabilityDays != null && !volunteer.availabilityDays.isEmpty()) {
@@ -73,6 +89,11 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.Volu
                     ? "1 evento participado"
                     : volunteer.eventsParticipated + " eventos participados";
             txtEventos.setText(eventosText);
+
+            String horasText = volunteer.totalHours == 1
+                    ? "1h voluntariada"
+                    : volunteer.totalHours + "h voluntariadas";
+            txtHoras.setText(horasText);
         }
     }
 }

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#F7F7F7"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Cabeçalho com botão voltar -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:paddingBottom="8dp">
+
+        <ImageButton
+            android:id="@+id/btnVoltarDetalhe"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@android:drawable/ic_menu_revert"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Voltar" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Perfil do Voluntário"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#222222"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Card de informações do voluntário -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/bg_card_evento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/txtDetalheNome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nome"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/txtDetalheEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="email@exemplo.com"
+                    android:textSize="14sp"
+                    android:textColor="#666666"
+                    android:layout_marginBottom="12dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/txtDetalheEventos"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0 eventos"
+                        android:textSize="15sp"
+                        android:textColor="#6750A4"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtDetalheHoras"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0h voluntariadas"
+                        android:textSize="14sp"
+                        android:textColor="#888888" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtDetalheAreas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Áreas: —"
+                    android:textSize="14sp"
+                    android:textColor="#444444"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/txtDetalheDias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dias: —"
+                    android:textSize="14sp"
+                    android:textColor="#444444" />
+
+            </LinearLayout>
+
+            <!-- Título do histórico -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Histórico de Eventos"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:layout_marginBottom="12dp" />
+
+            <ProgressBar
+                android:id="@+id/progressDetalheVoluntario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txtHistoricoVazio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nenhum evento participado ainda."
+                android:textSize="14sp"
+                android:textColor="#999999"
+                android:gravity="center"
+                android:visibility="gone" />
+
+            <!-- Lista de eventos do histórico -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerHistorico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

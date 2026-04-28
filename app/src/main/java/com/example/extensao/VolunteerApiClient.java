@@ -180,6 +180,7 @@ public class VolunteerApiClient {
                     v.name = obj.optString("name");
                     v.email = obj.optString("email");
                     v.eventsParticipated = obj.optInt("events_participated", 0);
+                    v.totalHours = obj.optInt("total_hours", 0);
 
                     JSONArray areasArray = obj.optJSONArray("areas");
                     v.areas = new ArrayList<>();
@@ -204,6 +205,54 @@ public class VolunteerApiClient {
             e.printStackTrace();
         }
         return volunteers;
+    }
+
+    public static class VolunteerHistory {
+        public String volunteerName;
+        public String volunteerEmail;
+        public List<Event> events;
+
+        public VolunteerHistory() {
+            this.events = new ArrayList<>();
+        }
+    }
+
+    public VolunteerHistory getVolunteerHistory(String accessToken, String email) {
+        VolunteerHistory history = new VolunteerHistory();
+        try {
+            URL url = new URL(BASE_URL + "/volunteers/" + java.net.URLEncoder.encode(email, "UTF-8") + "/history");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+
+                JSONObject json = new JSONObject(response.toString());
+                JSONObject volunteerJson = json.optJSONObject("volunteer");
+                if (volunteerJson != null) {
+                    history.volunteerName = volunteerJson.optString("name");
+                    history.volunteerEmail = volunteerJson.optString("email");
+                }
+
+                JSONArray eventsArray = json.optJSONArray("events");
+                if (eventsArray != null) {
+                    for (int i = 0; i < eventsArray.length(); i++) {
+                        history.events.add(Event.fromJson(eventsArray.getJSONObject(i)));
+                    }
+                }
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return history;
     }
 
     public AdminStats getAdminStats(String accessToken) {
