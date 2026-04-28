@@ -155,6 +155,57 @@ public class VolunteerApiClient {
         return new UserStats();
     }
 
+    public List<Volunteer> getVolunteers(String accessToken) {
+        List<Volunteer> volunteers = new ArrayList<>();
+        try {
+            URL url = new URL(BASE_URL + "/volunteers");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+
+                JSONArray jsonArray = new JSONArray(response.toString());
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    Volunteer v = new Volunteer();
+                    v.name = obj.optString("name");
+                    v.email = obj.optString("email");
+                    v.eventsParticipated = obj.optInt("events_participated", 0);
+
+                    JSONArray areasArray = obj.optJSONArray("areas");
+                    v.areas = new ArrayList<>();
+                    if (areasArray != null) {
+                        for (int j = 0; j < areasArray.length(); j++) {
+                            v.areas.add(areasArray.getString(j));
+                        }
+                    }
+
+                    JSONArray daysArray = obj.optJSONArray("availability_days");
+                    v.availabilityDays = new ArrayList<>();
+                    if (daysArray != null) {
+                        for (int j = 0; j < daysArray.length(); j++) {
+                            v.availabilityDays.add(daysArray.getString(j));
+                        }
+                    }
+
+                    volunteers.add(v);
+                }
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return volunteers;
+    }
+
     public AdminStats getAdminStats(String accessToken) {
         try {
             URL url = new URL(BASE_URL + "/admin/stats");

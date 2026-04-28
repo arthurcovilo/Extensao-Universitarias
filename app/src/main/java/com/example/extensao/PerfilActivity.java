@@ -97,8 +97,7 @@ public class PerfilActivity extends AppCompatActivity {
 
         btnSalvarPerfil.setOnClickListener(v -> salvarPerfilVoluntario());
         btnVerVoluntarios.setOnClickListener(v -> {
-            // TODO: Implementar tela de lista de voluntários
-            Toast.makeText(this, "Funcionalidade em desenvolvimento", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(PerfilActivity.this, VoluntariosActivity.class));
         });
     }
 
