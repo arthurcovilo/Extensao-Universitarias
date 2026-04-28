@@ -452,10 +452,14 @@ app.get('/user/stats', authenticateToken, async (req, res) => {
     const hasProfile = profileResult.rows.length > 0;
     const profile = hasProfile ? profileResult.rows[0] : { areas: [], availability_days: [] };
     
-    // Calcula progresso do perfil (áreas + dias = 100%)
+    // Calcula progresso do perfil em 3 critérios:
+    // - Tem pelo menos 1 área selecionada: 34%
+    // - Tem pelo menos 1 dia disponível: 33%
+    // - Participou de pelo menos 1 evento: 33%
     const areasComplete = profile.areas && profile.areas.length > 0;
     const daysComplete = profile.availability_days && profile.availability_days.length > 0;
-    const profileProgress = (areasComplete ? 50 : 0) + (daysComplete ? 50 : 0);
+    const hasEvents = parseInt(eventsResult.rows[0].count) > 0;
+    const profileProgress = (areasComplete ? 34 : 0) + (daysComplete ? 33 : 0) + (hasEvents ? 33 : 0);
 
     return res.json({
       events_participated: parseInt(eventsResult.rows[0].count),
