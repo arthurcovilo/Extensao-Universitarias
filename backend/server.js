@@ -349,6 +349,142 @@ app.get('/events/:id/registrations', authenticateToken, requireAdmin, async (req
   }
 });
 
+// ── GET /volunteer/profile ──────────────────────────────────────────────
+app.get('/volunteer/profile', authenticateToken, async (req, res) => {
+  const userId = req.user.sub;
+
+  try {
+    const result = await pool.query(
+      'SELECT areas, availability_days FROM volunteer_profiles WHERE user_id = $1',
+      [userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.json({ areas: [], availability_days: [] });
+    }
+
+    return res.json(result.rows[0]);
+  } catch (err) {
+    console.error('Erro ao buscar perfil de voluntário:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
+// ── PUT /volunteer/profile ──────────────────────────────────────────────
+app.put('/volunteer/profile', authenticateToken, async (req, res) => {
+  const userId = req.user.sub;
+  const { areas, availability_days } = req.body;
+
+  if (!Array.isArray(areas) || !Array.isArray(availability_days)) {
+    return res.status(400).json({ message: 'Areas e availability_days devem ser arrays' });
+  }
+
+  try {
+    await pool.query(`
+      INSERT INTO volunteer_profiles (user_id, areas, availability_days, updated_at)
+      VALUES ($1, $2, $3, NOW())
+      ON CONFLICT (user_id)
+      DO UPDATE SET 
+        areas = EXCLUDED.areas,
+        availability_days = EXCLUDED.availability_days,
+        updated_at = NOW()
+    `, [userId, areas, availability_days]);
+
+    return res.json({ message: 'Perfil de voluntário salvo com sucesso' });
+  } catch (err) {
+    console.error('Erro ao salvar perfil de voluntário:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
+// ── GET /volunteers ──────────────────────────────────────────────────────
+app.get('/volunteers', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT 
+        u.name,
+        u.email,
+        vp.areas,
+        vp.availability_days,
+        COUNT(er.id) as events_participated
+      FROM users u
+      LEFT JOIN volunteer_profiles vp ON u.id = vp.user_id
+      LEFT JOIN event_registrations er ON u.id = er.user_id
+      WHERE u.role = 'USER'
+      GROUP BY u.id, u.name, u.email, vp.areas, vp.availability_days
+      ORDER BY u.name ASC
+    `);
+
+    return res.json(result.rows);
+  } catch (err) {
+    console.error('Erro ao buscar voluntários:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
+// ── GET /user/stats ──────────────────────────────────────────────────────
+app.get('/user/stats', authenticateToken, async (req, res) => {
+  const userId = req.user.sub;
+
+  try {
+    // Conta eventos participados
+    const eventsResult = await pool.query(
+      'SELECT COUNT(*) as count FROM event_registrations WHERE user_id = $1',
+      [userId]
+    );
+
+    // Busca próximo evento inscrito
+    const nextEventResult = await pool.query(`
+      SELECT e.title, e.event_date
+      FROM events e
+      JOIN event_registrations er ON e.id = er.event_id
+      WHERE er.user_id = $1 AND e.event_date >= CURRENT_DATE
+      ORDER BY e.event_date ASC
+      LIMIT 1
+    `, [userId]);
+
+    // Verifica se tem perfil de voluntário
+    const profileResult = await pool.query(
+      'SELECT areas, availability_days FROM volunteer_profiles WHERE user_id = $1',
+      [userId]
+    );
+
+    const hasProfile = profileResult.rows.length > 0;
+    const profile = hasProfile ? profileResult.rows[0] : { areas: [], availability_days: [] };
+    
+    // Calcula progresso do perfil (áreas + dias = 100%)
+    const areasComplete = profile.areas && profile.areas.length > 0;
+    const daysComplete = profile.availability_days && profile.availability_days.length > 0;
+    const profileProgress = (areasComplete ? 50 : 0) + (daysComplete ? 50 : 0);
+
+    return res.json({
+      events_participated: parseInt(eventsResult.rows[0].count),
+      next_event: nextEventResult.rows.length > 0 ? nextEventResult.rows[0] : null,
+      profile_progress: profileProgress
+    });
+  } catch (err) {
+    console.error('Erro ao buscar estatísticas do usuário:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
+// ── GET /admin/stats ─────────────────────────────────────────────────────
+app.get('/admin/stats', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const result = await pool.query(
+      'SELECT COUNT(*) as count FROM users WHERE role = $1',
+      ['USER']
+    );
+
+    return res.json({
+      total_volunteers: parseInt(result.rows[0].count)
+    });
+  } catch (err) {
+    console.error('Erro ao buscar estatísticas do admin:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
 // ── Health check ─────────────────────────────────────────────────────────────
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });

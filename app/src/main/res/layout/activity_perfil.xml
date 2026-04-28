@@ -28,7 +28,8 @@
             android:background="@drawable/bg_card_evento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:padding="20dp"
+            android:layout_marginBottom="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -79,6 +80,251 @@
                 android:text="Voluntário"
                 android:textSize="18sp"
                 android:textColor="#222222" />
+
+        </LinearLayout>
+
+        <!-- Seção de Engajamento (apenas para USER) -->
+        <LinearLayout
+            android:id="@+id/layoutEngajamento"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_evento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seu Engajamento"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#222222"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:id="@+id/txtEventosParticipados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 eventos realizados"
+                android:textSize="16sp"
+                android:textColor="#666666"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/txtProgressoPerfil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Perfil 0% completo"
+                android:textSize="16sp"
+                android:textColor="#666666"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/txtProximoEvento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nenhum evento próximo"
+                android:textSize="16sp"
+                android:textColor="#666666" />
+
+        </LinearLayout>
+
+        <!-- Seção de Perfil de Voluntário (apenas para USER) -->
+        <LinearLayout
+            android:id="@+id/layoutPerfilVoluntario"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_evento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Perfil de Voluntário"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#222222"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Áreas de atuação:"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#666666"
+                android:layout_marginBottom="8dp" />
+
+            <CheckBox
+                android:id="@+id/checkBeleza"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Beleza"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/checkLogistica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logística"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/checkDivulgacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Divulgação"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/checkCaptacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Captação"
+                android:textSize="16sp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Disponibilidade - Dias:"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#666666"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <CheckBox
+                    android:id="@+id/checkSegunda"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Seg"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/checkTerca"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ter"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/checkQuarta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Qua"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/checkQuinta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Qui"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <CheckBox
+                    android:id="@+id/checkSexta"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sex"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/checkSabado"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sáb"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/checkDomingo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dom"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSalvarPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Salvar perfil de voluntário"
+                android:background="@drawable/bg_botao_inscrever"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Seção Admin (apenas para ADMIN) -->
+        <LinearLayout
+            android:id="@+id/layoutAdmin"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_evento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Painel Administrativo"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#222222"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:id="@+id/txtTotalVoluntarios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 voluntários cadastrados"
+                android:textSize="16sp"
+                android:textColor="#666666"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/btnVerVoluntarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ver voluntários"
+                android:background="@drawable/bg_botao_inscrever"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

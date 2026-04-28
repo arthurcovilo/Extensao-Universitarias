@@ -60,6 +60,18 @@ async function setup() {
     `);
     console.log('✅ Tabela event_registrations criada');
 
+    // ── Tabela volunteer_profiles ───────────────────────────────────────────
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS volunteer_profiles (
+        id              SERIAL PRIMARY KEY,
+        user_id         INTEGER REFERENCES users(id) ON DELETE CASCADE UNIQUE,
+        areas           TEXT[] DEFAULT '{}',
+        availability_days TEXT[] DEFAULT '{}',
+        updated_at      TIMESTAMP DEFAULT NOW()
+      );
+    `);
+    console.log('✅ Tabela volunteer_profiles criada');
+
     // ── Usuários de teste ───────────────────────────────────────────────────
     const testUsers = [
       { email: 'teste@email.com', password: '123456', name: 'Usuário Teste', role: 'USER' },
