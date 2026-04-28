@@ -185,6 +185,9 @@ public class PerfilActivity extends AppCompatActivity {
         executor.execute(() -> {
             VolunteerApiClient.VolunteerProfile profile = volunteerApiClient.getVolunteerProfile(sessionManager.getAccessToken());
             runOnUiThread(() -> {
+                // Desativa listeners antes de marcar para não disparar auto-save durante carregamento
+                desativarListenersCheckbox();
+
                 // Marcar áreas
                 checkBeleza.setChecked(profile.areas.contains("Beleza"));
                 checkLogistica.setChecked(profile.areas.contains("Logística"));
@@ -199,8 +202,27 @@ public class PerfilActivity extends AppCompatActivity {
                 checkSexta.setChecked(profile.availabilityDays.contains("Sexta"));
                 checkSabado.setChecked(profile.availabilityDays.contains("Sábado"));
                 checkDomingo.setChecked(profile.availabilityDays.contains("Domingo"));
+
+                // Reativa listeners após carregar
+                ativarListenersCheckbox();
             });
         });
+    }
+
+    private void desativarListenersCheckbox() {
+        CheckBox[] todos = {checkBeleza, checkLogistica, checkDivulgacao, checkCaptacao,
+                checkSegunda, checkTerca, checkQuarta, checkQuinta,
+                checkSexta, checkSabado, checkDomingo};
+        for (CheckBox cb : todos) cb.setOnCheckedChangeListener(null);
+    }
+
+    private void ativarListenersCheckbox() {
+        CheckBox[] todos = {checkBeleza, checkLogistica, checkDivulgacao, checkCaptacao,
+                checkSegunda, checkTerca, checkQuarta, checkQuinta,
+                checkSexta, checkSabado, checkDomingo};
+        for (CheckBox cb : todos) {
+            cb.setOnCheckedChangeListener((buttonView, isChecked) -> salvarPerfilVoluntario());
+        }
     }
 
     private void salvarPerfilVoluntario() {
@@ -226,7 +248,6 @@ public class PerfilActivity extends AppCompatActivity {
             boolean sucesso = volunteerApiClient.saveVolunteerProfile(sessionManager.getAccessToken(), areas, dias);
             runOnUiThread(() -> {
                 if (sucesso) {
-                    Toast.makeText(this, "Perfil salvo com sucesso!", Toast.LENGTH_SHORT).show();
                     carregarEstatisticasUsuario(); // Atualiza o progresso
                 } else {
                     Toast.makeText(this, "Erro ao salvar perfil", Toast.LENGTH_SHORT).show();
