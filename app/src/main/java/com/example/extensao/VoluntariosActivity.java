@@ -1,6 +1,5 @@
 package com.example.extensao;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,21 +33,22 @@ public class VoluntariosActivity extends AppCompatActivity implements VolunteerA
     private VolunteerApiClient volunteerApiClient;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    // Lista completa para filtrar localmente
     private List<Volunteer> todosVoluntarios = new ArrayList<>();
 
-    // Filtros ativos
     private String filtroBusca = "";
     private String filtroArea  = "Todas as áreas";
     private String filtroDia   = "Todos os dias";
+
+    // Flag para evitar que o spinner dispare filtro durante a configuração inicial
+    private boolean spinnersConfigurados = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voluntarios);
 
-        sessionManager      = new SessionManager(this);
-        volunteerApiClient  = new VolunteerApiClient();
+        sessionManager     = new SessionManager(this);
+        volunteerApiClient = new VolunteerApiClient();
 
         recyclerVoluntarios = findViewById(R.id.recyclerVoluntarios);
         txtContador         = findViewById(R.id.txtContadorVoluntarios);
@@ -61,7 +61,6 @@ public class VoluntariosActivity extends AppCompatActivity implements VolunteerA
         adapter = new VolunteerAdapter(new ArrayList<>(), this);
         recyclerVoluntarios.setAdapter(adapter);
 
-        // Botão voltar
         findViewById(R.id.btnVoltar).setOnClickListener(v -> finish());
 
         configurarBusca();
@@ -82,21 +81,29 @@ public class VoluntariosActivity extends AppCompatActivity implements VolunteerA
     }
 
     private void configurarSpinnersVazios() {
-        // Spinners iniciam com opção padrão enquanto dados não chegam
-        setSpinnerOptions(spinnerArea, new ArrayList<String>() {{ add("Todas as áreas"); }}, area -> {
-            filtroArea = area;
-            aplicarFiltros();
+        List<String> areasPadrao = new ArrayList<>();
+        areasPadrao.add("Todas as áreas");
+        setSpinnerOptions(spinnerArea, areasPadrao, area -> {
+            if (spinnersConfigurados) {
+                filtroArea = area;
+                aplicarFiltros();
+            }
         });
-        setSpinnerOptions(spinnerDia, new ArrayList<String>() {{ add("Todos os dias"); }}, dia -> {
-            filtroDia = dia;
-            aplicarFiltros();
+
+        List<String> diasPadrao = new ArrayList<>();
+        diasPadrao.add("Todos os dias");
+        setSpinnerOptions(spinnerDia, diasPadrao, dia -> {
+            if (spinnersConfigurados) {
+                filtroDia = dia;
+                aplicarFiltros();
+            }
         });
     }
 
     private void configurarSpinnersComDados(List<Volunteer> volunteers) {
-        // Coleta áreas únicas
         Set<String> areasSet = new LinkedHashSet<>();
         Set<String> diasSet  = new LinkedHashSet<>();
+
         for (Volunteer v : volunteers) {
             if (v.areas != null) areasSet.addAll(v.areas);
             if (v.availabilityDays != null) diasSet.addAll(v.availabilityDays);
@@ -111,14 +118,22 @@ public class VoluntariosActivity extends AppCompatActivity implements VolunteerA
         dias.addAll(diasSet);
 
         runOnUiThread(() -> {
+            spinnersConfigurados = false;
+
             setSpinnerOptions(spinnerArea, areas, area -> {
-                filtroArea = area;
-                aplicarFiltros();
+                if (spinnersConfigurados) {
+                    filtroArea = area;
+                    aplicarFiltros();
+                }
             });
             setSpinnerOptions(spinnerDia, dias, dia -> {
-                filtroDia = dia;
-                aplicarFiltros();
+                if (spinnersConfigurados) {
+                    filtroDia = dia;
+                    aplicarFiltros();
+                }
             });
+
+            spinnersConfigurados = true;
         });
     }
 
@@ -155,15 +170,12 @@ public class VoluntariosActivity extends AppCompatActivity implements VolunteerA
     private void aplicarFiltros() {
         List<Volunteer> filtrados = new ArrayList<>();
         for (Volunteer v : todosVoluntarios) {
-            // Filtro de busca por nome
             if (!filtroBusca.isEmpty() && !v.name.toLowerCase().contains(filtroBusca)) {
                 continue;
             }
-            // Filtro de área
             if (!"Todas as áreas".equals(filtroArea)) {
                 if (v.areas == null || !v.areas.contains(filtroArea)) continue;
             }
-            // Filtro de dia
             if (!"Todos os dias".equals(filtroDia)) {
                 if (v.availabilityDays == null || !v.availabilityDays.contains(filtroDia)) continue;
             }
@@ -187,16 +199,22 @@ public class VoluntariosActivity extends AppCompatActivity implements VolunteerA
 
     @Override
     public void onVolunteerClick(Volunteer volunteer) {
-        Intent intent = new Intent(this, VolunteerDetailActivity.class);
-        intent.putExtra("volunteer_name",   volunteer.name);
-        intent.putExtra("volunteer_email",  volunteer.email);
-        intent.putExtra("volunteer_events", volunteer.eventsParticipated);
-        intent.putExtra("volunteer_hours",  volunteer.totalHours);
-        intent.putExtra("volunteer_areas",
-                volunteer.areas != null ? String.join(", ", volunteer.areas) : "");
-        intent.putExtra("volunteer_days",
-                volunteer.availabilityDays != null ? String.join(", ", volunteer.availabilityDays) : "");
-        startActivity(intent);
+        // Exibe detalhes do voluntário em um AlertDialog simples
+        String areas = (volunteer.areas != null && !volunteer.areas.isEmpty())
+                ? String.join(", ", volunteer.areas) : "Não informado";
+        String dias = (volunteer.availabilityDays != null && !volunteer.availabilityDays.isEmpty())
+                ? String.join(", ", volunteer.availabilityDays) : "Não informado";
+
+        String mensagem = "E-mail: " + volunteer.email
+                + "\n\nÁreas: " + areas
+                + "\n\nDias disponíveis: " + dias
+                + "\n\nEventos participados: " + volunteer.eventsParticipated;
+
+        new android.app.AlertDialog.Builder(this)
+                .setTitle(volunteer.name)
+                .setMessage(mensagem)
+                .setPositiveButton("Fechar", null)
+                .show();
     }
 
     @Override

@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:background="#F7F7F7"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp">
 
     <!-- Cabeçalho com botão voltar -->
     <LinearLayout
@@ -11,25 +12,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:padding="16dp"
-        android:paddingBottom="8dp">
-
-        <ImageButton
-            android:id="@+id/btnVoltar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@android:drawable/ic_menu_revert"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Voltar"
-            android:layout_marginEnd="8dp" />
+        android:layout_marginBottom="16dp">
 
         <TextView
-            android:id="@+id/txtTituloVoluntarios"
+            android:id="@+id/btnVoltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&#8617;"
+            android:textSize="24sp"
+            android:textColor="#222222"
+            android:paddingEnd="12dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Voluntários"
-            android:textSize="26sp"
+            android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="#222222" />
 
@@ -37,36 +38,32 @@
             android:id="@+id/txtContadorVoluntarios"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="16sp"
+            android:text="0 voluntários"
+            android:textSize="14sp"
             android:textColor="#666666" />
 
     </LinearLayout>
 
-    <!-- Barra de busca -->
+    <!-- Campo de busca por nome -->
     <EditText
         android:id="@+id/editBuscaVoluntario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
         android:hint="Buscar por nome..."
-        android:inputType="text"
-        android:background="@android:drawable/edit_text"
-        android:padding="10dp"
-        android:textSize="15sp"
         android:drawableStart="@android:drawable/ic_menu_search"
-        android:drawablePadding="8dp" />
+        android:drawablePadding="8dp"
+        android:background="@drawable/bg_card_evento"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:inputType="text"
+        android:layout_marginBottom="12dp" />
 
     <!-- Filtros de área e dia -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="16dp">
 
         <Spinner
             android:id="@+id/spinnerFiltroArea"
@@ -74,20 +71,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            android:background="@android:drawable/btn_dropdown"
-            android:padding="4dp" />
+            android:background="@drawable/bg_card_evento"
+            android:padding="8dp" />
 
         <Spinner
             android:id="@+id/spinnerFiltroDia"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:drawable/btn_dropdown"
-            android:padding="4dp" />
+            android:background="@drawable/bg_card_evento"
+            android:padding="8dp" />
 
     </LinearLayout>
 
-    <!-- Estado vazio -->
+    <!-- Mensagem de lista vazia -->
     <TextView
         android:id="@+id/txtVazio"
         android:layout_width="match_parent"
@@ -99,14 +96,10 @@
         android:layout_marginTop="40dp"
         android:visibility="gone" />
 
-    <!-- Lista -->
+    <!-- Lista de voluntários -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerVoluntarios"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="4dp"
-        android:clipToPadding="false" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -405,14 +405,12 @@ app.get('/volunteers', authenticateToken, requireAdmin, async (req, res) => {
         u.id,
         u.name,
         u.email,
-        vp.areas,
-        vp.availability_days,
-        COUNT(er.id) as events_participated,
-        COALESCE(SUM(COALESCE(e.duration_hours, 2)), 0) as total_hours
+        COALESCE(vp.areas, '{}') as areas,
+        COALESCE(vp.availability_days, '{}') as availability_days,
+        COUNT(er.id) as events_participated
       FROM users u
       LEFT JOIN volunteer_profiles vp ON u.id = vp.user_id
       LEFT JOIN event_registrations er ON u.id = er.user_id
-      LEFT JOIN events e ON er.event_id = e.id
       WHERE u.role = 'USER'
       GROUP BY u.id, u.name, u.email, vp.areas, vp.availability_days
       ORDER BY u.name ASC

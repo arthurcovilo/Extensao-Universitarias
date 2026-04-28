@@ -52,7 +52,7 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.Volu
     }
 
     static class VolunteerViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNome, txtEmail, txtAreas, txtDias, txtEventos, txtHoras, txtBadge;
+        TextView txtNome, txtEmail, txtAreas, txtDias, txtEventos, txtBadge;
 
         public VolunteerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,7 +61,6 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.Volu
             txtAreas   = itemView.findViewById(R.id.txtAreasVoluntario);
             txtDias    = itemView.findViewById(R.id.txtDiasVoluntario);
             txtEventos = itemView.findViewById(R.id.txtEventosVoluntario);
-            txtHoras   = itemView.findViewById(R.id.txtHorasVoluntario);
             txtBadge   = itemView.findViewById(R.id.txtBadgeArea);
         }
 
@@ -71,7 +70,6 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.Volu
 
             if (volunteer.areas != null && !volunteer.areas.isEmpty()) {
                 txtAreas.setText("Áreas: " + String.join(", ", volunteer.areas));
-                // Badge mostra a primeira área
                 txtBadge.setText(volunteer.areas.get(0));
                 txtBadge.setVisibility(View.VISIBLE);
             } else {
@@ -89,11 +87,6 @@ public class VolunteerAdapter extends RecyclerView.Adapter<VolunteerAdapter.Volu
                     ? "1 evento participado"
                     : volunteer.eventsParticipated + " eventos participados";
             txtEventos.setText(eventosText);
-
-            String horasText = volunteer.totalHours == 1
-                    ? "1h voluntariada"
-                    : volunteer.totalHours + "h voluntariadas";
-            txtHoras.setText(horasText);
         }
     }
 }
