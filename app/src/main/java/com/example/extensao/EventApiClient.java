@@ -49,7 +49,8 @@ public class EventApiClient {
         return events;
     }
 
-    public ApiResult registerForEvent(int eventId, String accessToken) {
+    public ApiResult registerForEvent(int eventId, String accessToken,
+                                      String nome, String telefone, boolean primeiroEvento) {
         HttpURLConnection connection = null;
 
         try {
@@ -61,6 +62,15 @@ public class EventApiClient {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);
             connection.setDoOutput(true);
+
+            JSONObject body = new JSONObject();
+            body.put("nome", nome);
+            body.put("telefone", telefone);
+            body.put("primeiro_evento", primeiroEvento);
+
+            try (OutputStream os = connection.getOutputStream()) {
+                os.write(body.toString().getBytes(StandardCharsets.UTF_8));
+            }
 
             int responseCode = connection.getResponseCode();
             String responseBody = readBody(responseCode >= 200 && responseCode < 300
@@ -82,6 +92,11 @@ public class EventApiClient {
         } finally {
             if (connection != null) connection.disconnect();
         }
+    }
+
+    // Mantém compatibilidade — chama a versão com formulário vazio (não deve ser usada)
+    public ApiResult registerForEvent(int eventId, String accessToken) {
+        return registerForEvent(eventId, accessToken, "", "", false);
     }
 
     public ApiResult createEvent(Event event, String accessToken) {

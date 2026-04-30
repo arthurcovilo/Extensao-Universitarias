@@ -253,49 +253,45 @@ app.delete('/events/:id', authenticateToken, requireAdmin, async (req, res) => {
 app.post('/events/:id/register', authenticateToken, async (req, res) => {
   const { id } = req.params;
   const userId = req.user.sub;
+  const { nome, telefone, primeiro_evento } = req.body;
+
+  if (!nome || !nome.trim()) {
+    return res.status(400).json({ message: 'Informe seu nome completo' });
+  }
+  if (!telefone || !telefone.trim()) {
+    return res.status(400).json({ message: 'Informe seu telefone' });
+  }
 
   try {
-    // Verifica se o evento existe e está aberto
-    const eventResult = await pool.query(
-      'SELECT * FROM events WHERE id = $1',
-      [id]
-    );
-
+    const eventResult = await pool.query('SELECT * FROM events WHERE id = $1', [id]);
     if (eventResult.rows.length === 0) {
       return res.status(404).json({ message: 'Evento não encontrado' });
     }
-
     const event = eventResult.rows[0];
     if (event.status !== 'ABERTO') {
       return res.status(400).json({ message: 'Evento não está aberto para inscrições' });
     }
 
-    // Verifica se já está inscrito
     const existingRegistration = await pool.query(
       'SELECT id FROM event_registrations WHERE user_id = $1 AND event_id = $2',
       [userId, id]
     );
-
     if (existingRegistration.rows.length > 0) {
       return res.status(400).json({ message: 'Você já está inscrito neste evento' });
     }
 
-    // Verifica limite de participantes
     if (event.max_participants) {
       const registrationCount = await pool.query(
-        'SELECT COUNT(*) as count FROM event_registrations WHERE event_id = $1',
-        [id]
+        'SELECT COUNT(*) as count FROM event_registrations WHERE event_id = $1', [id]
       );
-
       if (parseInt(registrationCount.rows[0].count) >= event.max_participants) {
         return res.status(400).json({ message: 'Evento lotado' });
       }
     }
 
-    // Faz a inscrição
     await pool.query(
-      'INSERT INTO event_registrations (user_id, event_id) VALUES ($1, $2)',
-      [userId, id]
+      'INSERT INTO event_registrations (user_id, event_id, nome, telefone, primeiro_evento) VALUES ($1, $2, $3, $4, $5)',
+      [userId, id, nome.trim(), telefone.trim(), primeiro_evento === true || primeiro_evento === 'true']
     );
 
     return res.json({ message: 'Inscrição realizada com sucesso' });

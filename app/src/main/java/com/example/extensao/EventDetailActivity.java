@@ -263,26 +263,13 @@ public class EventDetailActivity extends AppCompatActivity {
     }
 
     private void inscreverNoEvento() {
-        setLoading(true);
-        executor.execute(() -> {
-            EventApiClient.ApiResult result = eventApiClient.registerForEvent(eventId, sessionManager.getAccessToken());
-            runOnUiThread(() -> {
-                setLoading(false);
-                if (result.success) {
-                    marcarComoInscrito();
-                    Intent intent = new Intent(this, InscricaoSucessoActivity.class);
-                    intent.putExtra("event_id", evento.id);
-                    intent.putExtra("event_title", evento.title);
-                    intent.putExtra("event_date", evento.eventDate);
-                    intent.putExtra("event_location", evento.location);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
-                }
-            });
-        });
+        // Abre o formulário de inscrição
+        Intent intent = new Intent(this, InscricaoFormActivity.class);
+        intent.putExtra("event_id", eventId);
+        intent.putExtra("event_title", evento.title);
+        intent.putExtra("event_date", evento.eventDate);
+        intent.putExtra("event_location", evento.location);
+        startActivity(intent);
     }
 
     private void editarEvento() {

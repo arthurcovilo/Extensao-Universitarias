@@ -59,10 +59,17 @@ async function setup() {
         id            SERIAL PRIMARY KEY,
         user_id       INTEGER REFERENCES users(id) ON DELETE CASCADE,
         event_id      INTEGER REFERENCES events(id) ON DELETE CASCADE,
+        nome          VARCHAR(255),
+        telefone      VARCHAR(20),
+        primeiro_evento BOOLEAN DEFAULT FALSE,
         registered_at TIMESTAMP DEFAULT NOW(),
         UNIQUE(user_id, event_id)
       );
     `);
+    // Adiciona colunas do formulário se não existirem
+    await client.query(`ALTER TABLE event_registrations ADD COLUMN IF NOT EXISTS nome VARCHAR(255);`);
+    await client.query(`ALTER TABLE event_registrations ADD COLUMN IF NOT EXISTS telefone VARCHAR(20);`);
+    await client.query(`ALTER TABLE event_registrations ADD COLUMN IF NOT EXISTS primeiro_evento BOOLEAN DEFAULT FALSE;`);
     console.log('✅ Tabela event_registrations criada');
 
     // ── Tabela volunteer_profiles ───────────────────────────────────────────
