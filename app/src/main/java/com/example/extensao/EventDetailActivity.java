@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -237,9 +236,8 @@ public class EventDetailActivity extends AppCompatActivity {
                     // Volta o botão para "Inscrever-se"
                     btnInscreverDetalhe.setText("Inscrever-se");
                     btnInscreverDetalhe.setEnabled(true);
-                    btnInscreverDetalhe.setBackground(
-                            android.graphics.drawable.AppCompatResources.getDrawable(
-                                    this, R.drawable.bg_botao_inscrever));
+                    btnInscreverDetalhe.setBackgroundTintList(
+                            android.content.res.ColorStateList.valueOf(0xFF6750A4));
                     btnInscreverDetalhe.setTextColor(0xFFFFFFFF);
                     btnInscreverDetalhe.setOnClickListener(v2 -> inscreverNoEvento());
                     // Recarrega para atualizar contador de vagas
