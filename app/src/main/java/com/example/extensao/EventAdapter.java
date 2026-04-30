@@ -86,6 +86,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             txtTipoEvento.setText(event.getTipoIcon() + " " + (event.eventType != null ? event.eventType : ""));
 
             // Local: oculta para Online, mostra ícone correto para os demais
+            txtLocalEvento.setVisibility(View.VISIBLE); // sempre reseta antes
             if ("Online".equals(event.eventType)) {
                 txtLocalEvento.setText("💻 Online");
             } else if (event.location != null && !event.location.isEmpty()) {

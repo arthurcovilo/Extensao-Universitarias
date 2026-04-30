@@ -41,6 +41,7 @@ public class CalendarEventAdapter extends RecyclerView.Adapter<CalendarEventAdap
         Event event = events.get(position);
         holder.txtTitulo.setText(event.title);
 
+        holder.txtLocal.setVisibility(View.VISIBLE); // sempre reseta antes
         if ("Online".equals(event.eventType)) {
             holder.txtLocal.setText("💻 Online");
         } else if (event.location != null && !event.location.isEmpty()) {
