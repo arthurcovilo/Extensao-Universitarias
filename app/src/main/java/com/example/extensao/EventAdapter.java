@@ -82,9 +82,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         public void bind(Event event) {
             txtTituloEvento.setText(event.title);
             txtDescricaoEvento.setText(event.description);
-            txtLocalEvento.setText(event.location);
             txtVagas.setText(event.getVagasText());
             txtTipoEvento.setText(event.getTipoIcon() + " " + (event.eventType != null ? event.eventType : ""));
+
+            // Local: oculta para Online, mostra ícone correto para os demais
+            if ("Online".equals(event.eventType)) {
+                txtLocalEvento.setText("💻 Online");
+            } else if (event.location != null && !event.location.isEmpty()) {
+                txtLocalEvento.setText("📍 " + event.location);
+            } else {
+                txtLocalEvento.setVisibility(View.GONE);
+            }
 
             // Formatar data
             try {

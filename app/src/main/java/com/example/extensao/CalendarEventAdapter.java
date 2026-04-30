@@ -2,8 +2,7 @@ package com.example.extensao;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.view.ViewGroup;import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +40,15 @@ public class CalendarEventAdapter extends RecyclerView.Adapter<CalendarEventAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Event event = events.get(position);
         holder.txtTitulo.setText(event.title);
-        holder.txtLocal.setText("📍 " + event.location);
+
+        if ("Online".equals(event.eventType)) {
+            holder.txtLocal.setText("💻 Online");
+        } else if (event.location != null && !event.location.isEmpty()) {
+            holder.txtLocal.setText("📍 " + event.location);
+        } else {
+            holder.txtLocal.setVisibility(View.GONE);
+        }
+
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) listener.onEventClick(event);
         });
