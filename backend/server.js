@@ -301,6 +301,28 @@ app.post('/events/:id/register', authenticateToken, async (req, res) => {
   }
 });
 
+// ── DELETE /events/:id/register ─────────────────────────────────────────────
+app.delete('/events/:id/register', authenticateToken, async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.sub;
+
+  try {
+    const result = await pool.query(
+      'DELETE FROM event_registrations WHERE user_id = $1 AND event_id = $2 RETURNING id',
+      [userId, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Inscrição não encontrada' });
+    }
+
+    return res.json({ message: 'Inscrição cancelada com sucesso' });
+  } catch (err) {
+    console.error('Erro ao cancelar inscrição:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
 // ── GET /user/registrations ─────────────────────────────────────────────────
 app.get('/user/registrations', authenticateToken, async (req, res) => {
   const userId = req.user.sub;

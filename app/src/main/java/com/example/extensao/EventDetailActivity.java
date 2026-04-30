@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -207,11 +208,45 @@ public class EventDetailActivity extends AppCompatActivity {
     }
 
     private void marcarComoInscrito() {
-        btnInscreverDetalhe.setText("Inscrito ✓");
-        btnInscreverDetalhe.setEnabled(false);
+        btnInscreverDetalhe.setText("Cancelar inscrição");
+        btnInscreverDetalhe.setEnabled(true);
         btnInscreverDetalhe.setBackground(
                 new android.graphics.drawable.ColorDrawable(0xFFAAAAAA));
         btnInscreverDetalhe.setTextColor(0xFFFFFFFF);
+        btnInscreverDetalhe.setOnClickListener(v -> confirmarCancelamento());
+    }
+
+    private void confirmarCancelamento() {
+        new AlertDialog.Builder(this)
+                .setTitle("Cancelar inscrição")
+                .setMessage("Tem certeza que deseja cancelar sua inscrição neste evento?")
+                .setPositiveButton("Sim, cancelar", (dialog, which) -> cancelarInscricao())
+                .setNegativeButton("Não", null)
+                .show();
+    }
+
+    private void cancelarInscricao() {
+        setLoading(true);
+        executor.execute(() -> {
+            EventApiClient.ApiResult result = eventApiClient.cancelRegistration(
+                    eventId, sessionManager.getAccessToken());
+            runOnUiThread(() -> {
+                setLoading(false);
+                Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show();
+                if (result.success) {
+                    // Volta o botão para "Inscrever-se"
+                    btnInscreverDetalhe.setText("Inscrever-se");
+                    btnInscreverDetalhe.setEnabled(true);
+                    btnInscreverDetalhe.setBackground(
+                            android.graphics.drawable.AppCompatResources.getDrawable(
+                                    this, R.drawable.bg_botao_inscrever));
+                    btnInscreverDetalhe.setTextColor(0xFFFFFFFF);
+                    btnInscreverDetalhe.setOnClickListener(v2 -> inscreverNoEvento());
+                    // Recarrega para atualizar contador de vagas
+                    carregarEvento();
+                }
+            });
+        });
     }
 
     private void carregarInscritos() {

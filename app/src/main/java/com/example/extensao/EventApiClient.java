@@ -232,6 +232,37 @@ public class EventApiClient {
         return ids;
     }
 
+    public ApiResult cancelRegistration(int eventId, String accessToken) {
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL(BASE_URL + "/events/" + eventId + "/register");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("DELETE");
+            connection.setConnectTimeout(10000);
+            connection.setReadTimeout(10000);
+            connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+            int responseCode = connection.getResponseCode();
+            String responseBody = readBody(responseCode >= 200 && responseCode < 300
+                    ? connection.getInputStream()
+                    : connection.getErrorStream());
+
+            if (responseCode >= 200 && responseCode < 300) {
+                return ApiResult.success("Inscrição cancelada com sucesso!");
+            } else {
+                JSONObject errorJson = tryParseJson(responseBody);
+                String errorMessage = errorJson != null
+                        ? errorJson.optString("message", "Erro ao cancelar inscrição")
+                        : "Erro ao cancelar inscrição";
+                return ApiResult.error(errorMessage);
+            }
+        } catch (Exception e) {
+            return ApiResult.error("Falha de conexão. Verifique sua internet.");
+        } finally {
+            if (connection != null) connection.disconnect();
+        }
+    }
+
     public boolean isUserRegistered(int eventId, String accessToken) {
         HttpURLConnection connection = null;
         try {

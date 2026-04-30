@@ -25,6 +25,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     public interface OnEventClickListener {
         void onRegisterClick(Event event, Button btnInscrever);
+        void onCancelClick(Event event, Button btnInscrever);
         void onEventClick(Event event);
         void onCardClick(Event event);
     }
@@ -121,11 +122,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     if (listener != null) listener.onEventClick(event);
                 });
             } else if (registeredEventIds.contains(event.id)) {
-                // Já inscrito
-                btnInscrever.setText("Inscrito ✓");
-                btnInscrever.setEnabled(false);
+                // Já inscrito — mostra opção de cancelar
+                btnInscrever.setText("Cancelar inscrição");
+                btnInscrever.setEnabled(true);
                 btnInscrever.setBackgroundTintList(
                         android.content.res.ColorStateList.valueOf(0xFFAAAAAA));
+                btnInscrever.setOnClickListener(v -> {
+                    if (listener != null) listener.onCancelClick(event, btnInscrever);
+                });
             } else if (event.isOpen() && !event.isFull()) {
                 btnInscrever.setText("Inscrever-se");
                 btnInscrever.setEnabled(true);

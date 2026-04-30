@@ -25,6 +25,7 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
     private SessionManager sessionManager;
     private EventApiClient eventApiClient;
     private EventAdapter eventAdapter;
+    private List<Integer> registeredIds = new ArrayList<>();
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Override
@@ -87,10 +88,11 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
     private void carregarEventos() {
         executor.execute(() -> {
             List<Event> events = eventApiClient.getEvents();
-            List<Integer> registeredIds = sessionManager.isAdmin()
-                    ? new java.util.ArrayList<>()
+            List<Integer> ids = sessionManager.isAdmin()
+                    ? new ArrayList<>()
                     : eventApiClient.getUserRegisteredEventIds(sessionManager.getAccessToken());
             runOnUiThread(() -> {
+                registeredIds = new ArrayList<>(ids);
                 eventAdapter.setRegisteredEventIds(registeredIds);
                 eventAdapter.updateEvents(events);
                 if (events.isEmpty()) {
@@ -98,6 +100,33 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
                 }
             });
         });
+    }
+
+    @Override
+    public void onCancelClick(Event event, android.widget.Button btnInscrever) {
+        new android.app.AlertDialog.Builder(this)
+                .setTitle("Cancelar inscrição")
+                .setMessage("Tem certeza que deseja cancelar sua inscrição em \"" + event.title + "\"?")
+                .setPositiveButton("Sim, cancelar", (dialog, which) -> {
+                    executor.execute(() -> {
+                        EventApiClient.ApiResult result = eventApiClient.cancelRegistration(
+                                event.id, sessionManager.getAccessToken());
+                        runOnUiThread(() -> {
+                            if (result.success) {
+                                // Remove da lista local e atualiza botão
+                                registeredIds.remove(Integer.valueOf(event.id));
+                                eventAdapter.setRegisteredEventIds(registeredIds);
+                                android.widget.Toast.makeText(this,
+                                        "Inscrição cancelada com sucesso", android.widget.Toast.LENGTH_SHORT).show();
+                            } else {
+                                android.widget.Toast.makeText(this,
+                                        result.message, android.widget.Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    });
+                })
+                .setNegativeButton("Não", null)
+                .show();
     }
 
     @Override
