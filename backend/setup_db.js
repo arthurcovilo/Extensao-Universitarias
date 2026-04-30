@@ -46,6 +46,11 @@ async function setup() {
         created_at      TIMESTAMP DEFAULT NOW()
       );
     `);
+    // Adiciona coluna event_type se não existir
+    await client.query(`
+      ALTER TABLE events
+      ADD COLUMN IF NOT EXISTS event_type VARCHAR(50) DEFAULT 'Presencial';
+    `);
     console.log('✅ Tabela events criada');
 
     // ── Tabela event_registrations ──────────────────────────────────────────

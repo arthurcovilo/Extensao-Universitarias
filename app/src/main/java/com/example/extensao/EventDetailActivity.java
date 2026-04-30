@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
 public class EventDetailActivity extends AppCompatActivity {
 
     TextView txtTituloDetalhe, txtStatusDetalhe, txtDataDetalhe, txtLocalDetalhe;
-    TextView txtVagasDetalhe, txtDescricaoDetalhe, txtListaInscritos;
+    TextView txtVagasDetalhe, txtDescricaoDetalhe, txtListaInscritos, txtTipoDetalhe;
     Button btnInscreverDetalhe, btnEditarDetalhe, btnExcluirDetalhe;
     LinearLayout layoutInscritos;
     ProgressBar progressDetalhe;
@@ -70,6 +70,7 @@ public class EventDetailActivity extends AppCompatActivity {
         txtVagasDetalhe = findViewById(R.id.txtVagasDetalhe);
         txtDescricaoDetalhe = findViewById(R.id.txtDescricaoDetalhe);
         txtListaInscritos = findViewById(R.id.txtListaInscritos);
+        txtTipoDetalhe = findViewById(R.id.txtTipoDetalhe);
         layoutInscritos = findViewById(R.id.layoutInscritos);
         btnInscreverDetalhe = findViewById(R.id.btnInscreverDetalhe);
         btnEditarDetalhe = findViewById(R.id.btnEditarDetalhe);
@@ -138,6 +139,7 @@ public class EventDetailActivity extends AppCompatActivity {
         txtTituloDetalhe.setText(event.title);
         txtDescricaoDetalhe.setText(event.description.isEmpty() ? "Sem descrição" : event.description);
         txtLocalDetalhe.setText(event.location);
+        txtTipoDetalhe.setText(event.getTipoIcon() + " " + (event.eventType != null ? event.eventType : ""));
 
         // Formatar data
         try {

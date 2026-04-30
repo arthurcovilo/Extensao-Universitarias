@@ -65,7 +65,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
     class EventViewHolder extends RecyclerView.ViewHolder {
-        TextView txtTituloEvento, txtDataEvento, txtLocalEvento, txtDescricaoEvento, txtVagas;
+        TextView txtTituloEvento, txtDataEvento, txtLocalEvento, txtDescricaoEvento, txtVagas, txtTipoEvento;
         Button btnInscrever;
 
         public EventViewHolder(@NonNull View itemView) {
@@ -75,6 +75,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             txtLocalEvento = itemView.findViewById(R.id.txtLocalEvento);
             txtDescricaoEvento = itemView.findViewById(R.id.txtDescricaoEvento);
             txtVagas = itemView.findViewById(R.id.txtVagas);
+            txtTipoEvento = itemView.findViewById(R.id.txtTipoEvento);
             btnInscrever = itemView.findViewById(R.id.btnInscrever);
         }
 
@@ -83,6 +84,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             txtDescricaoEvento.setText(event.description);
             txtLocalEvento.setText(event.location);
             txtVagas.setText(event.getVagasText());
+            txtTipoEvento.setText(event.getTipoIcon() + " " + (event.eventType != null ? event.eventType : ""));
 
             // Formatar data
             try {

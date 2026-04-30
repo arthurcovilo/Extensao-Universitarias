@@ -3,12 +3,19 @@ package com.example.extensao;
 import org.json.JSONObject;
 
 public class Event {
+
+    // Tipos de evento disponíveis
+    public static final String[] TIPOS = {
+        "Presencial", "Online", "Retirada de Itens", "Doação"
+    };
+
     public int id;
     public String title;
     public String description;
     public String eventDate;
     public String location;
     public String status;
+    public String eventType;
     public int maxParticipants;
     public int registeredCount;
     public String createdByName;
@@ -32,6 +39,7 @@ public class Event {
         event.eventDate = json.optString("event_date", "");
         event.location = json.optString("location", "");
         event.status = json.optString("status", "ABERTO");
+        event.eventType = json.optString("event_type", "Presencial");
         event.maxParticipants = json.optInt("max_participants", 0);
         event.registeredCount = json.optInt("registered_count", 0);
         event.createdByName = json.optString("created_by_name", "");
@@ -52,5 +60,17 @@ public class Event {
             return vagas > 0 ? String.valueOf(vagas) : "Lotado";
         }
         return "∞";
+    }
+
+    // Retorna ícone emoji para cada tipo
+    public String getTipoIcon() {
+        if (eventType == null) return "📌";
+        switch (eventType) {
+            case "Presencial":      return "📍";
+            case "Online":         return "💻";
+            case "Retirada de Itens": return "📦";
+            case "Doação":         return "🤝";
+            default:               return "📌";
+        }
     }
 }

@@ -102,6 +102,7 @@ public class EventApiClient {
             body.put("description", event.description);
             body.put("event_date", event.eventDate);
             body.put("location", event.location);
+            body.put("event_type", event.eventType != null ? event.eventType : "Presencial");
             if (event.maxParticipants > 0) {
                 body.put("max_participants", event.maxParticipants);
             }
@@ -152,6 +153,7 @@ public class EventApiClient {
             body.put("event_date", event.eventDate);
             body.put("location", event.location);
             body.put("status", event.status);
+            body.put("event_type", event.eventType != null ? event.eventType : "Presencial");
             if (event.maxParticipants > 0) {
                 body.put("max_participants", event.maxParticipants);
             }

@@ -177,16 +177,25 @@ app.get('/events', async (req, res) => {
 
 // ── POST /events ─────────────────────────────────────────────────────────────
 app.post('/events', authenticateToken, requireAdmin, async (req, res) => {
-  const { title, description, event_date, location, max_participants } = req.body;
+  const { title, description, event_date, location, max_participants, event_type } = req.body;
 
   if (!title || !event_date || !location) {
     return res.status(400).json({ message: 'Título, data e local são obrigatórios' });
   }
 
+  if (!event_type) {
+    return res.status(400).json({ message: 'Tipo do evento é obrigatório' });
+  }
+
+  const validTypes = ['Presencial', 'Online', 'Retirada de Itens', 'Doação'];
+  if (!validTypes.includes(event_type)) {
+    return res.status(400).json({ message: 'Tipo de evento inválido' });
+  }
+
   try {
     const result = await pool.query(
-      'INSERT INTO events (title, description, event_date, location, max_participants, created_by) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-      [title, description, event_date, location, max_participants, req.user.sub]
+      'INSERT INTO events (title, description, event_date, location, max_participants, created_by, event_type) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+      [title, description, event_date, location, max_participants, req.user.sub, event_type]
     );
 
     return res.status(201).json(result.rows[0]);
@@ -199,12 +208,12 @@ app.post('/events', authenticateToken, requireAdmin, async (req, res) => {
 // ── PUT /events/:id ──────────────────────────────────────────────────────────
 app.put('/events/:id', authenticateToken, requireAdmin, async (req, res) => {
   const { id } = req.params;
-  const { title, description, event_date, location, status, max_participants } = req.body;
+  const { title, description, event_date, location, status, max_participants, event_type } = req.body;
 
   try {
     const result = await pool.query(
-      'UPDATE events SET title = $1, description = $2, event_date = $3, location = $4, status = $5, max_participants = $6 WHERE id = $7 RETURNING *',
-      [title, description, event_date, location, status, max_participants, id]
+      'UPDATE events SET title = $1, description = $2, event_date = $3, location = $4, status = $5, max_participants = $6, event_type = $7 WHERE id = $8 RETURNING *',
+      [title, description, event_date, location, status, max_participants, event_type, id]
     );
 
     if (result.rows.length === 0) {

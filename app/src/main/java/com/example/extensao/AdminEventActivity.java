@@ -34,7 +34,7 @@ public class AdminEventActivity extends AppCompatActivity {
     TextView txtTituloAdmin, txtStatusLabel;
     EditText editTitulo, editDescricao, editLocal, editLimite;
     Button btnSelecionarData, btnSalvar, btnExcluir, btnVerInscritos;
-    Spinner spinnerStatus;
+    Spinner spinnerStatus, spinnerTipo;
     ProgressBar progressAdmin;
 
     private SessionManager sessionManager;
@@ -87,6 +87,7 @@ public class AdminEventActivity extends AppCompatActivity {
         btnExcluir = findViewById(R.id.btnExcluir);
         btnVerInscritos = findViewById(R.id.btnVerInscritos);
         spinnerStatus = findViewById(R.id.spinnerStatus);
+        spinnerTipo = findViewById(R.id.spinnerTipo);
         progressAdmin = findViewById(R.id.progressAdmin);
     }
 
@@ -95,6 +96,10 @@ public class AdminEventActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, statusOptions);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerStatus.setAdapter(adapter);
+
+        ArrayAdapter<String> tipoAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Event.TIPOS);
+        tipoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTipo.setAdapter(tipoAdapter);
     }
 
     private void configurarBotoes() {
@@ -144,6 +149,8 @@ public class AdminEventActivity extends AppCompatActivity {
         String descricao = editDescricao.getText().toString().trim();
         String local = editLocal.getText().toString().trim();
         String limiteStr = editLimite.getText().toString().trim();
+        String tipo = spinnerTipo.getSelectedItem() != null
+                ? spinnerTipo.getSelectedItem().toString() : "";
 
         if (titulo.isEmpty()) {
             editTitulo.setError("Título é obrigatório");
@@ -162,6 +169,11 @@ public class AdminEventActivity extends AppCompatActivity {
             return;
         }
 
+        if (tipo.isEmpty()) {
+            Toast.makeText(this, "Selecione o tipo do evento", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         int limite = 0;
         if (!limiteStr.isEmpty()) {
             try {
@@ -174,14 +186,13 @@ public class AdminEventActivity extends AppCompatActivity {
         }
 
         Event event = new Event(titulo, descricao, dataSelecionada, local, limite);
+        event.eventType = tipo;
 
         if (eventId > 0) {
-            // Editar evento existente
             event.id = eventId;
             event.status = spinnerStatus.getSelectedItem().toString();
             atualizarEvento(event);
         } else {
-            // Criar novo evento
             criarEvento(event);
         }
     }
@@ -307,6 +318,14 @@ public class AdminEventActivity extends AppCompatActivity {
         for (int i = 0; i < statusOptions.length; i++) {
             if (statusOptions[i].equals(event.status)) {
                 spinnerStatus.setSelection(i);
+                break;
+            }
+        }
+
+        // Seleciona tipo no spinner
+        for (int i = 0; i < Event.TIPOS.length; i++) {
+            if (Event.TIPOS[i].equals(event.eventType)) {
+                spinnerTipo.setSelection(i);
                 break;
             }
         }
