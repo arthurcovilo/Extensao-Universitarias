@@ -179,8 +179,8 @@ app.get('/events', async (req, res) => {
 app.post('/events', authenticateToken, requireAdmin, async (req, res) => {
   const { title, description, event_date, location, max_participants, event_type } = req.body;
 
-  if (!title || !event_date || !location) {
-    return res.status(400).json({ message: 'Título, data e local são obrigatórios' });
+  if (!title || !event_date) {
+    return res.status(400).json({ message: 'Título e data são obrigatórios' });
   }
 
   if (!event_type) {
@@ -190,6 +190,10 @@ app.post('/events', authenticateToken, requireAdmin, async (req, res) => {
   const validTypes = ['Presencial', 'Online', 'Retirada de Itens', 'Doação'];
   if (!validTypes.includes(event_type)) {
     return res.status(400).json({ message: 'Tipo de evento inválido' });
+  }
+
+  if (event_type !== 'Online' && !location) {
+    return res.status(400).json({ message: 'Informe o local do evento' });
   }
 
   try {

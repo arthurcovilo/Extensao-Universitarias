@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +32,7 @@ import java.util.concurrent.Executors;
 
 public class AdminEventActivity extends AppCompatActivity {
 
-    TextView txtTituloAdmin, txtStatusLabel;
+    TextView txtTituloAdmin, txtStatusLabel, txtLocalLabel;
     EditText editTitulo, editDescricao, editLocal, editLimite;
     Button btnSelecionarData, btnSalvar, btnExcluir, btnVerInscritos;
     Spinner spinnerStatus, spinnerTipo;
@@ -78,6 +79,7 @@ public class AdminEventActivity extends AppCompatActivity {
     private void inicializarViews() {
         txtTituloAdmin = findViewById(R.id.txtTituloAdmin);
         txtStatusLabel = findViewById(R.id.txtStatusLabel);
+        txtLocalLabel = findViewById(R.id.txtLocalLabel);
         editTitulo = findViewById(R.id.editTitulo);
         editDescricao = findViewById(R.id.editDescricao);
         editLocal = findViewById(R.id.editLocal);
@@ -100,6 +102,27 @@ public class AdminEventActivity extends AppCompatActivity {
         ArrayAdapter<String> tipoAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Event.TIPOS);
         tipoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTipo.setAdapter(tipoAdapter);
+
+        // Atualiza campo local dinamicamente ao mudar o tipo
+        spinnerTipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                atualizarCampoLocal(Event.TIPOS[position]);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+    }
+
+    private void atualizarCampoLocal(String tipo) {
+        boolean isOnline = "Online".equals(tipo);
+        int visibilidade = isOnline ? View.GONE : View.VISIBLE;
+        txtLocalLabel.setVisibility(visibilidade);
+        editLocal.setVisibility(visibilidade);
+        if (isOnline) {
+            editLocal.setText("");
+            editLocal.setError(null);
+        }
     }
 
     private void configurarBotoes() {
@@ -163,8 +186,9 @@ public class AdminEventActivity extends AppCompatActivity {
             return;
         }
 
-        if (local.isEmpty()) {
-            editLocal.setError("Local é obrigatório");
+        // Local só é obrigatório se não for Online
+        if (!tipo.equals("Online") && local.isEmpty()) {
+            editLocal.setError("Informe o local do evento");
             editLocal.requestFocus();
             return;
         }
@@ -329,6 +353,8 @@ public class AdminEventActivity extends AppCompatActivity {
                 break;
             }
         }
+        // Aplica visibilidade do campo local com base no tipo carregado
+        atualizarCampoLocal(event.eventType != null ? event.eventType : "Presencial");
     }
 
     private void verInscritos() {
