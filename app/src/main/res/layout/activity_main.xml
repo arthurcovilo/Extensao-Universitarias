@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F7F7F7">
 
     <LinearLayout
         android:orientation="vertical"
@@ -12,38 +13,117 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/txtTitulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/titulo_calendario"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp" />
-
-        <CalendarView
-            android:id="@+id/calendarView"
+        <!-- Cabeçalho: título + navegação de mês -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
 
+            <TextView
+                android:id="@+id/txtTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titulo_calendario"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#222222" />
+
+            <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btnMesAnterior"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:text="‹"
+                android:textSize="20sp"
+                android:padding="0dp"
+                android:backgroundTint="#EEEEEE"
+                android:textColor="#444444" />
+
+            <TextView
+                android:id="@+id/txtMesAno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#444444"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnProximoMes"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:text="›"
+                android:textSize="20sp"
+                android:padding="0dp"
+                android:backgroundTint="#EEEEEE"
+                android:textColor="#444444" />
+
+        </LinearLayout>
+
+        <!-- Cabeçalho dos dias da semana -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp">
+
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:gravity="center"
+                android:text="Dom" android:textSize="12sp" android:textColor="#888888" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:gravity="center"
+                android:text="Seg" android:textSize="12sp" android:textColor="#888888" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:gravity="center"
+                android:text="Ter" android:textSize="12sp" android:textColor="#888888" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:gravity="center"
+                android:text="Qua" android:textSize="12sp" android:textColor="#888888" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:gravity="center"
+                android:text="Qui" android:textSize="12sp" android:textColor="#888888" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:gravity="center"
+                android:text="Sex" android:textSize="12sp" android:textColor="#888888" />
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:gravity="center"
+                android:text="Sáb" android:textSize="12sp" android:textColor="#888888" />
+
+        </LinearLayout>
+
+        <!-- Grid do calendário -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerCalendario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false" />
+
+        <!-- Botão Novo Evento (só admin) -->
         <Button
             android:id="@+id/btnNovoEvento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/botao_novo_evento"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
 
+        <!-- Label da data selecionada -->
         <TextView
             android:id="@+id/txtDataSelecionada"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/texto_data_nao_selecionada"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#444444"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="8dp" />
 
+        <!-- Lista de eventos do dia -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerEventosCalendario"
             android:layout_width="match_parent"
