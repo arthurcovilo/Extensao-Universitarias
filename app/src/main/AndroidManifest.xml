@@ -25,6 +25,7 @@
         <activity android:name=".InscricaoFormActivity" />
         <activity android:name=".VoluntariosActivity" />
         <activity android:name=".VolunteerDetailActivity" />
+        <activity android:name=".GerenciarParticipacaoActivity" />
         <activity android:name=".HistoricoActivity" />
 
         <activity android:name=".LoginActivity"

@@ -30,7 +30,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
     TextView txtTituloDetalhe, txtStatusDetalhe, txtDataDetalhe, txtLocalDetalhe;
     TextView txtVagasDetalhe, txtDescricaoDetalhe, txtListaInscritos, txtTipoDetalhe;
-    Button btnInscreverDetalhe, btnEditarDetalhe, btnExcluirDetalhe;
+    Button btnInscreverDetalhe, btnEditarDetalhe, btnExcluirDetalhe, btnGerenciarParticipacao;
     LinearLayout layoutInscritos;
     ProgressBar progressDetalhe;
 
@@ -75,6 +75,7 @@ public class EventDetailActivity extends AppCompatActivity {
         btnInscreverDetalhe = findViewById(R.id.btnInscreverDetalhe);
         btnEditarDetalhe = findViewById(R.id.btnEditarDetalhe);
         btnExcluirDetalhe = findViewById(R.id.btnExcluirDetalhe);
+        btnGerenciarParticipacao = findViewById(R.id.btnGerenciarParticipacao);
         progressDetalhe = findViewById(R.id.progressDetalhe);
     }
 
@@ -82,6 +83,7 @@ public class EventDetailActivity extends AppCompatActivity {
         btnInscreverDetalhe.setOnClickListener(v -> inscreverNoEvento());
         btnEditarDetalhe.setOnClickListener(v -> editarEvento());
         btnExcluirDetalhe.setOnClickListener(v -> confirmarExclusao());
+        btnGerenciarParticipacao.setOnClickListener(v -> abrirGerenciarParticipacao());
     }
 
     private void carregarEvento() {
@@ -308,6 +310,13 @@ public class EventDetailActivity extends AppCompatActivity {
     private void editarEvento() {
         Intent intent = new Intent(this, AdminEventActivity.class);
         intent.putExtra("event_id", eventId);
+        startActivity(intent);
+    }
+
+    private void abrirGerenciarParticipacao() {
+        Intent intent = new Intent(this, GerenciarParticipacaoActivity.class);
+        intent.putExtra("event_id", eventId);
+        if (evento != null) intent.putExtra("event_title", evento.title);
         startActivity(intent);
     }
 

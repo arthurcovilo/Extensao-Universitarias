@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#F7F7F7"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Cabeçalho -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/btnVoltarGerenciar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&#8617;"
+            android:textSize="24sp"
+            android:textColor="#222222"
+            android:paddingEnd="12dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gerenciar Participação"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#222222" />
+
+            <TextView
+                android:id="@+id/txtNomeEventoGerenciar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome do Evento"
+                android:textSize="13sp"
+                android:textColor="#666666" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Mensagem vazia -->
+    <TextView
+        android:id="@+id/txtGerenciarVazio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nenhum inscrito neste evento."
+        android:textSize="15sp"
+        android:textColor="#999999"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:visibility="gone" />
+
+    <!-- Lista de inscritos -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerInscritos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:clipToPadding="false" />
+
+</LinearLayout>

@@ -380,6 +380,30 @@ app.get('/events/:id/registrations', authenticateToken, requireAdmin, async (req
   }
 });
 
+// ── GET /events/:id/registrations/status ────────────────────────────────────
+app.get('/events/:id/registrations/status', authenticateToken, requireAdmin, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query(`
+      SELECT
+        u.id   AS user_id,
+        u.name,
+        u.email,
+        COALESCE(er.participation_status, 'INSCRITO') AS participation_status
+      FROM event_registrations er
+      JOIN users u ON er.user_id = u.id
+      WHERE er.event_id = $1
+      ORDER BY u.name ASC
+    `, [id]);
+
+    return res.json(result.rows);
+  } catch (err) {
+    console.error('Erro ao buscar inscrições com status:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
 // ── GET /volunteer/profile ──────────────────────────────────────────────
 app.get('/volunteer/profile', authenticateToken, async (req, res) => {
   const userId = req.user.sub;
