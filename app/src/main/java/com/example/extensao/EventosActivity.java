@@ -142,7 +142,7 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
 
     @Override
     public void onEventClick(Event event) {
-        Intent intent = new Intent(EventosActivity.this, AdminEventActivity.class);
+        Intent intent = new Intent(EventosActivity.this, EventDetailActivity.class);
         intent.putExtra("event_id", event.id);
         startActivity(intent);
     }
