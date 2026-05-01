@@ -22,7 +22,11 @@ public class ContatoActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
 
-            if (id == R.id.nav_calendario) {
+            if (id == R.id.nav_feed) {
+                startActivity(new Intent(ContatoActivity.this, FeedActivity.class));
+                finish();
+                return true;
+            } else if (id == R.id.nav_calendario) {
                 startActivity(new Intent(ContatoActivity.this, MainActivity.class));
                 finish();
                 return true;

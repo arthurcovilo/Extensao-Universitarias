@@ -110,7 +110,11 @@ public class PerfilActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
 
-            if (id == R.id.nav_calendario) {
+            if (id == R.id.nav_feed) {
+                startActivity(new Intent(PerfilActivity.this, FeedActivity.class));
+                finish();
+                return true;
+            } else if (id == R.id.nav_calendario) {
                 startActivity(new Intent(PerfilActivity.this, MainActivity.class));
                 finish();
                 return true;

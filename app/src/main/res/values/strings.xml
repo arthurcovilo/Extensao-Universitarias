@@ -11,4 +11,20 @@
     <string name="menu_contato">Contato</string>
 
     <string name="botao_inscrever">Inscrever-se</string>
+    
+    <!-- Feed strings -->
+    <string name="titulo_feed">Novidades</string>
+    <string name="botao_ver_detalhes">Ver detalhes</string>
+    <string name="feed_vazio">Nenhuma novidade no momento</string>
+    <string name="feed_carregando">Carregando novidades...</string>
+    <string name="feed_erro">Erro ao carregar novidades</string>
+    <string name="menu_feed">Feed</string>
+    
+    <!-- Post item strings -->
+    <string name="post_titulo_placeholder">Título do Post</string>
+    <string name="post_descricao_placeholder">Descrição do post com informações importantes sobre a campanha ou projeto da ONG...</string>
+    <string name="post_data_placeholder">15/11/2025</string>
+    <string name="post_local_placeholder">Local do evento</string>
+    <string name="icone_data">📅</string>
+    <string name="icone_local">📍</string>
 </resources>

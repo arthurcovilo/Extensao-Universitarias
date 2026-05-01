@@ -183,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void abrirTelaPrincipal() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, FeedActivity.class));
         finish();
     }
 

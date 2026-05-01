@@ -1,0 +1,3469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 9.1.0" type="baseline" client="gradle" dependencies="false" name="AGP (9.1.0)" variant="all" version="9.1.0">
+
+    <issue
+        id="MissingSuperCall"
+        message="Overriding method should call `super.onBackPressed`"
+        errorLine1="    public void onBackPressed() {"
+        errorLine2="                ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/InscricaoSucessoActivity.java"
+            line="93"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="GestureBackNavigation"
+        message="`onBackPressed` is no longer called for back gestures; migrate to AndroidX&apos;s backward compatible `OnBackPressedDispatcher`"
+        errorLine1="    public void onBackPressed() {"
+        errorLine2="                ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/InscricaoSucessoActivity.java"
+            line="93"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="                            if (!msg.toLowerCase().contains(&quot;cancel&quot;)) {"
+        errorLine2="                                     ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/LoginActivity.java"
+            line="118"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
+        errorLine1="        return normalizado.replaceAll(&quot;\\p{InCombiningDiacriticalMarks}+&quot;, &quot;&quot;).toLowerCase();"
+        errorLine2="                                                                               ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/VoluntariosActivity.java"
+            line="103"
+            column="80"/>
+    </issue>
+
+    <issue
+        id="CredentialManagerMisuse"
+        message="Call to `CredentialManager.getCredential` without use of `NoCredentialException`"
+        errorLine1="        credentialManager.getCredentialAsync("
+        errorLine2="        ^">
+        <location
+            file="src/main/java/com/example/extensao/LoginActivity.java"
+            line="101"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="UseSwitchCompatOrMaterialXml"
+        message="Use `SwitchCompat` from AppCompat or `SwitchMaterial` from Material library"
+        errorLine1="                    &lt;Switch"
+        errorLine2="                    ^">
+        <location
+            file="src/main/res/layout/activity_configuracoes.xml"
+            line="79"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.application than 9.1.0 is available: 9.2.0. (There is also a newer version of 9.1.𝑥 available, if upgrading to 9.2.0 is difficult: 9.1.1)"
+        errorLine1="agp = &quot;9.1.0&quot;"
+        errorLine2="      ~~~~~~~">
+        <location
+            file="$HOME/Documents/GitHub/Extensao-Universitarias/gradle/libs.versions.toml"
+            line="2"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.3.0"
+        errorLine1="junitVersion = &quot;1.1.5&quot;"
+        errorLine2="               ~~~~~~~">
+        <location
+            file="$HOME/Documents/GitHub/Extensao-Universitarias/gradle/libs.versions.toml"
+            line="4"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.test.espresso:espresso-core than 3.5.1 is available: 3.7.0"
+        errorLine1="espressoCore = &quot;3.5.1&quot;"
+        errorLine2="               ~~~~~~~">
+        <location
+            file="$HOME/Documents/GitHub/Extensao-Universitarias/gradle/libs.versions.toml"
+            line="5"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.appcompat:appcompat than 1.6.1 is available: 1.7.1"
+        errorLine1="appcompat = &quot;1.6.1&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="$HOME/Documents/GitHub/Extensao-Universitarias/gradle/libs.versions.toml"
+            line="6"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.material:material than 1.10.0 is available: 1.13.0"
+        errorLine1="material = &quot;1.10.0&quot;"
+        errorLine2="           ~~~~~~~~">
+        <location
+            file="$HOME/Documents/GitHub/Extensao-Universitarias/gradle/libs.versions.toml"
+            line="7"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.activity:activity than 1.8.0 is available: 1.13.0"
+        errorLine1="activity = &quot;1.8.0&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="$HOME/Documents/GitHub/Extensao-Universitarias/gradle/libs.versions.toml"
+            line="8"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.constraintlayout:constraintlayout than 2.1.4 is available: 2.2.1"
+        errorLine1="constraintlayout = &quot;2.1.4&quot;"
+        errorLine2="                   ~~~~~~~">
+        <location
+            file="$HOME/Documents/GitHub/Extensao-Universitarias/gradle/libs.versions.toml"
+            line="9"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.libraries.identity.googleid:googleid than 1.1.1 is available: 1.2.0"
+        errorLine1="googleid = &quot;1.1.1&quot;"
+        errorLine2="           ~~~~~~~">
+        <location
+            file="$HOME/Documents/GitHub/Extensao-Universitarias/gradle/libs.versions.toml"
+            line="10"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.credentials:credentials-play-services-auth than 1.3.0 is available: 1.6.0"
+        errorLine1="credentialsPlayServicesAuth = &quot;1.3.0&quot;"
+        errorLine2="                              ~~~~~~~">
+        <location
+            file="$HOME/Documents/GitHub/Extensao-Universitarias/gradle/libs.versions.toml"
+            line="11"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.credentials:credentials than 1.3.0 is available: 1.6.0"
+        errorLine1="credentials = &quot;1.3.0&quot;"
+        errorLine2="              ~~~~~~~">
+        <location
+            file="$HOME/Documents/GitHub/Extensao-Universitarias/gradle/libs.versions.toml"
+            line="12"
+            column="15"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.recyclerview:recyclerview than 1.3.2 is available: 1.4.0"
+        errorLine1="recyclerView = &quot;1.3.2&quot;"
+        errorLine2="               ~~~~~~~">
+        <location
+            file="$HOME/Documents/GitHub/Extensao-Universitarias/gradle/libs.versions.toml"
+            line="13"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.swiperefreshlayout:swiperefreshlayout than 1.1.0 is available: 1.2.0"
+        errorLine1="swiperefreshlayout = &quot;1.1.0&quot;"
+        errorLine2="                     ~~~~~~~">
+        <location
+            file="$HOME/Documents/GitHub/Extensao-Universitarias/gradle/libs.versions.toml"
+            line="14"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.github.bumptech.glide:glide than 4.16.0 is available: 5.0.7"
+        errorLine1="glide = &quot;4.16.0&quot;"
+        errorLine2="        ~~~~~~~~">
+        <location
+            file="$HOME/Documents/GitHub/Extensao-Universitarias/gradle/libs.versions.toml"
+            line="16"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        message="Should use &quot;`sp`&quot; instead of &quot;`dp`&quot; for text sizes"
+        errorLine1="                            tools:textSize=&quot;20dp&quot; />"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_configuracoes.xml"
+            line="61"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="SpUsage"
+        message="Should use &quot;`sp`&quot; instead of &quot;`dp`&quot; for text sizes"
+        errorLine1="                        tools:textSize=&quot;20dp&quot; />"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_configuracoes.xml"
+            line="84"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;momento&quot; is a common misspelling; did you mean &quot;memento&quot;?"
+        errorLine1="    &lt;string name=&quot;feed_vazio&quot;>Nenhuma novidade no momento&lt;/string>"
+        errorLine2="                                                  ~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="18"
+            column="51"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged();"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/CalendarEventAdapter.java"
+            line="28"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged();"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/CustomCalendarAdapter.java"
+            line="55"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged();"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/CustomCalendarAdapter.java"
+            line="60"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged();"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventAdapter.java"
+            line="42"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged();"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventAdapter.java"
+            line="65"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged();"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/HistoricoAdapter.java"
+            line="28"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged();"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/InscritosParticipacaoAdapter.java"
+            line="32"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged();"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/PostAdapter.java"
+            line="58"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged();"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/VolunteerAdapter.java"
+            line="29"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="DisableBaselineAlignment"
+        message="Set `android:baselineAligned=&quot;false&quot;` on this element for better performance"
+        errorLine1="    &lt;LinearLayout"
+        errorLine2="     ~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="42"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="InefficientWeight"
+        message="Use a `layout_width` of `0dp` instead of `338dp` for better performance"
+        errorLine1="                android:layout_width=&quot;338dp&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_meus_eventos.xml"
+            line="24"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="NestedWeights"
+        message="Nested weights are bad for performance"
+        errorLine1="            android:layout_weight=&quot;1&quot; />"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="132"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#F7F7F7` with a theme that also paints a background (inferred theme is `@style/Theme.Extensao`)"
+        errorLine1="    android:background=&quot;#F7F7F7&quot;>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="5"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#F7F7F7` with a theme that also paints a background (inferred theme is `@style/Theme.Extensao`)"
+        errorLine1="    android:background=&quot;#F7F7F7&quot;>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="5"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#F7F7F7` with a theme that also paints a background (inferred theme is `@style/Theme.Extensao`)"
+        errorLine1="    android:background=&quot;#F7F7F7&quot;>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_eventos.xml"
+            line="6"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `@color/background_light` with a theme that also paints a background (inferred theme is `@style/Theme.Extensao`)"
+        errorLine1="    android:background=&quot;@color/background_light&quot;>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_feed.xml"
+            line="7"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#F7F7F7` with a theme that also paints a background (inferred theme is `@style/Theme.Extensao`)"
+        errorLine1="    android:background=&quot;#F7F7F7&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_gerenciar_participacao.xml"
+            line="4"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#F7F7F7` with a theme that also paints a background (inferred theme is `@style/Theme.Extensao`)"
+        errorLine1="    android:background=&quot;#F7F7F7&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="4"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#F7F7F7` with a theme that also paints a background (inferred theme is `@style/Theme.Extensao`)"
+        errorLine1="    android:background=&quot;#F7F7F7&quot;>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="5"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#F7F7F7` with a theme that also paints a background (inferred theme is `@style/Theme.Extensao`)"
+        errorLine1="    android:background=&quot;#F7F7F7&quot;>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="5"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#F7F7F7` with a theme that also paints a background (inferred theme is `@style/Theme.Extensao`)"
+        errorLine1="    android:background=&quot;#F7F7F7&quot;>"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="7"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#F7F7F7` with a theme that also paints a background (inferred theme is `@style/Theme.Extensao`)"
+        errorLine1="    android:background=&quot;#F7F7F7&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="5"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#F7F7F7` with a theme that also paints a background (inferred theme is `@style/Theme.Extensao`)"
+        errorLine1="    android:background=&quot;#F7F7F7&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="5"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#F7F7F7` with a theme that also paints a background (inferred theme is `@style/Theme.Extensao`)"
+        errorLine1="    android:background=&quot;#F7F7F7&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_volunteer_detail.xml"
+            line="4"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.activity_configuracoes` appears to be unused"
+        errorLine1="&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/activity_configuracoes.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.activity_meus_eventos` appears to be unused"
+        errorLine1="&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/activity_meus_eventos.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.xml.activity_meus_eventos_scene` appears to be unused"
+        errorLine1="&lt;MotionScene "
+        errorLine2="^">
+        <location
+            file="src/main/res/xml/activity_meus_eventos_scene.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.bg_card_post` appears to be unused"
+        errorLine1="&lt;shape xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/bg_card_post.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.black` appears to be unused"
+        errorLine1="    &lt;color name=&quot;black&quot;>#FF000000&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="3"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.item_historico_evento` appears to be unused"
+        errorLine1="&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/item_historico_evento.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.layout.item_meus_eventos` appears to be unused"
+        errorLine1="&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/layout/item_meus_eventos.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.app_name` appears to be unused"
+        errorLine1="    &lt;string name=&quot;app_name&quot;>Extensao&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="2"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.botao_inscrever` appears to be unused"
+        errorLine1="    &lt;string name=&quot;botao_inscrever&quot;>Inscrever-se&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="13"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.feed_erro` appears to be unused"
+        errorLine1="    &lt;string name=&quot;feed_erro&quot;>Erro ao carregar novidades&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="20"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UselessParent"
+        message="This `ScrollView` layout or its `LinearLayout` parent is unnecessary"
+        errorLine1="            &lt;ScrollView"
+        errorLine2="             ~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_configuracoes.xml"
+            line="31"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="UselessParent"
+        message="This `RadioGroup` layout or its `LinearLayout` parent is possibly unnecessary"
+        errorLine1="                &lt;RadioGroup"
+        errorLine2="                 ~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="94"
+            column="18"/>
+    </issue>
+
+    <issue
+        id="UselessParent"
+        message="This `ScrollView` layout or its `LinearLayout` parent is unnecessary; transfer the `background` attribute to the other view"
+        errorLine1="    &lt;ScrollView"
+        errorLine2="     ~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_volunteer_detail.xml"
+            line="8"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="TypographyEllipsis"
+        message="Replace &quot;...&quot; with ellipsis character (…, &amp;#8230;) ?"
+        errorLine1="    &lt;string name=&quot;feed_carregando&quot;>Carregando novidades...&lt;/string>"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="19"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="ButtonStyle"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)"
+        errorLine1="        &lt;Button"
+        errorLine2="         ~~~~~~">
+        <location
+            file="src/main/res/layout/item_inscrito_participacao.xml"
+            line="63"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ButtonStyle"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)"
+        errorLine1="        &lt;Button"
+        errorLine2="         ~~~~~~">
+        <location
+            file="src/main/res/layout/item_inscrito_participacao.xml"
+            line="75"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ButtonStyle"
+        message="Buttons in button bars should be borderless; use `style=&quot;?android:attr/buttonBarButtonStyle&quot;` (and `?android:attr/buttonBarStyle` on the parent)"
+        errorLine1="        &lt;Button"
+        errorLine2="         ~~~~~~">
+        <location
+            file="src/main/res/layout/item_inscrito_participacao.xml"
+            line="87"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="Autofill"
+        message="Missing `autofillHints` attribute"
+        errorLine1="        &lt;EditText"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="31"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="Autofill"
+        message="Missing `autofillHints` attribute"
+        errorLine1="        &lt;EditText"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="49"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="Autofill"
+        message="Missing `autofillHints` attribute"
+        errorLine1="        &lt;EditText"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="104"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="Autofill"
+        message="Missing `autofillHints` attribute"
+        errorLine1="        &lt;EditText"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="122"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="Autofill"
+        message="Missing `autofillHints` attribute"
+        errorLine1="            &lt;EditText"
+        errorLine2="             ~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="51"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="Autofill"
+        message="Missing `autofillHints` attribute"
+        errorLine1="            &lt;EditText"
+        errorLine2="             ~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="70"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="Autofill"
+        message="Missing `autofillHints` attribute"
+        errorLine1="    &lt;EditText"
+        errorLine2="     ~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="51"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_eventos.xml"
+            line="53"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_post.xml"
+            line="18"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="        txtTituloAdmin.setText(&quot;Editar Evento&quot;);"
+        errorLine2="                               ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/AdminEventActivity.java"
+            line="276"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="            holder.txtLocal.setText(&quot;💻 Online&quot;);"
+        errorLine2="                                    ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/CalendarEventAdapter.java"
+            line="46"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            holder.txtLocal.setText(&quot;📍 &quot; + event.location);"
+        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/CalendarEventAdapter.java"
+            line="48"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                txtLocalEvento.setText(&quot;💻 Online&quot;);"
+        errorLine2="                                       ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventAdapter.java"
+            line="92"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                txtLocalEvento.setText(&quot;📍 &quot; + event.location);"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventAdapter.java"
+            line="94"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                btnInscrever.setText(&quot;Gerenciar&quot;);"
+        errorLine2="                                     ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventAdapter.java"
+            line="118"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                btnInscrever.setText(&quot;Cancelar inscrição&quot;);"
+        errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventAdapter.java"
+            line="126"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                btnInscrever.setText(&quot;Inscrever-se&quot;);"
+        errorLine2="                                     ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventAdapter.java"
+            line="134"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                btnInscrever.setText(&quot;Lotado&quot;);"
+        errorLine2="                                     ~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventAdapter.java"
+            line="142"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                btnInscrever.setText(&quot;Encerrado&quot;);"
+        errorLine2="                                     ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventAdapter.java"
+            line="145"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="        txtTipoDetalhe.setText(event.getTipoIcon() + &quot; &quot; + (event.eventType != null ? event.eventType : &quot;&quot;));"
+        errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="144"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                txtVagasDetalhe.setText(vagasDisponiveis + &quot; vagas disponíveis de &quot; + event.maxParticipants);"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="177"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                txtVagasDetalhe.setText(vagasDisponiveis + &quot; vagas disponíveis de &quot; + event.maxParticipants);"
+        errorLine2="                                                           ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="177"
+            column="60"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                txtVagasDetalhe.setText(&quot;Evento lotado (&quot; + event.maxParticipants + &quot; inscritos)&quot;);"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="179"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                txtVagasDetalhe.setText(&quot;Evento lotado (&quot; + event.maxParticipants + &quot; inscritos)&quot;);"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="179"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                txtVagasDetalhe.setText(&quot;Evento lotado (&quot; + event.maxParticipants + &quot; inscritos)&quot;);"
+        errorLine2="                                                                                    ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="179"
+            column="85"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            txtVagasDetalhe.setText(event.registeredCount + &quot; inscritos (sem limite)&quot;);"
+        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="182"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="            txtVagasDetalhe.setText(event.registeredCount + &quot; inscritos (sem limite)&quot;);"
+        errorLine2="                                                            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="182"
+            column="61"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                btnInscreverDetalhe.setText(&quot;Evento Lotado&quot;);"
+        errorLine2="                                            ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="199"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                btnInscreverDetalhe.setText(&quot;Evento Encerrado&quot;);"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="202"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                btnInscreverDetalhe.setText(&quot;Inscrever-se&quot;);"
+        errorLine2="                                            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="205"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="        btnInscreverDetalhe.setText(&quot;Cancelar inscrição&quot;);"
+        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="212"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                    btnInscreverDetalhe.setText(&quot;Inscrever-se&quot;);"
+        errorLine2="                                                ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="239"
+            column="49"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="        txtListaInscritos.setText(&quot;Carregando...&quot;);"
+        errorLine2="                                  ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/EventDetailActivity.java"
+            line="254"
+            column="35"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            txtNomeEvento.setText(&quot;📅 &quot; + eventTitle);"
+        errorLine2="                                  ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/InscricaoFormActivity.java"
+            line="69"
+            column="35"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="        txtDataInscricaoSucesso.setText(&quot;Inscrito em: &quot; + dataInscricao);"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/InscricaoSucessoActivity.java"
+            line="70"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="        txtDataInscricaoSucesso.setText(&quot;Inscrito em: &quot; + dataInscricao);"
+        errorLine2="                                        ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/InscricaoSucessoActivity.java"
+            line="70"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="        txtMesAno.setText(MESES[currentMonth] + &quot; &quot; + currentYear);"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/MainActivity.java"
+            line="193"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            txtDataSelecionada.setText(&quot;Nenhum evento em &quot; + dataSelecionadaDisplay);"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/MainActivity.java"
+            line="233"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="            txtDataSelecionada.setText(&quot;Nenhum evento em &quot; + dataSelecionadaDisplay);"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/MainActivity.java"
+            line="233"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="            txtDataSelecionada.setText(&quot;Eventos em &quot; + dataSelecionadaDisplay + &quot;:&quot;);"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/MainActivity.java"
+            line="235"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="            txtDataSelecionada.setText(&quot;Eventos em &quot; + dataSelecionadaDisplay + &quot;:&quot;);"
+        errorLine2="                                       ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/MainActivity.java"
+            line="235"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                txtTotalVoluntarios.setText(stats.totalVolunteers + &quot; voluntários cadastrados&quot;);"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/PerfilActivity.java"
+            line="170"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                txtTotalVoluntarios.setText(stats.totalVolunteers + &quot; voluntários cadastrados&quot;);"
+        errorLine2="                                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/PerfilActivity.java"
+            line="170"
+            column="69"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                txtEventosParticipados.setText(stats.eventsParticipated + &quot; eventos realizados&quot;);"
+        errorLine2="                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/PerfilActivity.java"
+            line="179"
+            column="48"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                txtEventosParticipados.setText(stats.eventsParticipated + &quot; eventos realizados&quot;);"
+        errorLine2="                                                                          ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/PerfilActivity.java"
+            line="179"
+            column="75"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                txtProgressoPerfil.setText(&quot;Perfil &quot; + stats.profileProgress + &quot;% completo&quot;);"
+        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/PerfilActivity.java"
+            line="180"
+            column="44"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                txtProgressoPerfil.setText(&quot;Perfil &quot; + stats.profileProgress + &quot;% completo&quot;);"
+        errorLine2="                                           ~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/PerfilActivity.java"
+            line="180"
+            column="44"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                txtProgressoPerfil.setText(&quot;Perfil &quot; + stats.profileProgress + &quot;% completo&quot;);"
+        errorLine2="                                                                               ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/PerfilActivity.java"
+            line="180"
+            column="80"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                    txtProximoEvento.setText(&quot;Próximo: &quot; + stats.nextEventTitle + &quot; - &quot; + dataFormatada);"
+        errorLine2="                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/PerfilActivity.java"
+            line="184"
+            column="46"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                    txtProximoEvento.setText(&quot;Próximo: &quot; + stats.nextEventTitle + &quot; - &quot; + dataFormatada);"
+        errorLine2="                                             ~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/PerfilActivity.java"
+            line="184"
+            column="46"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                    txtProximoEvento.setText(&quot;Nenhum evento próximo&quot;);"
+        errorLine2="                                             ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/PerfilActivity.java"
+            line="186"
+            column="46"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="            txtContador.setText(&quot;0 voluntários&quot;);"
+        errorLine2="                                ~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/VoluntariosActivity.java"
+            line="323"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                txtAreas.setText(&quot;Áreas: &quot; + String.join(&quot;, &quot;, volunteer.areas));"
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/VolunteerAdapter.java"
+            line="72"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                txtAreas.setText(&quot;Áreas: &quot; + String.join(&quot;, &quot;, volunteer.areas));"
+        errorLine2="                                 ~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/VolunteerAdapter.java"
+            line="72"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                txtAreas.setText(&quot;Áreas: não informado&quot;);"
+        errorLine2="                                 ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/VolunteerAdapter.java"
+            line="76"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        errorLine1="                txtDias.setText(&quot;Dias: &quot; + String.join(&quot;, &quot;, volunteer.availabilityDays));"
+        errorLine2="                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/VolunteerAdapter.java"
+            line="81"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                txtDias.setText(&quot;Dias: &quot; + String.join(&quot;, &quot;, volunteer.availabilityDays));"
+        errorLine2="                                ~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/VolunteerAdapter.java"
+            line="81"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        errorLine1="                txtDias.setText(&quot;Dias: não informado&quot;);"
+        errorLine2="                                ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/example/extensao/VolunteerAdapter.java"
+            line="83"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Criar Evento&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Criar Evento&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="17"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Título *&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Título *&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="26"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Ex: Distribuição de Alimentos&quot;, should use `@string` resource"
+        errorLine1="            android:hint=&quot;Ex: Distribuição de Alimentos&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="35"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Descrição&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Descrição&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="44"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Descreva o evento...&quot;, should use `@string` resource"
+        errorLine1="            android:hint=&quot;Descreva o evento...&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="53"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Tipo de Evento *&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Tipo de Evento *&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="64"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Data *&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Data *&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="80"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Selecionar data&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Selecionar data&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="89"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Local *&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Local *&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="99"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Ex: Centro Comunitário - São Paulo&quot;, should use `@string` resource"
+        errorLine1="            android:hint=&quot;Ex: Centro Comunitário - São Paulo&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="108"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Limite de participantes (0 = sem limite)&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Limite de participantes (0 = sem limite)&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="117"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;0&quot;, should use `@string` resource"
+        errorLine1="            android:hint=&quot;0&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="126"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Status&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Status&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="136"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Salvar Evento&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Salvar Evento&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="153"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Excluir Evento&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Excluir Evento&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="164"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Ver Inscritos&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Ver Inscritos&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_admin_event.xml"
+            line="176"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Configurações&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Configurações&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_configuracoes.xml"
+            line="21"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Perfil&quot;, should use `@string` resource"
+        errorLine1="                        android:text=&quot;Perfil&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_configuracoes.xml"
+            line="46"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Editar Perfil&quot;, should use `@string` resource"
+        errorLine1="                            android:text=&quot;Editar Perfil&quot;"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_configuracoes.xml"
+            line="60"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Ir&quot;, should use `@string` resource"
+        errorLine1="                            android:text=&quot;Ir&quot; />"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_configuracoes.xml"
+            line="67"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Preferências&quot;, should use `@string` resource"
+        errorLine1="                        android:text=&quot;Preferências&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_configuracoes.xml"
+            line="74"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Notificações&quot;, should use `@string` resource"
+        errorLine1="                        android:text=&quot;Notificações&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_configuracoes.xml"
+            line="83"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Contato&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Contato&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_contato.xml"
+            line="18"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Email: contato@amoremovimento.org&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Email: contato@amoremovimento.org&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_contato.xml"
+            line="26"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Telefone: (11) 99999-9999&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Telefone: (11) 99999-9999&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_contato.xml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Endereço: São Paulo - SP&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Endereço: São Paulo - SP&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_contato.xml"
+            line="40"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Título do Evento&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Título do Evento&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="32"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;ABERTO&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;ABERTO&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="41"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;🏷️ &quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;🏷️ &quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="62"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;📅 &quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;📅 &quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="84"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;15/11/2025&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;15/11/2025&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="91"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;📍 &quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;📍 &quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="106"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Local do Evento&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Local do Evento&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="113"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;👥 &quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;👥 &quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="127"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;20 vagas disponíveis&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;20 vagas disponíveis&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="134"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Sobre o Evento&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Sobre o Evento&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="156"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Descrição do evento...&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Descrição do evento...&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="166"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Inscritos&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Inscritos&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="189"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Carregando...&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Carregando...&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="199"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Gerenciar Participação&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Gerenciar Participação&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="209"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Inscrever-se&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Inscrever-se&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="229"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Editar Evento&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Editar Evento&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="242"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Excluir Evento&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Excluir Evento&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_event_detail.xml"
+            line="254"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Próximos Eventos&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Próximos Eventos&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_eventos.xml"
+            line="24"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Inscreva-se e faça a diferença!&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Inscreva-se e faça a diferença!&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_eventos.xml"
+            line="33"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;↩&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;&amp;#8617;&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_gerenciar_participacao.xml"
+            line="23"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Gerenciar Participação&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Gerenciar Participação&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_gerenciar_participacao.xml"
+            line="39"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Nome do Evento&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Nome do Evento&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_gerenciar_participacao.xml"
+            line="48"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Nenhum inscrito neste evento.&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Nenhum inscrito neste evento.&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_gerenciar_participacao.xml"
+            line="61"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;↩&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;&amp;#8617;&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="23"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Meu Histórico&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Meu Histórico&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="34"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;0&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;0&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="63"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Inscritos&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Inscritos&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="71"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;0&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;0&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="88"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Participou&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Participou&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="96"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;0&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;0&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="113"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Cancelados&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Cancelados&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="121"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;0&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;0&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="138"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Faltou&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Faltou&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="146"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Você ainda não se inscreveu em nenhum evento.&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Você ainda não se inscreveu em nenhum evento.&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="159"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Formulário de Inscrição&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Formulário de Inscrição&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="17"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Nome completo *&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Nome completo *&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="46"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Seu nome completo&quot;, should use `@string` resource"
+        errorLine1="                android:hint=&quot;Seu nome completo&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="55"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Telefone *&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Telefone *&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="65"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;(11) 99999-9999&quot;, should use `@string` resource"
+        errorLine1="                android:hint=&quot;(11) 99999-9999&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="74"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;É o seu primeiro evento?&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;É o seu primeiro evento?&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="84"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Sim&quot;, should use `@string` resource"
+        errorLine1="                        android:text=&quot;Sim&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="104"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Não&quot;, should use `@string` resource"
+        errorLine1="                        android:text=&quot;Não&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="112"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Confirmar Inscrição&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Confirmar Inscrição&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="127"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Cancelar&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Cancelar&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_form.xml"
+            line="139"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;✓&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;✓&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="18"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Inscrição realizada\ncom sucesso!&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Inscrição realizada\ncom sucesso!&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="29"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Você está inscrito no evento:&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Você está inscrito no evento:&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="39"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Nome do Evento&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Nome do Evento&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="58"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;📅 &quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;📅 &quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="73"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;15/11/2025&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;15/11/2025&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="80"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;📍 &quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;📍 &quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="95"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Local do Evento&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Local do Evento&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="103"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;🕐 &quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;🕐 &quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="124"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Inscrito em: 20/04/2026 às 14:30&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Inscrito em: 20/04/2026 às 14:30&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="131"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;ℹ️ Informação Importante&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;ℹ️ Informação Importante&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="151"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Sua inscrição foi registrada e será utilizada pela organização para controle de participantes. Compareça no dia e horário do evento!&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Sua inscrição foi registrada e será utilizada pela organização para controle de participantes. Compareça no dia e horário do evento!&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="160"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Ver Detalhes do Evento&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Ver Detalhes do Evento&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="172"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Voltar para Lista de Eventos&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Voltar para Lista de Eventos&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_inscricao_sucesso.xml"
+            line="183"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Minha Agenda&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Minha Agenda&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_login.xml"
+            line="10"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Email&quot;, should use `@string` resource"
+        errorLine1="        android:hint=&quot;Email&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_login.xml"
+            line="19"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Senha&quot;, should use `@string` resource"
+        errorLine1="        android:hint=&quot;Senha&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_login.xml"
+            line="28"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Entrar&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Entrar&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_login.xml"
+            line="37"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;ou&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;ou&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_login.xml"
+            line="51"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Entrar com Google&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Entrar com Google&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_login.xml"
+            line="60"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;‹&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;‹&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="40"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;›&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;›&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="60"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Dom&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Dom&quot; android:textSize=&quot;12sp&quot; android:textColor=&quot;#888888&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="77"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Seg&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Seg&quot; android:textSize=&quot;12sp&quot; android:textColor=&quot;#888888&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="80"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Ter&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Ter&quot; android:textSize=&quot;12sp&quot; android:textColor=&quot;#888888&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="83"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Qua&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Qua&quot; android:textSize=&quot;12sp&quot; android:textColor=&quot;#888888&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="86"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Qui&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Qui&quot; android:textSize=&quot;12sp&quot; android:textColor=&quot;#888888&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="89"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Sex&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Sex&quot; android:textSize=&quot;12sp&quot; android:textColor=&quot;#888888&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="92"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Sáb&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Sáb&quot; android:textSize=&quot;12sp&quot; android:textColor=&quot;#888888&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="95"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Meus Eventos&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Meus Eventos&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_meus_eventos.xml"
+            line="22"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Perfil&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Perfil&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="25"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Nome&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Nome&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="42"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Nome do usuário&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Nome do usuário&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="51"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;E-mail&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;E-mail&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="59"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;usuario@email.com&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;usuario@email.com&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="68"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Tipo de usuário&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Tipo de usuário&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="76"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Voluntário&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Voluntário&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="85"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Seu Engajamento&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Seu Engajamento&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="105"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;0 eventos realizados&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;0 eventos realizados&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="115"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Perfil 0% completo&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Perfil 0% completo&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="124"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Nenhum evento próximo&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Nenhum evento próximo&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="133"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Meu Histórico de Participação&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Meu Histórico de Participação&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="142"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Perfil de Voluntário&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Perfil de Voluntário&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="164"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Áreas de atuação:&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Áreas de atuação:&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="173"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Beleza&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Beleza&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="183"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Logística&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Logística&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="190"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Divulgação&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Divulgação&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="197"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Captação&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Captação&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="204"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Disponibilidade - Dias:&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Disponibilidade - Dias:&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="211"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Seg&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Seg&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="228"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Ter&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Ter&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="236"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Qua&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Qua&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="244"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Qui&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Qui&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="252"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Sex&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Sex&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="268"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Sáb&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Sáb&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="276"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Dom&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Dom&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="284"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Salvar perfil de voluntário&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Salvar perfil de voluntário&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="298"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Painel Administrativo&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Painel Administrativo&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="320"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;0 voluntários cadastrados&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;0 voluntários cadastrados&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="330"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Ver voluntários&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Ver voluntários&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="339"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Sair&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Sair&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_perfil.xml"
+            line="352"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;↩&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;&amp;#8617;&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="24"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Voluntários&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Voluntários&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="35"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;0 voluntários&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;0 voluntários&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="44"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Buscar por nome...&quot;, should use `@string` resource"
+        errorLine1="        android:hint=&quot;Buscar por nome...&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="55"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Filtros&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Filtros&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="91"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Limpar&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Limpar&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="100"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;▼&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;▼&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="112"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Área&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Área&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="132"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Dia&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Dia&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="155"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Filtrando: &quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Filtrando: &quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="193"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Nenhum voluntário encontrado.&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Nenhum voluntário encontrado.&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="213"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;↩&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;&amp;#8617;&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_volunteer_detail.xml"
+            line="30"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Voluntário&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Voluntário&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_volunteer_detail.xml"
+            line="42"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;E-mail&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;E-mail&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_volunteer_detail.xml"
+            line="61"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;email@exemplo.com&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;email@exemplo.com&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_volunteer_detail.xml"
+            line="70"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Eventos participados&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Eventos participados&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_volunteer_detail.xml"
+            line="78"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;0 eventos&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;0 eventos&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_volunteer_detail.xml"
+            line="87"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Áreas de atuação&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Áreas de atuação&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_volunteer_detail.xml"
+            line="106"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Não informado&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Não informado&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_volunteer_detail.xml"
+            line="116"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Dias disponíveis&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Dias disponíveis&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_volunteer_detail.xml"
+            line="133"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Não informado&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Não informado&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_volunteer_detail.xml"
+            line="143"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Inscritos&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Inscritos&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/dialog_inscritos.xml"
+            line="12"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Distribuição de Alimentos&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Distribuição de Alimentos&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_evento.xml"
+            line="19"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;20&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;20&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_evento.xml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;15/11/2025&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;15/11/2025&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_evento.xml"
+            line="53"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Centro Comunitário - São Paulo&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Centro Comunitário - São Paulo&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_evento.xml"
+            line="62"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Ajude na distribuição de cestas básicas para famílias carentes.&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Ajude na distribuição de cestas básicas para famílias carentes.&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_evento.xml"
+            line="71"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Inscrever-se&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Inscrever-se&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_evento.xml"
+            line="81"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Nome do Evento&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Nome do Evento&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_historico.xml"
+            line="22"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Inscrito&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Inscrito&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_historico.xml"
+            line="31"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;01/01/2026&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;01/01/2026&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_historico.xml"
+            line="46"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Local do evento&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Local do evento&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_historico.xml"
+            line="55"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Título do Evento&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Título do Evento&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_historico_evento.xml"
+            line="22"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;ABERTO&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;ABERTO&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_historico_evento.xml"
+            line="31"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;01/01/2025&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;01/01/2025&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_historico_evento.xml"
+            line="46"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Local&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Local&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_historico_evento.xml"
+            line="55"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Nome do Voluntário&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Nome do Voluntário&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_inscrito_participacao.xml"
+            line="27"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;email@exemplo.com&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;email@exemplo.com&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_inscrito_participacao.xml"
+            line="36"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Inscrito&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Inscrito&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_inscrito_participacao.xml"
+            line="46"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Participou&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Participou&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_inscrito_participacao.xml"
+            line="69"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Não foi&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Não foi&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_inscrito_participacao.xml"
+            line="81"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Cancelou&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Cancelou&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_inscrito_participacao.xml"
+            line="92"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Distribuição de Alimentos&quot;, should use `@string` resource"
+        errorLine1="                android:text=&quot;Distribuição de Alimentos&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_meus_eventos.xml"
+            line="27"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;15/11/2025&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;15/11/2025&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_meus_eventos.xml"
+            line="39"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Centro Comunitário - São Paulo&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Centro Comunitário - São Paulo&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_meus_eventos.xml"
+            line="48"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Ajude na distribuição de cestas básicas para famílias carentes.&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Ajude na distribuição de cestas básicas para famílias carentes.&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_meus_eventos.xml"
+            line="57"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Título do Post&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Título do Post&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_post.xml"
+            line="33"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Descrição do post com informações importantes sobre a campanha ou projeto da ONG...&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Descrição do post com informações importantes sobre a campanha ou projeto da ONG...&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_post.xml"
+            line="44"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;📅&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;📅&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_post.xml"
+            line="69"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;15/11/2025&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;15/11/2025&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_post.xml"
+            line="77"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;📍&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;📍&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_post.xml"
+            line="95"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Local do evento&quot;, should use `@string` resource"
+        errorLine1="                    android:text=&quot;Local do evento&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_post.xml"
+            line="103"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Nome do Voluntário&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Nome do Voluntário&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_voluntario.xml"
+            line="23"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Beleza&quot;, should use `@string` resource"
+        errorLine1="            android:text=&quot;Beleza&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_voluntario.xml"
+            line="32"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;email@exemplo.com&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;email@exemplo.com&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_voluntario.xml"
+            line="48"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Áreas: —&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Áreas: —&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_voluntario.xml"
+            line="57"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;Dias: —&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;Dias: —&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_voluntario.xml"
+            line="66"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        message="Hardcoded string &quot;0 eventos participados&quot;, should use `@string` resource"
+        errorLine1="        android:text=&quot;0 eventos participados&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_voluntario.xml"
+            line="75"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry"
+        errorLine1="            android:paddingEnd=&quot;12dp&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_gerenciar_participacao.xml"
+            line="26"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry"
+        errorLine1="            android:paddingEnd=&quot;12dp&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_historico.xml"
+            line="26"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry"
+        errorLine1="            android:paddingEnd=&quot;12dp&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="27"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry"
+        errorLine1="                android:paddingEnd=&quot;8dp&quot;"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_voluntarios.xml"
+            line="105"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry"
+        errorLine1="                    android:paddingEnd=&quot;12dp&quot;"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_volunteer_detail.xml"
+            line="33"
+            column="21"/>
+    </issue>
+
+</issues>

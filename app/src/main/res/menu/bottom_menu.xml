@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/nav_feed"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/menu_feed" />
+
+    <item
         android:id="@+id/nav_calendario"
         android:icon="@android:drawable/ic_menu_month"
         android:title="@string/menu_calendario" />

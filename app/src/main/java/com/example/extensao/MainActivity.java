@@ -139,6 +139,11 @@ public class MainActivity extends AppCompatActivity
         bottomNavigationView.setSelectedItemId(R.id.nav_calendario);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
+            if (id == R.id.nav_feed) {
+                startActivity(new Intent(this, FeedActivity.class));
+                finish();
+                return true;
+            }
             if (id == R.id.nav_calendario) return true;
             if (id == R.id.nav_eventos) {
                 startActivity(new Intent(this, EventosActivity.class));

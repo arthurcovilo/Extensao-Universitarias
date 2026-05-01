@@ -49,7 +49,11 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
 
-            if (id == R.id.nav_calendario) {
+            if (id == R.id.nav_feed) {
+                startActivity(new Intent(EventosActivity.this, FeedActivity.class));
+                finish();
+                return true;
+            } else if (id == R.id.nav_calendario) {
                 startActivity(new Intent(EventosActivity.this, MainActivity.class));
                 finish();
                 return true;

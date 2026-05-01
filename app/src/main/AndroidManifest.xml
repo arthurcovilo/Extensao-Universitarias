@@ -27,6 +27,7 @@
         <activity android:name=".VolunteerDetailActivity" />
         <activity android:name=".GerenciarParticipacaoActivity" />
         <activity android:name=".HistoricoActivity" />
+        <activity android:name=".FeedActivity" />
 
         <activity android:name=".LoginActivity"
             android:exported="true">
