@@ -504,6 +504,69 @@ app.get('/user/stats', authenticateToken, async (req, res) => {
   }
 });
 
+// ── GET /user/history ────────────────────────────────────────────────────
+app.get('/user/history', authenticateToken, async (req, res) => {
+  const userId = req.user.sub;
+
+  try {
+    const result = await pool.query(`
+      SELECT
+        e.id          AS event_id,
+        e.title,
+        e.event_date,
+        e.location,
+        e.status      AS event_status,
+        er.registered_at,
+        COALESCE(er.participation_status, 'INSCRITO') AS participation_status
+      FROM event_registrations er
+      JOIN events e ON er.event_id = e.id
+      WHERE er.user_id = $1
+      ORDER BY e.event_date DESC
+    `, [userId]);
+
+    const rows = result.rows;
+    const total_inscritos    = rows.length;
+    const total_participou   = rows.filter(r => r.participation_status === 'PARTICIPOU').length;
+    const total_cancelado    = rows.filter(r => r.participation_status === 'CANCELADO').length;
+    const total_nao_compareceu = rows.filter(r => r.participation_status === 'NAO_COMPARECEU').length;
+
+    return res.json({
+      resumo: { total_inscritos, total_participou, total_cancelado, total_nao_compareceu },
+      historico: rows
+    });
+  } catch (err) {
+    console.error('Erro ao buscar histórico do usuário:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
+// ── PATCH /events/:id/registrations/:userId/status ───────────────────────
+app.patch('/events/:id/registrations/:userId/status', authenticateToken, requireAdmin, async (req, res) => {
+  const { id, userId } = req.params;
+  const { participation_status } = req.body;
+
+  const valid = ['INSCRITO', 'PARTICIPOU', 'CANCELADO', 'NAO_COMPARECEU'];
+  if (!valid.includes(participation_status)) {
+    return res.status(400).json({ message: 'Status inválido' });
+  }
+
+  try {
+    const result = await pool.query(
+      'UPDATE event_registrations SET participation_status = $1 WHERE event_id = $2 AND user_id = $3 RETURNING id',
+      [participation_status, id, userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Inscrição não encontrada' });
+    }
+
+    return res.json({ message: 'Status atualizado com sucesso' });
+  } catch (err) {
+    console.error('Erro ao atualizar status:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
 // ── GET /volunteers/:email/history ──────────────────────────────────────
 app.get('/volunteers/:email/history', authenticateToken, requireAdmin, async (req, res) => {
   const { email } = req.params;

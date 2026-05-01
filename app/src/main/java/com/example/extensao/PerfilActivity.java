@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 public class PerfilActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
-    Button btnSair, btnSalvarPerfil, btnVerVoluntarios;
+    Button btnSair, btnSalvarPerfil, btnVerVoluntarios, btnVerHistorico;
     TextView txtNomeUsuario, txtEmailUsuario, txtTipoUsuario;
     TextView txtEventosParticipados, txtProgressoPerfil, txtProximoEvento, txtTotalVoluntarios;
     
@@ -61,6 +61,7 @@ public class PerfilActivity extends AppCompatActivity {
         btnSair = findViewById(R.id.btnSair);
         btnSalvarPerfil = findViewById(R.id.btnSalvarPerfil);
         btnVerVoluntarios = findViewById(R.id.btnVerVoluntarios);
+        btnVerHistorico = findViewById(R.id.btnVerHistorico);
         
         txtNomeUsuario = findViewById(R.id.txtNotificacoes);
         txtEmailUsuario = findViewById(R.id.txtEmailUsuario);
@@ -98,6 +99,9 @@ public class PerfilActivity extends AppCompatActivity {
         btnSalvarPerfil.setOnClickListener(v -> salvarPerfilVoluntario());
         btnVerVoluntarios.setOnClickListener(v -> {
             startActivity(new Intent(PerfilActivity.this, VoluntariosActivity.class));
+        });
+        btnVerHistorico.setOnClickListener(v -> {
+            startActivity(new Intent(PerfilActivity.this, HistoricoActivity.class));
         });
     }
 

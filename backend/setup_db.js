@@ -70,6 +70,7 @@ async function setup() {
     await client.query(`ALTER TABLE event_registrations ADD COLUMN IF NOT EXISTS nome VARCHAR(255);`);
     await client.query(`ALTER TABLE event_registrations ADD COLUMN IF NOT EXISTS telefone VARCHAR(20);`);
     await client.query(`ALTER TABLE event_registrations ADD COLUMN IF NOT EXISTS primeiro_evento BOOLEAN DEFAULT FALSE;`);
+    await client.query(`ALTER TABLE event_registrations ADD COLUMN IF NOT EXISTS participation_status VARCHAR(20) DEFAULT 'INSCRITO' CHECK (participation_status IN ('INSCRITO', 'PARTICIPOU', 'CANCELADO', 'NAO_COMPARECEU'));`);
     console.log('✅ Tabela event_registrations criada');
 
     // ── Tabela volunteer_profiles ───────────────────────────────────────────

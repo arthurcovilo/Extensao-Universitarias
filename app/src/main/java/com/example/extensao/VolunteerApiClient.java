@@ -255,6 +255,64 @@ public class VolunteerApiClient {
         return history;
     }
 
+    public static class UserHistory {
+        public int totalInscritos;
+        public int totalParticipou;
+        public int totalCancelado;
+        public int totalNaoCompareceu;
+        public List<HistoricoItem> historico;
+
+        public UserHistory() {
+            this.historico = new java.util.ArrayList<>();
+        }
+    }
+
+    public UserHistory getUserHistory(String accessToken) {
+        UserHistory result = new UserHistory();
+        try {
+            URL url = new URL(BASE_URL + "/user/history");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) sb.append(line);
+                reader.close();
+
+                JSONObject json = new JSONObject(sb.toString());
+                JSONObject resumo = json.optJSONObject("resumo");
+                if (resumo != null) {
+                    result.totalInscritos      = resumo.optInt("total_inscritos", 0);
+                    result.totalParticipou     = resumo.optInt("total_participou", 0);
+                    result.totalCancelado      = resumo.optInt("total_cancelado", 0);
+                    result.totalNaoCompareceu  = resumo.optInt("total_nao_compareceu", 0);
+                }
+
+                JSONArray historico = json.optJSONArray("historico");
+                if (historico != null) {
+                    for (int i = 0; i < historico.length(); i++) {
+                        JSONObject obj = historico.getJSONObject(i);
+                        HistoricoItem item = new HistoricoItem();
+                        item.eventId             = obj.optInt("event_id");
+                        item.title               = obj.optString("title");
+                        item.eventDate           = obj.optString("event_date");
+                        item.location            = obj.optString("location");
+                        item.eventStatus         = obj.optString("event_status");
+                        item.registeredAt        = obj.optString("registered_at");
+                        item.participationStatus = obj.optString("participation_status", "INSCRITO");
+                        result.historico.add(item);
+                    }
+                }
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public AdminStats getAdminStats(String accessToken) {
         try {
             URL url = new URL(BASE_URL + "/admin/stats");
