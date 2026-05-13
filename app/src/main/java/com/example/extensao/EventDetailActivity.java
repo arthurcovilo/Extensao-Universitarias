@@ -77,6 +77,9 @@ public class EventDetailActivity extends AppCompatActivity {
         btnExcluirDetalhe = findViewById(R.id.btnExcluirDetalhe);
         btnGerenciarParticipacao = findViewById(R.id.btnGerenciarParticipacao);
         progressDetalhe = findViewById(R.id.progressDetalhe);
+
+        // Botão voltar
+        findViewById(R.id.btnVoltarDetalhe).setOnClickListener(v -> finish());
     }
 
     private void configurarBotoes() {
@@ -239,7 +242,7 @@ public class EventDetailActivity extends AppCompatActivity {
                     btnInscreverDetalhe.setText("Inscrever-se");
                     btnInscreverDetalhe.setEnabled(true);
                     btnInscreverDetalhe.setBackgroundTintList(
-                            android.content.res.ColorStateList.valueOf(0xFF6750A4));
+                            android.content.res.ColorStateList.valueOf(0xFFD32F2F));
                     btnInscreverDetalhe.setTextColor(0xFFFFFFFF);
                     btnInscreverDetalhe.setOnClickListener(v2 -> inscreverNoEvento());
                     // Recarrega para atualizar contador de vagas

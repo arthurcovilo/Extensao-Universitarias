@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F7F7">
+    android:background="@color/white">
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="24dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -17,7 +21,7 @@
             android:text="Formulário de Inscrição"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="#222222"
+            android:textColor="@color/text_primary"
             android:layout_marginBottom="4dp" />
 
         <!-- Nome do evento -->
@@ -25,71 +29,79 @@
             android:id="@+id/txtNomeEventoForm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="#6750A4"
+            android:textSize="14sp"
+            android:textColor="@color/primary_red"
             android:textStyle="bold"
             android:layout_marginBottom="24dp" />
 
         <!-- Card do formulário -->
-        <LinearLayout
-            android:orientation="vertical"
-            android:background="@drawable/bg_card_evento"
-            android:padding="20dp"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp">
-
-            <!-- Nome completo -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nome completo *"
-                android:textSize="14sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="4dp" />
-
-            <EditText
-                android:id="@+id/editNomeForm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Seu nome completo"
-                android:inputType="textPersonName|textCapWords"
-                android:background="@android:drawable/edit_text"
-                android:padding="10dp"
-                android:layout_marginBottom="16dp" />
-
-            <!-- Telefone -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Telefone *"
-                android:textSize="14sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="4dp" />
-
-            <EditText
-                android:id="@+id/editTelefoneForm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="(11) 99999-9999"
-                android:inputType="phone"
-                android:background="@android:drawable/edit_text"
-                android:padding="10dp"
-                android:layout_marginBottom="16dp" />
-
-            <!-- Primeiro evento -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="É o seu primeiro evento?"
-                android:textSize="14sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/white">
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="20dp">
+
+                <!-- Nome completo -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nome completo *"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="6dp" />
+
+                <EditText
+                    android:id="@+id/editNomeForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:hint="Seu nome completo"
+                    android:inputType="textPersonName|textCapWords"
+                    android:background="@drawable/bg_input_field"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Telefone -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Telefone *"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="6dp" />
+
+                <EditText
+                    android:id="@+id/editTelefoneForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:hint="(11) 99999-9999"
+                    android:inputType="phone"
+                    android:background="@drawable/bg_input_field"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Primeiro evento -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="É o seu primeiro evento?"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="10dp" />
 
                 <RadioGroup
                     android:id="@+id/radioGroupPrimeiroEvento"
@@ -103,6 +115,7 @@
                         android:layout_height="wrap_content"
                         android:text="Sim"
                         android:textSize="15sp"
+                        android:buttonTint="@color/primary_red"
                         android:layout_marginEnd="24dp" />
 
                     <RadioButton
@@ -111,35 +124,37 @@
                         android:layout_height="wrap_content"
                         android:text="Não"
                         android:textSize="15sp"
+                        android:buttonTint="@color/primary_red"
                         android:checked="true" />
 
                 </RadioGroup>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- Botão confirmar -->
         <Button
             android:id="@+id/btnConfirmarInscricao"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:text="Confirmar Inscrição"
             android:textAllCaps="false"
             android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#6750A4"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_botao_inscrever"
             android:layout_marginBottom="12dp" />
 
         <!-- Botão cancelar -->
         <Button
             android:id="@+id/btnCancelarForm"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:text="Cancelar"
             android:textAllCaps="false"
-            android:textColor="#666666"
-            android:backgroundTint="#EEEEEE" />
+            android:textColor="@color/text_secondary"
+            android:background="@drawable/bg_botao_secundario"
+            android:textSize="15sp" />
 
         <ProgressBar
             android:id="@+id/progressForm"

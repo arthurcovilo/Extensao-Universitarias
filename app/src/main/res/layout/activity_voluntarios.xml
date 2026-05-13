@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#F7F7F7"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,8 +14,8 @@
         android:gravity="center_vertical"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp">
+        android:paddingTop="24dp"
+        android:paddingBottom="12dp">
 
         <TextView
             android:id="@+id/btnVoltar"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="&#8617;"
             android:textSize="24sp"
-            android:textColor="#222222"
+            android:textColor="@color/text_primary"
             android:paddingEnd="12dp"
             android:clickable="true"
             android:focusable="true" />
@@ -33,141 +33,155 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Voluntários"
-            android:textSize="28sp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="#222222" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/txtContadorVoluntarios"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0 voluntários"
-            android:textSize="14sp"
-            android:textColor="#666666" />
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary" />
 
     </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:layout_marginBottom="12dp" />
 
     <!-- Campo de busca por nome -->
     <EditText
         android:id="@+id/editBuscaVoluntario"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="52dp"
         android:hint="Buscar por nome..."
         android:drawableStart="@android:drawable/ic_menu_search"
         android:drawablePadding="8dp"
-        android:background="@drawable/bg_card_evento"
-        android:padding="12dp"
-        android:textSize="16sp"
+        android:background="@drawable/bg_input_field"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textSize="15sp"
         android:inputType="text"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="12dp" />
 
     <!-- Seção de filtros (colapsável) -->
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_card_evento"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="1dp"
+        app:cardBackgroundColor="@color/white">
 
-        <!-- Cabeçalho clicável para expandir/recolher -->
         <LinearLayout
-            android:id="@+id/headerFiltros"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="12dp"
-            android:clickable="true"
-            android:focusable="true">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Filtros"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="#444444" />
-
-            <TextView
-                android:id="@+id/btnLimparFiltros"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Limpar"
-                android:textSize="12sp"
-                android:textColor="#6750A4"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingEnd="8dp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/txtSetaFiltros"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="▼"
-                android:textSize="12sp"
-                android:textColor="#666666" />
-
-        </LinearLayout>
-
-        <!-- Conteúdo dos filtros (oculto por padrão) -->
-        <LinearLayout
-            android:id="@+id/conteudoFiltros"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="12dp"
-            android:visibility="gone">
+            android:layout_height="wrap_content">
 
-            <TextView
+            <!-- Cabeçalho clicável para expandir/recolher -->
+            <LinearLayout
+                android:id="@+id/headerFiltros"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Área"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#666666"
-                android:layout_marginBottom="4dp" />
+                android:gravity="center_vertical"
+                android:padding="14dp"
+                android:clickable="true"
+                android:focusable="true">
 
-            <!-- Chips de área -->
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroupAreas"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Filtros"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_description" />
+
+                <TextView
+                    android:id="@+id/btnLimparFiltros"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Limpar"
+                    android:textSize="12sp"
+                    android:textColor="@color/primary_red"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingEnd="8dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/txtSetaFiltros"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="▼"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary" />
+
+            </LinearLayout>
+
+            <!-- Conteúdo dos filtros (oculto por padrão) -->
+            <LinearLayout
+                android:id="@+id/conteudoFiltros"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:singleSelection="false"
-                android:layout_marginBottom="8dp" />
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:paddingBottom="14dp"
+                android:visibility="gone">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#E0E0E0"
-                android:layout_marginBottom="8dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Área"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="4dp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Dia"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="#666666"
-                android:layout_marginBottom="4dp" />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupAreas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="false"
+                    android:layout_marginBottom="8dp" />
 
-            <!-- Chips de dia -->
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroupDias"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:singleSelection="false" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dia"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="4dp" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupDias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="false" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <!-- Barra de filtros ativos -->
     <HorizontalScrollView
@@ -192,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:text="Filtrando: "
                 android:textSize="12sp"
-                android:textColor="#666666"
+                android:textColor="@color/text_secondary"
                 android:layout_marginEnd="4dp" />
 
             <com.google.android.material.chip.ChipGroup
@@ -211,8 +225,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nenhum voluntário encontrado."
-        android:textSize="16sp"
-        android:textColor="#999999"
+        android:textSize="15sp"
+        android:textColor="@color/text_secondary"
         android:gravity="center"
         android:layout_marginTop="40dp"
         android:visibility="gone" />
@@ -225,6 +239,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingTop="4dp"
+        android:paddingBottom="16dp"
         android:clipToPadding="false" />
 
 </LinearLayout>

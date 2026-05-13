@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F7F7">
+    android:background="@color/white">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="40dp"
         android:gravity="center_horizontal">
 
         <!-- Ícone de Sucesso -->
@@ -16,20 +19,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="✓"
-            android:textSize="80sp"
+            android:textSize="72sp"
             android:textColor="#4CAF50"
             android:textStyle="bold"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="12dp" />
 
         <!-- Mensagem Principal -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Inscrição realizada\ncom sucesso!"
-            android:textSize="26sp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="#222222"
+            android:textColor="@color/text_primary"
             android:gravity="center"
             android:layout_marginBottom="8dp" />
 
@@ -37,154 +40,172 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Você está inscrito no evento:"
-            android:textSize="16sp"
-            android:textColor="#666666"
+            android:textSize="15sp"
+            android:textColor="@color/text_secondary"
             android:gravity="center"
             android:layout_marginBottom="24dp" />
 
         <!-- Card com Informações do Evento -->
-        <LinearLayout
-            android:orientation="vertical"
-            android:background="@drawable/bg_card_evento"
-            android:padding="20dp"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp">
-
-            <TextView
-                android:id="@+id/txtTituloEventoSucesso"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nome do Evento"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#222222"
-                android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/white">
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+                android:padding="20dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txtTituloEventoSucesso"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="📅 "
-                    android:textSize="16sp" />
+                    android:text="Nome do Evento"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="14dp" />
 
-                <TextView
-                    android:id="@+id/txtDataEventoSucesso"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="15/11/2025"
-                    android:textSize="16sp"
-                    android:textColor="#444444" />
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📅 "
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtDataEventoSucesso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15/11/2025"
+                        android:textSize="15sp"
+                        android:textColor="@color/text_description" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📍 "
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/txtLocalEventoSucesso"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Local do Evento"
+                        android:textSize="15sp"
+                        android:textColor="@color/text_description" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="12dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🕐 "
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/txtDataInscricaoSucesso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Inscrito em: 20/04/2026 às 14:30"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="📍 "
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/txtLocalEventoSucesso"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Local do Evento"
-                    android:textSize="16sp"
-                    android:textColor="#444444" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#EEEEEE"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="12dp" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🕐 "
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/txtDataInscricaoSucesso"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Inscrito em: 20/04/2026 às 14:30"
-                    android:textSize="14sp"
-                    android:textColor="#888888" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- Mensagem Informativa -->
-        <LinearLayout
-            android:orientation="vertical"
-            android:background="#E8F5E9"
-            android:padding="16dp"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp">
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#E8F5E9">
 
-            <TextView
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ℹ️ Informação Importante"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#2E7D32"
-                android:layout_marginBottom="8dp" />
+                android:padding="16dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sua inscrição foi registrada e será utilizada pela organização para controle de participantes. Compareça no dia e horário do evento!"
-                android:textSize="14sp"
-                android:textColor="#2E7D32"
-                android:lineSpacingExtra="4dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ℹ️  Informação Importante"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#2E7D32"
+                    android:layout_marginBottom="8dp" />
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sua inscrição foi registrada e será utilizada pela organização para controle de participantes. Compareça no dia e horário do evento!"
+                    android:textSize="13sp"
+                    android:textColor="#2E7D32"
+                    android:lineSpacingExtra="4dp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <!-- Botões de Ação -->
         <Button
             android:id="@+id/btnVerDetalhesEvento"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:text="Ver Detalhes do Evento"
             android:textAllCaps="false"
             android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#6750A4"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_botao_inscrever"
             android:layout_marginBottom="12dp" />
 
         <Button
             android:id="@+id/btnVoltarEventos"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:text="Voltar para Lista de Eventos"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#6750A4"
-            android:layout_marginBottom="40dp" />
+            android:textColor="@color/primary_red"
+            android:background="@drawable/bg_botao_secundario" />
 
     </LinearLayout>
 </ScrollView>

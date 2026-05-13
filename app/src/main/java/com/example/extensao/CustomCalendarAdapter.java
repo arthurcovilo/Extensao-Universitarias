@@ -26,7 +26,7 @@ public class CustomCalendarAdapter extends RecyclerView.Adapter<CustomCalendarAd
     // Cores por tipo de evento
     private static final Map<String, Integer> TIPO_CORES = new java.util.HashMap<String, Integer>() {{
         put("Presencial",       Color.parseColor("#1976D2")); // azul
-        put("Online",           Color.parseColor("#6750A4")); // roxo
+        put("Online",           Color.parseColor("#D32F2F")); // vermelho
         put("Retirada de Itens",Color.parseColor("#E65100")); // laranja
         put("Doação",           Color.parseColor("#2E7D32")); // verde
     }};
@@ -114,7 +114,7 @@ public class CustomCalendarAdapter extends RecyclerView.Adapter<CustomCalendarAd
                     && today.get(Calendar.MONTH) == month
                     && today.get(Calendar.DAY_OF_MONTH) == day) {
                 holder.txtDia.setBackgroundResource(R.drawable.bg_dia_hoje);
-                holder.txtDia.setTextColor(Color.parseColor("#6750A4"));
+                holder.txtDia.setTextColor(Color.parseColor("#D32F2F"));
                 holder.txtDia.setTypeface(null, Typeface.BOLD);
             } else {
                 holder.txtDia.setBackground(null);

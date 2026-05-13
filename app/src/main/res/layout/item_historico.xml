@@ -1,59 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@drawable/bg_card_evento"
-    android:layout_marginBottom="12dp"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/white">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="6dp">
+        android:padding="16dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/txtTituloHistorico"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nome do Evento"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/txtStatusParticipacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inscrito"
+                android:textSize="11sp"
+                android:textColor="@color/primary_red"
+                android:background="@drawable/bg_badge_red"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp" />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/txtTituloHistorico"
-            android:layout_width="0dp"
+            android:id="@+id/txtDataHistorico"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Nome do Evento"
-            android:textColor="#222222"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:text="01/01/2026"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:layout_marginBottom="2dp" />
 
         <TextView
-            android:id="@+id/txtStatusParticipacao"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtLocalHistorico"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Inscrito"
-            android:textSize="12sp"
-            android:textColor="#FFFFFF"
-            android:background="#6750A4"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp" />
+            android:text="Local do evento"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtDataHistorico"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="01/01/2026"
-        android:textColor="#666666"
-        android:textSize="14sp"
-        android:layout_marginBottom="2dp" />
-
-    <TextView
-        android:id="@+id/txtLocalHistorico"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Local do evento"
-        android:textColor="#888888"
-        android:textSize="13sp" />
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

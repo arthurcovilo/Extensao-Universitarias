@@ -21,12 +21,12 @@ public class HistoricoItem {
 
     // Cor associada ao status: retorna string de cor hex
     public String getStatusColor() {
-        if (participationStatus == null) return "#6750A4";
+        if (participationStatus == null) return "#D32F2F";
         switch (participationStatus) {
             case "PARTICIPOU":       return "#2E7D32"; // verde
             case "CANCELADO":        return "#B71C1C"; // vermelho
             case "NAO_COMPARECEU":   return "#E65100"; // laranja
-            default:                 return "#6750A4"; // roxo (inscrito)
+            default:                 return "#D32F2F"; // vermelho (inscrito)
         }
     }
 }

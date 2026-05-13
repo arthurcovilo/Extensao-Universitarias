@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#F7F7F7"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,350 +12,399 @@
         android:layout_weight="1"
         android:fillViewport="true">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/txtTituloPerfil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Perfil"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#222222"
-            android:layout_marginBottom="20dp" />
-
         <LinearLayout
             android:orientation="vertical"
-            android:background="@drawable/bg_card_evento"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_marginBottom="16dp">
+            android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/txtTituloPerfil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nome"
+                android:text="Perfil"
+                android:textSize="26sp"
                 android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="#666666" />
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="20dp" />
 
-            <TextView
-                android:id="@+id/txtNotificacoes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nome do usuário"
-                android:textSize="20sp"
-                android:textColor="#222222"
-                android:layout_marginBottom="16dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="E-mail"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="#666666" />
-
-            <TextView
-                android:id="@+id/txtEmailUsuario"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="usuario@email.com"
-                android:textSize="18sp"
-                android:textColor="#222222"
-                android:layout_marginBottom="16dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tipo de usuário"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="#666666" />
-
-            <TextView
-                android:id="@+id/txtTipoUsuario"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Voluntário"
-                android:textSize="18sp"
-                android:textColor="#222222" />
-
-        </LinearLayout>
-
-        <!-- Seção de Engajamento (apenas para USER) -->
-        <LinearLayout
-            android:id="@+id/layoutEngajamento"
-            android:orientation="vertical"
-            android:background="@drawable/bg_card_evento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_marginBottom="16dp"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Seu Engajamento"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#222222"
-                android:layout_marginBottom="12dp" />
-
-            <TextView
-                android:id="@+id/txtEventosParticipados"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0 eventos realizados"
-                android:textSize="16sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="8dp" />
-
-            <TextView
-                android:id="@+id/txtProgressoPerfil"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Perfil 0% completo"
-                android:textSize="16sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="8dp" />
-
-            <TextView
-                android:id="@+id/txtProximoEvento"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nenhum evento próximo"
-                android:textSize="16sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="12dp" />
-
-            <Button
-                android:id="@+id/btnVerHistorico"
+            <!-- Card de dados do usuário -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Meu Histórico de Participação"
-                android:background="@drawable/bg_botao_inscrever"
-                android:textColor="#FFFFFF"
-                android:textAllCaps="false"
-                android:textStyle="bold" />
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/white">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
 
-        <!-- Seção de Perfil de Voluntário (apenas para USER) -->
-        <LinearLayout
-            android:id="@+id/layoutPerfilVoluntario"
-            android:orientation="vertical"
-            android:background="@drawable/bg_card_evento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_marginBottom="16dp"
-            android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="NOME"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"
+                        android:letterSpacing="0.08" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Perfil de Voluntário"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#222222"
-                android:layout_marginBottom="16dp" />
+                    <TextView
+                        android:id="@+id/txtNotificacoes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nome do usuário"
+                        android:textSize="18sp"
+                        android:textColor="@color/text_primary"
+                        android:layout_marginBottom="16dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Áreas de atuação:"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="8dp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider"
+                        android:layout_marginBottom="16dp" />
 
-            <CheckBox
-                android:id="@+id/checkBeleza"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Beleza"
-                android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="E-MAIL"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"
+                        android:letterSpacing="0.08" />
 
-            <CheckBox
-                android:id="@+id/checkLogistica"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Logística"
-                android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/txtEmailUsuario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="usuario@email.com"
+                        android:textSize="16sp"
+                        android:textColor="@color/text_primary"
+                        android:layout_marginBottom="16dp" />
 
-            <CheckBox
-                android:id="@+id/checkDivulgacao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Divulgação"
-                android:textSize="16sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider"
+                        android:layout_marginBottom="16dp" />
 
-            <CheckBox
-                android:id="@+id/checkCaptacao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Captação"
-                android:textSize="16sp"
-                android:layout_marginBottom="16dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TIPO DE USUÁRIO"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary"
+                        android:letterSpacing="0.08" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Disponibilidade - Dias:"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="8dp" />
+                    <TextView
+                        android:id="@+id/txtTipoUsuario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Voluntário"
+                        android:textSize="16sp"
+                        android:textColor="@color/text_primary" />
 
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Seção de Engajamento (apenas para USER) -->
             <LinearLayout
-                android:orientation="horizontal"
+                android:id="@+id/layoutEngajamento"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card_evento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="16dp"
+                android:padding="20dp"
+                android:visibility="gone">
 
-                <CheckBox
-                    android:id="@+id/checkSegunda"
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Seg"
-                    android:textSize="14sp" />
+                    android:text="Seu Engajamento"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="14dp" />
 
-                <CheckBox
-                    android:id="@+id/checkTerca"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/txtEventosParticipados"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Ter"
-                    android:textSize="14sp" />
+                    android:text="0 eventos realizados"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="6dp" />
 
-                <CheckBox
-                    android:id="@+id/checkQuarta"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/txtProgressoPerfil"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Qua"
-                    android:textSize="14sp" />
+                    android:text="Perfil 0% completo"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="6dp" />
 
-                <CheckBox
-                    android:id="@+id/checkQuinta"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/txtProximoEvento"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Qui"
+                    android:text="Nenhum evento próximo"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="16dp" />
+
+                <Button
+                    android:id="@+id/btnVerHistorico"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Meu Histórico de Participação"
+                    android:background="@drawable/bg_botao_inscrever"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
                     android:textSize="14sp" />
 
             </LinearLayout>
 
+            <!-- Seção de Perfil de Voluntário (apenas para USER) -->
             <LinearLayout
-                android:orientation="horizontal"
+                android:id="@+id/layoutPerfilVoluntario"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card_evento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:padding="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Perfil de Voluntário"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Áreas de atuação:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="8dp" />
 
                 <CheckBox
-                    android:id="@+id/checkSexta"
-                    android:layout_width="0dp"
+                    android:id="@+id/checkBeleza"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Sex"
-                    android:textSize="14sp" />
+                    android:text="Beleza"
+                    android:textSize="15sp"
+                    android:buttonTint="@color/primary_red" />
 
                 <CheckBox
-                    android:id="@+id/checkSabado"
-                    android:layout_width="0dp"
+                    android:id="@+id/checkLogistica"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Sáb"
-                    android:textSize="14sp" />
+                    android:text="Logística"
+                    android:textSize="15sp"
+                    android:buttonTint="@color/primary_red" />
 
                 <CheckBox
-                    android:id="@+id/checkDomingo"
-                    android:layout_width="0dp"
+                    android:id="@+id/checkDivulgacao"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Dom"
-                    android:textSize="14sp" />
+                    android:text="Divulgação"
+                    android:textSize="15sp"
+                    android:buttonTint="@color/primary_red" />
+
+                <CheckBox
+                    android:id="@+id/checkCaptacao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Captação"
+                    android:textSize="15sp"
+                    android:buttonTint="@color/primary_red"
+                    android:layout_marginBottom="16dp" />
 
                 <View
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:text="Disponibilidade — Dias:"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="8dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp">
+
+                    <CheckBox
+                        android:id="@+id/checkSegunda"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Seg"
+                        android:textSize="13sp"
+                        android:buttonTint="@color/primary_red" />
+
+                    <CheckBox
+                        android:id="@+id/checkTerca"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Ter"
+                        android:textSize="13sp"
+                        android:buttonTint="@color/primary_red" />
+
+                    <CheckBox
+                        android:id="@+id/checkQuarta"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Qua"
+                        android:textSize="13sp"
+                        android:buttonTint="@color/primary_red" />
+
+                    <CheckBox
+                        android:id="@+id/checkQuinta"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Qui"
+                        android:textSize="13sp"
+                        android:buttonTint="@color/primary_red" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <CheckBox
+                        android:id="@+id/checkSexta"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sex"
+                        android:textSize="13sp"
+                        android:buttonTint="@color/primary_red" />
+
+                    <CheckBox
+                        android:id="@+id/checkSabado"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sáb"
+                        android:textSize="13sp"
+                        android:buttonTint="@color/primary_red" />
+
+                    <CheckBox
+                        android:id="@+id/checkDomingo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Dom"
+                        android:textSize="13sp"
+                        android:buttonTint="@color/primary_red" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnSalvarPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Salvar perfil de voluntário"
+                    android:background="@drawable/bg_botao_inscrever"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnSalvarPerfil"
+            <!-- Seção Admin (apenas para ADMIN) -->
+            <LinearLayout
+                android:id="@+id/layoutAdmin"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card_evento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Salvar perfil de voluntário"
-                android:background="@drawable/bg_botao_inscrever"
-                android:textColor="#FFFFFF"
+                android:layout_marginBottom="16dp"
+                android:padding="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Painel Administrativo"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="12dp" />
+
+                <TextView
+                    android:id="@+id/txtTotalVoluntarios"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 voluntários cadastrados"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="16dp" />
+
+                <Button
+                    android:id="@+id/btnVerVoluntarios"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Ver voluntários"
+                    android:background="@drawable/bg_botao_inscrever"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- Botão Sair -->
+            <Button
+                android:id="@+id/btnSair"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:text="Sair"
+                android:background="@drawable/bg_botao_secundario"
+                android:textColor="@color/primary_red"
                 android:textAllCaps="false"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <!-- Seção Admin (apenas para ADMIN) -->
-        <LinearLayout
-            android:id="@+id/layoutAdmin"
-            android:orientation="vertical"
-            android:background="@drawable/bg_card_evento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_marginBottom="16dp"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Painel Administrativo"
                 android:textStyle="bold"
-                android:textSize="18sp"
-                android:textColor="#222222"
-                android:layout_marginBottom="12dp" />
-
-            <TextView
-                android:id="@+id/txtTotalVoluntarios"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0 voluntários cadastrados"
-                android:textSize="16sp"
-                android:textColor="#666666"
-                android:layout_marginBottom="16dp" />
-
-            <Button
-                android:id="@+id/btnVerVoluntarios"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ver voluntários"
-                android:background="@drawable/bg_botao_inscrever"
-                android:textColor="#FFFFFF"
-                android:textAllCaps="false"
-                android:textStyle="bold" />
+                android:textSize="15sp" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btnSair"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Sair"
-            android:background="@drawable/bg_botao_inscrever"
-            android:textColor="#FFFFFF"
-            android:textAllCaps="false"
-            android:textStyle="bold" />
-
-    </LinearLayout>
 
     </ScrollView>
 
@@ -363,6 +412,7 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         app:menu="@menu/bottom_menu" />
 
 </LinearLayout>

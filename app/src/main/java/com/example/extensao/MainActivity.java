@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         carregarEventos();
-    }
+            }
 
     @Override
     protected void onDestroy() {

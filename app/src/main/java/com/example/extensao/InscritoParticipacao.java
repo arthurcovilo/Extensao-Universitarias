@@ -17,12 +17,12 @@ public class InscritoParticipacao {
     }
 
     public int getStatusColor() {
-        if (participationStatus == null) return 0xFF6750A4;
+        if (participationStatus == null) return 0xFFD32F2F;
         switch (participationStatus) {
             case "PARTICIPOU":     return 0xFF2E7D32;
             case "CANCELADO":      return 0xFFB71C1C;
             case "NAO_COMPARECEU": return 0xFFE65100;
-            default:               return 0xFF6750A4;
+            default:               return 0xFFD32F2F;
         }
     }
 }

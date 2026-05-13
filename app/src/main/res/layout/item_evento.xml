@@ -1,86 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@drawable/bg_card_evento"
-    android:layout_marginBottom="14dp"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="14dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/white">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
-        <TextView
-            android:id="@+id/txtTituloEvento"
-            android:layout_width="0dp"
+        <!-- Linha superior: título + badge de vagas -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Distribuição de Alimentos"
-            android:textColor="#222222"
-            android:textSize="22sp"
-            android:textStyle="bold"/>
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
 
+            <TextView
+                android:id="@+id/txtTituloEvento"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Distribuição de Alimentos"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/txtVagas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_badge_red"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="20"
+                android:textColor="@color/primary_red"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Badge de tipo -->
         <TextView
-            android:id="@+id/txtVagas"
+            android:id="@+id/txtTipoEvento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/btn_default_small"
-            android:paddingLeft="10dp"
-            android:paddingTop="6dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="6dp"
-            android:text="20"
-            android:textColor="#FB3802"
-            android:textStyle="bold"/>
+            android:layout_marginBottom="10dp"
+            android:textSize="12sp"
+            android:textColor="@color/primary_red"
+            android:textStyle="bold" />
+
+        <!-- Data -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📅 "
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/txtDataEvento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15/11/2025"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <!-- Local -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📍 "
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/txtLocalEvento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Centro Comunitário - São Paulo"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <!-- Descrição -->
+        <TextView
+            android:id="@+id/txtDescricaoEvento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ajude na distribuição de cestas básicas para famílias carentes."
+            android:textColor="@color/text_description"
+            android:textSize="14sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginBottom="14dp" />
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Botão Inscrever -->
+        <Button
+            android:id="@+id/btnInscrever"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@drawable/bg_botao_inscrever"
+            android:text="Inscrever-se"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtTipoEvento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:textSize="13sp"
-        android:textColor="#6750A4"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/txtDataEvento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="15/11/2025"
-        android:textColor="#666666"
-        android:textSize="16sp"/>
-
-    <TextView
-        android:id="@+id/txtLocalEvento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Centro Comunitário - São Paulo"
-        android:textColor="#666666"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/txtDescricaoEvento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Ajude na distribuição de cestas básicas para famílias carentes."
-        android:textColor="#444444"
-        android:textSize="15sp" />
-
-    <Button
-        android:id="@+id/btnInscrever"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:background="@drawable/bg_botao_inscrever"
-        android:text="Inscrever-se"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold" />
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

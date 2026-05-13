@@ -4,16 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background_light">
+    android:background="@color/white">
 
     <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp"
-        android:background="@color/white"
-        android:elevation="4dp">
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="16dp"
+        android:background="@color/white">
 
         <TextView
             android:layout_width="0dp"
@@ -21,10 +23,16 @@
             android:layout_weight="1"
             android:text="@string/titulo_feed"
             android:textColor="@color/text_primary"
-            android:textSize="24sp"
+            android:textSize="26sp"
             android:textStyle="bold" />
 
     </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
 
     <!-- SwipeRefreshLayout com RecyclerView -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -37,7 +45,10 @@
             android:id="@+id/recyclerViewPosts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="8dp"
             android:clipToPadding="false" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -46,11 +57,19 @@
     <LinearLayout
         android:id="@+id/layoutEmpty"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
+        android:paddingTop="80dp"
+        android:paddingBottom="80dp"
         android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📭"
+            android:textSize="48sp"
+            android:layout_marginBottom="12dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,10 +85,11 @@
     <LinearLayout
         android:id="@+id/layoutLoading"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
+        android:paddingTop="80dp"
+        android:paddingBottom="80dp"
         android:visibility="gone">
 
         <ProgressBar
@@ -82,7 +102,7 @@
             android:layout_height="wrap_content"
             android:text="@string/feed_carregando"
             android:textColor="@color/text_secondary"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 

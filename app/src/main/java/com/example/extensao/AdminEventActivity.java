@@ -91,6 +91,9 @@ public class AdminEventActivity extends AppCompatActivity {
         spinnerStatus = findViewById(R.id.spinnerStatus);
         spinnerTipo = findViewById(R.id.spinnerTipo);
         progressAdmin = findViewById(R.id.progressAdmin);
+
+        // Botão voltar
+        findViewById(R.id.btnVoltarAdmin).setOnClickListener(v -> finish());
     }
 
     private void configurarSpinnerStatus() {

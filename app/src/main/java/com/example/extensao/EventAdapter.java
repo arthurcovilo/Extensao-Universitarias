@@ -134,7 +134,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 btnInscrever.setText("Inscrever-se");
                 btnInscrever.setEnabled(true);
                 btnInscrever.setBackgroundTintList(
-                        android.content.res.ColorStateList.valueOf(0xFF6750A4));
+                        android.content.res.ColorStateList.valueOf(0xFFD32F2F));
                 btnInscrever.setOnClickListener(v -> {
                     if (listener != null) listener.onRegisterClick(event, btnInscrever);
                 });
