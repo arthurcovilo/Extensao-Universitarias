@@ -1,5 +1,7 @@
 package com.example.extensao;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,7 +17,8 @@ import java.util.List;
 
 public class EventApiClient {
 
-    private static final String BASE_URL = "http://10.0.2.2:8080";
+    private static final String TAG = "EventApiClient";
+    private static final String BASE_URL = AppConfig.BASE_URL;
 
     public List<Event> getEvents() {
         List<Event> events = new ArrayList<>();
@@ -41,7 +44,7 @@ public class EventApiClient {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "Erro ao buscar eventos", e);
         } finally {
             if (connection != null) connection.disconnect();
         }
@@ -225,7 +228,7 @@ public class EventApiClient {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "Erro ao buscar inscrições do usuário", e);
         } finally {
             if (connection != null) connection.disconnect();
         }
@@ -280,7 +283,7 @@ public class EventApiClient {
                 return json != null && json.optBoolean("registered", false);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "Erro ao verificar inscrição", e);
         } finally {
             if (connection != null) connection.disconnect();
         }

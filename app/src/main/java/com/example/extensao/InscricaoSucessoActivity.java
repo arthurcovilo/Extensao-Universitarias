@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +30,7 @@ public class InscricaoSucessoActivity extends AppCompatActivity {
         inicializarViews();
         carregarDadosEvento();
         configurarBotoes();
+        configurarBotaoVoltar();
     }
 
     private void inicializarViews() {
@@ -41,16 +43,13 @@ public class InscricaoSucessoActivity extends AppCompatActivity {
     }
 
     private void carregarDadosEvento() {
-        // Recebe dados do evento via Intent
         eventId = getIntent().getIntExtra("event_id", -1);
         eventTitle = getIntent().getStringExtra("event_title");
         eventDate = getIntent().getStringExtra("event_date");
         eventLocation = getIntent().getStringExtra("event_location");
 
-        // Exibe informações do evento
         txtTituloEventoSucesso.setText(eventTitle != null ? eventTitle : "Evento");
-        
-        // Formata data do evento
+
         if (eventDate != null) {
             try {
                 SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -64,10 +63,8 @@ public class InscricaoSucessoActivity extends AppCompatActivity {
 
         txtLocalEventoSucesso.setText(eventLocation != null ? eventLocation : "Local não informado");
 
-        // Exibe data/hora da inscrição (agora)
         SimpleDateFormat inscricaoFormat = new SimpleDateFormat("dd/MM/yyyy 'às' HH:mm", Locale.getDefault());
-        String dataInscricao = inscricaoFormat.format(new Date());
-        txtDataInscricaoSucesso.setText("Inscrito em: " + dataInscricao);
+        txtDataInscricaoSucesso.setText("Inscrito em: " + inscricaoFormat.format(new Date()));
     }
 
     private void configurarBotoes() {
@@ -81,17 +78,20 @@ public class InscricaoSucessoActivity extends AppCompatActivity {
             }
         });
 
-        btnVoltarEventos.setOnClickListener(v -> {
-            Intent intent = new Intent(this, EventosActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
+        btnVoltarEventos.setOnClickListener(v -> voltarParaEventos());
+    }
+
+    /** Substitui onBackPressed() deprecated — compatível com Android 13+ */
+    private void configurarBotaoVoltar() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                voltarParaEventos();
+            }
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        // Ao pressionar voltar, vai para a lista de eventos
+    private void voltarParaEventos() {
         Intent intent = new Intent(this, EventosActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

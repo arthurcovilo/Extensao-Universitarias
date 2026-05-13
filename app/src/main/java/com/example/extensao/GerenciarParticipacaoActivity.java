@@ -1,6 +1,7 @@
 package com.example.extensao;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +26,7 @@ import java.util.concurrent.Executors;
 
 public class GerenciarParticipacaoActivity extends AppCompatActivity {
 
-    private static final String BASE_URL = "http://10.0.2.2:8080";
+    private static final String BASE_URL = AppConfig.BASE_URL;
 
     private RecyclerView recyclerInscritos;
     private InscritosParticipacaoAdapter adapter;
@@ -114,7 +115,7 @@ public class GerenciarParticipacaoActivity extends AppCompatActivity {
             }
             conn.disconnect();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("GerenciarParticipacao", "Erro ao buscar inscritos", e);
         }
         return lista;
     }
@@ -153,7 +154,7 @@ public class GerenciarParticipacaoActivity extends AppCompatActivity {
             conn.disconnect();
             return code == HttpURLConnection.HTTP_OK;
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("GerenciarParticipacao", "Erro ao atualizar status", e);
         }
         return false;
     }

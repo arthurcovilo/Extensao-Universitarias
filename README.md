@@ -57,10 +57,12 @@ node server.js
 # Abrir o projeto e rodar no emulador
 ```
 
-## 👥 Usuários de Teste
+## 👥 Usuários Administradores
 
-- **Admin:** `admin@email.com` / `123456`
-- **User:** `teste@email.com` / `123456`
+Os usuários administradores da ONG são criados diretamente no banco de dados com senha bcrypt.
+Entre em contato com o responsável técnico para obter as credenciais de acesso.
+
+> ⚠️ Não existem mais usuários de teste públicos no sistema.
 
 ## 📂 Estrutura do Projeto
 

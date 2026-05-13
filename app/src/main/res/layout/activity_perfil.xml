@@ -392,17 +392,21 @@
             </LinearLayout>
 
             <!-- Botão Sair -->
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSair"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="8dp"
-                android:text="Sair"
+                android:layout_height="52dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
+                android:text="Sair da conta"
                 android:background="@drawable/bg_botao_secundario"
                 android:textColor="@color/primary_red"
                 android:textAllCaps="false"
                 android:textStyle="bold"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:gravity="center"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
 
         </LinearLayout>
 

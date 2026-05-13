@@ -81,17 +81,12 @@ Você deve ver:
 
 ---
 
-## 👥 Usuários de Teste
+## 👥 Usuários Administradores
 
-O banco já vem com 2 usuários criados:
+Os usuários administradores são criados diretamente no banco de dados.
+Entre em contato com o responsável técnico para obter as credenciais de acesso.
 
-### Admin (pode criar/editar/excluir eventos)
-- **Email:** `admin@email.com`
-- **Senha:** `123456`
-
-### Usuário comum (pode apenas se inscrever)
-- **Email:** `teste@email.com`
-- **Senha:** `123456`
+> ⚠️ Não existem mais usuários de teste públicos no sistema.
 
 ---
 

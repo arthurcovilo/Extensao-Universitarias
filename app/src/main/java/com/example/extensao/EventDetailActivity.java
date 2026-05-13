@@ -3,9 +3,9 @@ package com.example.extensao;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +31,7 @@ public class EventDetailActivity extends AppCompatActivity {
     TextView txtTituloDetalhe, txtStatusDetalhe, txtDataDetalhe, txtLocalDetalhe;
     TextView txtVagasDetalhe, txtDescricaoDetalhe, txtListaInscritos, txtTipoDetalhe;
     Button btnInscreverDetalhe, btnEditarDetalhe, btnExcluirDetalhe, btnGerenciarParticipacao;
-    LinearLayout layoutInscritos;
+    View layoutInscritos;
     ProgressBar progressDetalhe;
 
     private SessionManager sessionManager;
@@ -115,7 +115,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private Event buscarEventoPorId(int id) {
         try {
-            URL url = new URL("http://10.0.2.2:8080/events");
+            URL url = new URL(AppConfig.BASE_URL + "/events");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(10000);
@@ -135,7 +135,7 @@ public class EventDetailActivity extends AppCompatActivity {
             }
             connection.disconnect();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("EventDetailActivity", "Erro ao buscar evento por ID", e);
         }
         return null;
     }
@@ -266,7 +266,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private String buscarInscritos(int eventId) {
         try {
-            URL url = new URL("http://10.0.2.2:8080/events/" + eventId + "/registrations");
+            URL url = new URL(AppConfig.BASE_URL + "/events/" + eventId + "/registrations");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(10000);
@@ -295,7 +295,7 @@ public class EventDetailActivity extends AppCompatActivity {
             }
             connection.disconnect();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("EventDetailActivity", "Erro ao buscar inscritos", e);
         }
         return "Erro ao carregar inscritos.";
     }

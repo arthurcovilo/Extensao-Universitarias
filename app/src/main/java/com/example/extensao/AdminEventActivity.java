@@ -3,6 +3,7 @@ package com.example.extensao;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -300,7 +301,7 @@ public class AdminEventActivity extends AppCompatActivity {
 
     private Event buscarEventoPorId(int id) {
         try {
-            URL url = new URL("http://10.0.2.2:8080/events");
+            URL url = new URL(AppConfig.BASE_URL + "/events");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(10000);
@@ -320,7 +321,7 @@ public class AdminEventActivity extends AppCompatActivity {
             }
             connection.disconnect();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("AdminEventActivity", "Erro ao buscar evento por ID", e);
         }
         return null;
     }
@@ -373,7 +374,7 @@ public class AdminEventActivity extends AppCompatActivity {
 
     private String buscarInscritos(int eventId) {
         try {
-            URL url = new URL("http://10.0.2.2:8080/events/" + eventId + "/registrations");
+            URL url = new URL(AppConfig.BASE_URL + "/events/" + eventId + "/registrations");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(10000);
@@ -402,7 +403,7 @@ public class AdminEventActivity extends AppCompatActivity {
             }
             connection.disconnect();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("AdminEventActivity", "Erro ao buscar inscritos", e);
         }
         return "Erro ao carregar inscritos.";
     }

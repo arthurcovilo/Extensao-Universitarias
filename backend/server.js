@@ -5,12 +5,23 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
 const { OAuth2Client } = require('google-auth-library');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 app.use(express.json());
 
 const WEB_CLIENT_ID = '487621614650-ekd8795v6uu6ac2uco886h95f09lrta4.apps.googleusercontent.com';
 const googleClient = new OAuth2Client(WEB_CLIENT_ID);
+
+// ── Rate limiting — protege contra força bruta no login ──────────────────────
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // janela de 15 minutos
+  max: 10,                   // máximo 10 tentativas por IP na janela
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Muitas tentativas de login. Aguarde 15 minutos e tente novamente.' },
+  skipSuccessfulRequests: true, // não conta tentativas bem-sucedidas
+});
 
 // ── Conexão com o banco ──────────────────────────────────────────────────────
 const pool = new Pool({
@@ -25,7 +36,7 @@ pool.connect()
   });
 
 // ── POST /auth/login ─────────────────────────────────────────────────────────
-app.post('/auth/login', async (req, res) => {
+app.post('/auth/login', loginLimiter, async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {

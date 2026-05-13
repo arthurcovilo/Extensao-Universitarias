@@ -12,9 +12,7 @@ import java.nio.charset.StandardCharsets;
 
 public class AuthApiClient {
 
-    // Para emulador Android apontando para backend local na máquina host.
-    // Troque para sua URL de produção quando publicar.
-    private static final String BASE_URL = "http://10.0.2.2:8080";
+    private static final String BASE_URL = AppConfig.BASE_URL;
     private static final String LOGIN_ENDPOINT = "/auth/login";
 
     public LoginResult loginComGoogle(String idToken) {

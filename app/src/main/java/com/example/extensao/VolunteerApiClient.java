@@ -1,5 +1,7 @@
 package com.example.extensao;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +17,8 @@ import java.util.List;
 
 public class VolunteerApiClient {
 
-    private static final String BASE_URL = "http://10.0.2.2:8080";
+    private static final String TAG = "VolunteerApiClient";
+    private static final String BASE_URL = AppConfig.BASE_URL;
 
     public static class VolunteerProfile {
         public List<String> areas;
@@ -88,7 +91,7 @@ public class VolunteerApiClient {
                 return profile;
             }
         } catch (IOException | JSONException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Erro ao buscar perfil de voluntário", e);
         }
         return new VolunteerProfile();
     }
@@ -113,7 +116,7 @@ public class VolunteerApiClient {
 
             return connection.getResponseCode() == HttpURLConnection.HTTP_OK;
         } catch (IOException | JSONException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Erro ao salvar perfil de voluntário", e);
         }
         return false;
     }
@@ -150,7 +153,7 @@ public class VolunteerApiClient {
                 return stats;
             }
         } catch (IOException | JSONException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Erro ao buscar estatísticas do usuário", e);
         }
         return new UserStats();
     }
@@ -202,7 +205,7 @@ public class VolunteerApiClient {
                 }
             }
         } catch (IOException | JSONException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Erro ao buscar voluntários", e);
         }
         return volunteers;
     }
@@ -250,7 +253,7 @@ public class VolunteerApiClient {
                 }
             }
         } catch (IOException | JSONException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Erro ao buscar histórico do voluntário", e);
         }
         return history;
     }
@@ -308,7 +311,7 @@ public class VolunteerApiClient {
                 }
             }
         } catch (IOException | JSONException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Erro ao buscar histórico do usuário", e);
         }
         return result;
     }
@@ -336,7 +339,7 @@ public class VolunteerApiClient {
                 return stats;
             }
         } catch (IOException | JSONException e) {
-            e.printStackTrace();
+            Log.e(TAG, "Erro ao buscar estatísticas do admin", e);
         }
         return new AdminStats();
     }

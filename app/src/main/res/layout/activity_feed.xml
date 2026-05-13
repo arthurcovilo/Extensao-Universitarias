@@ -34,6 +34,36 @@
         android:layout_height="1dp"
         android:background="@color/divider" />
 
+    <!-- Banner: Em Desenvolvimento -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#FFF8E1"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🚧"
+            android:textSize="16sp"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Esta seção está em desenvolvimento. Em breve você verá as novidades da ONG aqui."
+            android:textSize="13sp"
+            android:textColor="#795548"
+            android:lineSpacingExtra="2dp" />
+
+    </LinearLayout>
+
     <!-- SwipeRefreshLayout com RecyclerView -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
