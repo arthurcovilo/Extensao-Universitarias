@@ -60,8 +60,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            // ⚠️ Troque pela URL HTTPS real antes de gerar o APK de produção
-            buildConfigField("String", "BASE_URL", "\"https://SUA-URL-DE-PRODUCAO.com\"")
+            buildConfigField("String", "BASE_URL", "\"https://extensao-backend-1qt8.onrender.com\"")
 
             // Descomente após configurar o keystore acima:
             // signingConfig = signingConfigs.getByName("release")
