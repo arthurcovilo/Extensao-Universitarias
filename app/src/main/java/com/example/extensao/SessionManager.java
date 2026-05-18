@@ -79,7 +79,9 @@ public class SessionManager {
      */
     public boolean handleUnauthorized(int httpCode) {
         if (httpCode == 401 || httpCode == 403) {
-            Log.w(TAG, "Token inválido ou expirado (HTTP " + httpCode + "). Encerrando sessão.");
+            if (BuildConfig.DEBUG) {
+                Log.w(TAG, "Token inválido ou expirado (HTTP " + httpCode + "). Encerrando sessão.");
+            }
             clearSession();
             Intent intent = new Intent(context, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

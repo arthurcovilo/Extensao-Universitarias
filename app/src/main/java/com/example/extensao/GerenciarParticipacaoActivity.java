@@ -44,6 +44,13 @@ public class GerenciarParticipacaoActivity extends AppCompatActivity {
 
         sessionManager = new SessionManager(this);
 
+        // Proteção: apenas admin pode gerenciar participação
+        if (!sessionManager.isAdmin()) {
+            Toast.makeText(this, "Acesso negado", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
         recyclerInscritos = findViewById(R.id.recyclerInscritos);
         txtVazio          = findViewById(R.id.txtGerenciarVazio);
         txtNomeEvento     = findViewById(R.id.txtNomeEventoGerenciar);
@@ -115,7 +122,7 @@ public class GerenciarParticipacaoActivity extends AppCompatActivity {
             }
             conn.disconnect();
         } catch (Exception e) {
-            Log.e("GerenciarParticipacao", "Erro ao buscar inscritos", e);
+            if (BuildConfig.DEBUG) Log.e("GerenciarParticipacao", "Erro ao buscar inscritos", e);
         }
         return lista;
     }
@@ -124,7 +131,9 @@ public class GerenciarParticipacaoActivity extends AppCompatActivity {
         executor.execute(() -> {
             boolean sucesso = enviarStatus(inscrito.userId, novoStatus);
             runOnUiThread(() -> {
-                if (!sucesso) {
+                if (sucesso) {
+                    Toast.makeText(this, "Status atualizado!", Toast.LENGTH_SHORT).show();
+                } else {
                     Toast.makeText(this, "Erro ao salvar status", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -154,7 +163,7 @@ public class GerenciarParticipacaoActivity extends AppCompatActivity {
             conn.disconnect();
             return code == HttpURLConnection.HTTP_OK;
         } catch (Exception e) {
-            Log.e("GerenciarParticipacao", "Erro ao atualizar status", e);
+            if (BuildConfig.DEBUG) Log.e("GerenciarParticipacao", "Erro ao atualizar status", e);
         }
         return false;
     }

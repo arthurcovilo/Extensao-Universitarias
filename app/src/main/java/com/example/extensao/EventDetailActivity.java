@@ -135,15 +135,19 @@ public class EventDetailActivity extends AppCompatActivity {
             }
             connection.disconnect();
         } catch (Exception e) {
-            Log.e("EventDetailActivity", "Erro ao buscar evento por ID", e);
+            if (BuildConfig.DEBUG) Log.e("EventDetailActivity", "Erro ao buscar evento por ID", e);
         }
         return null;
     }
 
     private void exibirEvento(Event event) {
-        txtTituloDetalhe.setText(event.title);
-        txtDescricaoDetalhe.setText(event.description.isEmpty() ? "Sem descrição" : event.description);
-        txtLocalDetalhe.setText(event.location);
+        txtTituloDetalhe.setText(event.title != null ? event.title : "Evento");
+        txtDescricaoDetalhe.setText(
+                (event.description != null && !event.description.isEmpty())
+                        ? event.description : "Sem descrição");
+        txtLocalDetalhe.setText(
+                (event.location != null && !event.location.isEmpty())
+                        ? event.location : "—");
         txtTipoDetalhe.setText(event.getTipoIcon() + " " + (event.eventType != null ? event.eventType : ""));
 
         // Formatar data
@@ -190,10 +194,12 @@ public class EventDetailActivity extends AppCompatActivity {
         if (sessionManager.isAdmin()) {
             btnEditarDetalhe.setVisibility(View.VISIBLE);
             btnExcluirDetalhe.setVisibility(View.VISIBLE);
+            btnGerenciarParticipacao.setVisibility(View.VISIBLE);
             btnInscreverDetalhe.setVisibility(View.GONE);
         } else {
             btnEditarDetalhe.setVisibility(View.GONE);
             btnExcluirDetalhe.setVisibility(View.GONE);
+            btnGerenciarParticipacao.setVisibility(View.GONE);
             btnInscreverDetalhe.setVisibility(View.VISIBLE);
 
             if (jaInscrito) {
@@ -295,7 +301,7 @@ public class EventDetailActivity extends AppCompatActivity {
             }
             connection.disconnect();
         } catch (Exception e) {
-            Log.e("EventDetailActivity", "Erro ao buscar inscritos", e);
+            if (BuildConfig.DEBUG) Log.e("EventDetailActivity", "Erro ao buscar inscritos", e);
         }
         return "Erro ao carregar inscritos.";
     }

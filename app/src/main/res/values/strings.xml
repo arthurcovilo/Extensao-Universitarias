@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Amor em Movimento</string>
 
+    <!-- Google Sign-In: Web Client ID do Google Cloud Console -->
+    <string name="google_web_client_id" translatable="false">487621614650-ekd8795v6uu6ac2uco886h95f09lrta4.apps.googleusercontent.com</string>
+
     <string name="titulo_calendario">Calendário</string>
     <string name="botao_novo_evento">Novo Evento</string>
     <string name="texto_data_nao_selecionada">Nenhuma data selecionada</string>

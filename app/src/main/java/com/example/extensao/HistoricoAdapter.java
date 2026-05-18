@@ -58,8 +58,8 @@ public class HistoricoAdapter extends RecyclerView.Adapter<HistoricoAdapter.Hist
         }
 
         public void bind(HistoricoItem item) {
-            txtTitulo.setText(item.title);
-            txtLocal.setText(item.location != null ? item.location : "—");
+            txtTitulo.setText(item.title != null ? item.title : "Evento");
+            txtLocal.setText(item.location != null && !item.location.isEmpty() ? item.location : "—");
             txtStatus.setText(item.getStatusLabel());
             txtStatus.setBackgroundColor(Color.parseColor(item.getStatusColor()));
 
@@ -71,8 +71,8 @@ public class HistoricoAdapter extends RecyclerView.Adapter<HistoricoAdapter.Hist
                 SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 Date date = in.parse(raw);
                 txtData.setText(out.format(date));
-            } catch (ParseException e) {
-                txtData.setText(item.eventDate);
+            } catch (ParseException | NullPointerException e) {
+                txtData.setText(item.eventDate != null ? item.eventDate : "—");
             }
         }
     }

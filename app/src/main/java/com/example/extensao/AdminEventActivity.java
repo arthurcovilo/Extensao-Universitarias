@@ -321,7 +321,7 @@ public class AdminEventActivity extends AppCompatActivity {
             }
             connection.disconnect();
         } catch (Exception e) {
-            Log.e("AdminEventActivity", "Erro ao buscar evento por ID", e);
+            if (BuildConfig.DEBUG) Log.e("AdminEventActivity", "Erro ao buscar evento por ID", e);
         }
         return null;
     }
@@ -403,7 +403,7 @@ public class AdminEventActivity extends AppCompatActivity {
             }
             connection.disconnect();
         } catch (Exception e) {
-            Log.e("AdminEventActivity", "Erro ao buscar inscritos", e);
+            if (BuildConfig.DEBUG) Log.e("AdminEventActivity", "Erro ao buscar inscritos", e);
         }
         return "Erro ao carregar inscritos.";
     }

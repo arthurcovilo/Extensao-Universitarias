@@ -43,8 +43,9 @@ public class EventApiClient {
                     events.add(event);
                 }
             }
+            if (BuildConfig.DEBUG) Log.d(TAG, "getEvents: " + events.size() + " eventos carregados");
         } catch (Exception e) {
-            Log.e(TAG, "Erro ao buscar eventos", e);
+            if (BuildConfig.DEBUG) Log.e(TAG, "Erro ao buscar eventos", e);
         } finally {
             if (connection != null) connection.disconnect();
         }
@@ -228,7 +229,7 @@ public class EventApiClient {
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, "Erro ao buscar inscrições do usuário", e);
+            if (BuildConfig.DEBUG) Log.e(TAG, "Erro ao buscar inscrições do usuário", e);
         } finally {
             if (connection != null) connection.disconnect();
         }
@@ -283,7 +284,7 @@ public class EventApiClient {
                 return json != null && json.optBoolean("registered", false);
             }
         } catch (Exception e) {
-            Log.e(TAG, "Erro ao verificar inscrição", e);
+            if (BuildConfig.DEBUG) Log.e(TAG, "Erro ao verificar inscrição", e);
         } finally {
             if (connection != null) connection.disconnect();
         }

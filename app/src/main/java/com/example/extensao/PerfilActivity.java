@@ -63,7 +63,7 @@ public class PerfilActivity extends AppCompatActivity {
         btnVerVoluntarios = findViewById(R.id.btnVerVoluntarios);
         btnVerHistorico = findViewById(R.id.btnVerHistorico);
         
-        txtNomeUsuario = findViewById(R.id.txtNotificacoes);
+        txtNomeUsuario = findViewById(R.id.txtNomeUsuario);
         txtEmailUsuario = findViewById(R.id.txtEmailUsuario);
         txtTipoUsuario = findViewById(R.id.txtTipoUsuario);
         txtEventosParticipados = findViewById(R.id.txtEventosParticipados);
@@ -167,7 +167,9 @@ public class PerfilActivity extends AppCompatActivity {
         executor.execute(() -> {
             VolunteerApiClient.AdminStats stats = volunteerApiClient.getAdminStats(sessionManager.getAccessToken());
             runOnUiThread(() -> {
-                txtTotalVoluntarios.setText(stats.totalVolunteers + " voluntários cadastrados");
+                if (stats != null) {
+                    txtTotalVoluntarios.setText(stats.totalVolunteers + " voluntários cadastrados");
+                }
             });
         });
     }
@@ -176,14 +178,17 @@ public class PerfilActivity extends AppCompatActivity {
         executor.execute(() -> {
             VolunteerApiClient.UserStats stats = volunteerApiClient.getUserStats(sessionManager.getAccessToken());
             runOnUiThread(() -> {
-                txtEventosParticipados.setText(stats.eventsParticipated + " eventos realizados");
-                txtProgressoPerfil.setText("Perfil " + stats.profileProgress + "% completo");
-                
-                if (stats.nextEventTitle != null && stats.nextEventDate != null) {
-                    String dataFormatada = formatarData(stats.nextEventDate);
-                    txtProximoEvento.setText("Próximo: " + stats.nextEventTitle + " - " + dataFormatada);
-                } else {
-                    txtProximoEvento.setText("Nenhum evento próximo");
+                if (stats != null) {
+                    txtEventosParticipados.setText(stats.eventsParticipated + " eventos realizados");
+                    txtProgressoPerfil.setText("Perfil " + stats.profileProgress + "% completo");
+
+                    if (stats.nextEventTitle != null && !stats.nextEventTitle.isEmpty()
+                            && stats.nextEventDate != null && !stats.nextEventDate.isEmpty()) {
+                        String dataFormatada = formatarData(stats.nextEventDate);
+                        txtProximoEvento.setText("Próximo: " + stats.nextEventTitle + " - " + dataFormatada);
+                    } else {
+                        txtProximoEvento.setText("Nenhum evento próximo");
+                    }
                 }
             });
         });
@@ -256,6 +261,7 @@ public class PerfilActivity extends AppCompatActivity {
             boolean sucesso = volunteerApiClient.saveVolunteerProfile(sessionManager.getAccessToken(), areas, dias);
             runOnUiThread(() -> {
                 if (sucesso) {
+                    Toast.makeText(this, "Perfil salvo com sucesso!", Toast.LENGTH_SHORT).show();
                     carregarEstatisticasUsuario(); // Atualiza o progresso
                 } else {
                     Toast.makeText(this, "Erro ao salvar perfil", Toast.LENGTH_SHORT).show();

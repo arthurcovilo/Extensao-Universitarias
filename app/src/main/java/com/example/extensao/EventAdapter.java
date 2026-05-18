@@ -16,12 +16,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
+public class EventAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Event> events;
+    private static final int VIEW_TYPE_ITEM = 0;
+    private static final int VIEW_TYPE_LOAD_MORE = 1;
+    private static final int PAGE_SIZE = 10;
+
+    private List<Event> allEvents;
+    private List<Event> visibleEvents;
     private OnEventClickListener listener;
     private boolean isAdmin;
     private List<Integer> registeredEventIds;
+    private boolean hasMore = false;
 
     public interface OnEventClickListener {
         void onRegisterClick(Event event, Button btnInscrever);
@@ -31,10 +37,29 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
     public EventAdapter(List<Event> events, boolean isAdmin, OnEventClickListener listener) {
-        this.events = events;
+        this.allEvents = new ArrayList<>(events);
+        this.visibleEvents = new ArrayList<>();
         this.isAdmin = isAdmin;
         this.listener = listener;
         this.registeredEventIds = new ArrayList<>();
+        paginar();
+    }
+
+    private void paginar() {
+        int currentSize = visibleEvents.size();
+        int end = Math.min(currentSize + PAGE_SIZE, allEvents.size());
+        for (int i = currentSize; i < end; i++) {
+            visibleEvents.add(allEvents.get(i));
+        }
+        hasMore = visibleEvents.size() < allEvents.size();
+    }
+
+    public void loadMore() {
+        int before = visibleEvents.size();
+        paginar();
+        notifyItemRangeInserted(before, visibleEvents.size() - before);
+        // Atualiza o item "Carregar mais" (último antes da inserção)
+        notifyItemChanged(before - 1);
     }
 
     public void setRegisteredEventIds(List<Integer> ids) {
@@ -44,27 +69,45 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     @NonNull
     @Override
-    public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == VIEW_TYPE_LOAD_MORE) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_load_more, parent, false);
+            return new LoadMoreViewHolder(view);
+        }
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_evento, parent, false);
         return new EventViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
-        Event event = events.get(position);
-        holder.bind(event);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof LoadMoreViewHolder) {
+            ((LoadMoreViewHolder) holder).bind(this);
+            return;
+        }
+        Event event = visibleEvents.get(position);
+        ((EventViewHolder) holder).bind(event);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (hasMore && position == visibleEvents.size()) return VIEW_TYPE_LOAD_MORE;
+        return VIEW_TYPE_ITEM;
     }
 
     @Override
     public int getItemCount() {
-        return events.size();
+        return visibleEvents.size() + (hasMore ? 1 : 0);
     }
 
     public void updateEvents(List<Event> newEvents) {
-        this.events = newEvents;
+        this.allEvents = new ArrayList<>(newEvents);
+        this.visibleEvents = new ArrayList<>();
+        paginar();
         notifyDataSetChanged();
     }
 
+    // ── ViewHolder de item de evento ─────────────────────────────────────────
     class EventViewHolder extends RecyclerView.ViewHolder {
         TextView txtTituloEvento, txtDataEvento, txtLocalEvento, txtDescricaoEvento, txtVagas, txtTipoEvento;
         Button btnInscrever;
@@ -87,7 +130,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             txtTipoEvento.setText(event.eventType != null ? event.eventType : "");
 
             // Local: oculta para Online, mostra ícone correto para os demais
-            txtLocalEvento.setVisibility(View.VISIBLE); // sempre reseta antes
+            txtLocalEvento.setVisibility(View.VISIBLE);
             if ("Online".equals(event.eventType)) {
                 txtLocalEvento.setText("💻 Online");
             } else if (event.location != null && !event.location.isEmpty()) {
@@ -108,9 +151,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
             // Click no card inteiro abre detalhes
             itemView.setOnClickListener(v -> {
-                if (listener != null) {
-                    listener.onCardClick(event);
-                }
+                if (listener != null) listener.onCardClick(event);
             });
 
             // Configurar botão baseado no status e permissões
@@ -122,7 +163,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     if (listener != null) listener.onEventClick(event);
                 });
             } else if (registeredEventIds.contains(event.id)) {
-                // Já inscrito — mostra opção de cancelar
                 btnInscrever.setText("Cancelar inscrição");
                 btnInscrever.setEnabled(true);
                 btnInscrever.setBackgroundTintList(
@@ -152,6 +192,20 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             } else {
                 txtVagas.setTextColor(itemView.getContext().getColor(android.R.color.holo_green_dark));
             }
+        }
+    }
+
+    // ── ViewHolder de "Carregar mais" ────────────────────────────────────────
+    static class LoadMoreViewHolder extends RecyclerView.ViewHolder {
+        Button btnLoadMore;
+
+        public LoadMoreViewHolder(@NonNull View itemView) {
+            super(itemView);
+            btnLoadMore = itemView.findViewById(R.id.btnLoadMore);
+        }
+
+        public void bind(EventAdapter adapter) {
+            btnLoadMore.setOnClickListener(v -> adapter.loadMore());
         }
     }
 }

@@ -13,11 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Extensao"
-        android:usesCleartextTraffic="true">
+        android:networkSecurityConfig="@xml/network_security_config">
         <!--
-            ATENÇÃO: usesCleartextTraffic="true" permite tráfego HTTP não criptografado.
-            Necessário apenas em desenvolvimento (emulador → 10.0.2.2).
-            REMOVER esta flag quando o backend estiver em produção com HTTPS.
+            SEGURANÇA DE REDE:
+            usesCleartextTraffic foi substituído por network_security_config.xml
+            que permite HTTP apenas para 10.0.2.2 (emulador) e localhost.
+            Em produção com HTTPS, remova o domain-config do network_security_config.xml.
         -->
 
         <activity android:name=".MainActivity" />

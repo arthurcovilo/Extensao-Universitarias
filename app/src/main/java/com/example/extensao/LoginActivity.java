@@ -25,10 +25,6 @@ import java.util.concurrent.Executors;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // Web Client ID gerado no Google Cloud Console
-    private static final String WEB_CLIENT_ID =
-            "487621614650-ekd8795v6uu6ac2uco886h95f09lrta4.apps.googleusercontent.com";
-
     EditText email, senha;
     Button btnLogin, btnGoogleLogin;
     ProgressBar progressLogin;
@@ -88,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
         GetGoogleIdOption googleIdOption = new GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false)
-                .setServerClientId(WEB_CLIENT_ID)
+                .setServerClientId(getString(R.string.google_web_client_id))
                 .setAutoSelectEnabled(false)
                 .build();
 

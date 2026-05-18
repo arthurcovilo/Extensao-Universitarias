@@ -14,6 +14,11 @@
 .cxx
 local.properties
 
+# Keystore de produção — NUNCA commite esses arquivos
+keystore.properties
+*.jks
+*.keystore
+
 # Backend
 backend/.env
 backend/node_modules/
