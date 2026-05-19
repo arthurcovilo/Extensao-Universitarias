@@ -667,46 +667,7 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// ── POST /internal/seed-users ─────────────────────────────────────────────────
-// Endpoint temporário para criar usuários de produção.
-// Protegido por chave secreta no header X-Seed-Key.
-// REMOVER após uso.
-app.post('/internal/seed-users', async (req, res) => {
-  const seedKey = req.headers['x-seed-key'];
-  if (seedKey !== 'seed-amor-2026-remove-depois') {
-    return res.status(403).json({ message: 'Acesso negado' });
-  }
 
-  const usuarios = [
-    { nome: 'Admin ONG 01', email: 'admin01@amoremmovimento.org.br', senha: 'Am0r@Mov!2026#A1',  role: 'ADMIN' },
-    { nome: 'Admin ONG 02', email: 'admin02@amoremmovimento.org.br', senha: 'Ong#Adm2026!B7m',   role: 'ADMIN' },
-    { nome: 'Admin ONG 03', email: 'admin03@amoremmovimento.org.br', senha: 'M0viment0@2026#C9', role: 'ADMIN' },
-    { nome: 'Admin ONG 04', email: 'admin04@amoremmovimento.org.br', senha: 'S0lidar!Adm#2026D', role: 'ADMIN' },
-    { nome: 'Admin ONG 05', email: 'admin05@amoremmovimento.org.br', senha: 'Am0r&Gestao#2026E', role: 'ADMIN' },
-    { nome: 'Usuário Teste', email: 'teste@amoremmovimento.com',     senha: 'teste123',           role: 'USER'  },
-  ];
-
-  const resultados = [];
-  for (const u of usuarios) {
-    try {
-      const existing = await pool.query('SELECT id FROM users WHERE email = $1', [u.email]);
-      const hash = await bcrypt.hash(u.senha, 10);
-      if (existing.rows.length > 0) {
-        await pool.query('UPDATE users SET password_hash = $1, role = $2, name = $3 WHERE email = $4',
-          [hash, u.role, u.nome, u.email]);
-        resultados.push({ email: u.email, acao: 'atualizado' });
-      } else {
-        await pool.query('INSERT INTO users (name, email, password_hash, role) VALUES ($1, $2, $3, $4)',
-          [u.nome, u.email, hash, u.role]);
-        resultados.push({ email: u.email, acao: 'criado' });
-      }
-    } catch (err) {
-      resultados.push({ email: u.email, acao: 'erro', detalhe: err.message });
-    }
-  }
-
-  return res.json({ ok: true, resultados });
-});
 
 // ── Start ─────────────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 8080;
