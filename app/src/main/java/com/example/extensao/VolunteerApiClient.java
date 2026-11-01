@@ -20,6 +20,12 @@ public class VolunteerApiClient {
     private static final String TAG = "VolunteerApiClient";
     private static final String BASE_URL = AppConfig.BASE_URL;
 
+    private final SessionManager sessionManager;
+
+    public VolunteerApiClient(SessionManager sessionManager) {
+        this.sessionManager = sessionManager;
+    }
+
     // ── Inner classes ────────────────────────────────────────────────────────
 
     public static class VolunteerProfile {
@@ -89,6 +95,7 @@ public class VolunteerApiClient {
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);
 
             int responseCode = connection.getResponseCode();
+            sessionManager.handleUnauthorized(responseCode);
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String body = readBody(connection.getInputStream());
                 JSONObject json = new JSONObject(body);
@@ -142,6 +149,7 @@ public class VolunteerApiClient {
             }
 
             int responseCode = connection.getResponseCode();
+            sessionManager.handleUnauthorized(responseCode);
             if (BuildConfig.DEBUG) Log.d(TAG, "saveVolunteerProfile: HTTP " + responseCode);
             return responseCode == HttpURLConnection.HTTP_OK;
         } catch (IOException | JSONException e) {
@@ -165,6 +173,7 @@ public class VolunteerApiClient {
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);
 
             int responseCode = connection.getResponseCode();
+            sessionManager.handleUnauthorized(responseCode);
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String body = readBody(connection.getInputStream());
                 JSONObject json = new JSONObject(body);
@@ -199,6 +208,7 @@ public class VolunteerApiClient {
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);
 
             int responseCode = connection.getResponseCode();
+            sessionManager.handleUnauthorized(responseCode);
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String body = readBody(connection.getInputStream());
                 JSONObject json = new JSONObject(body);
@@ -229,6 +239,7 @@ public class VolunteerApiClient {
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);
 
             int responseCode = connection.getResponseCode();
+            sessionManager.handleUnauthorized(responseCode);
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String body = readBody(connection.getInputStream());
                 JSONArray jsonArray = new JSONArray(body);
@@ -279,6 +290,7 @@ public class VolunteerApiClient {
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);
 
             int responseCode = connection.getResponseCode();
+            sessionManager.handleUnauthorized(responseCode);
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String body = readBody(connection.getInputStream());
                 JSONObject json = new JSONObject(body);
@@ -318,6 +330,7 @@ public class VolunteerApiClient {
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);
 
             int responseCode = connection.getResponseCode();
+            sessionManager.handleUnauthorized(responseCode);
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String body = readBody(connection.getInputStream());
                 JSONObject json = new JSONObject(body);

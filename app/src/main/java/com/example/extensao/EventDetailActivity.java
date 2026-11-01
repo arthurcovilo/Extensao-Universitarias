@@ -47,7 +47,7 @@ public class EventDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_detail);
 
         sessionManager = new SessionManager(this);
-        eventApiClient = new EventApiClient();
+        eventApiClient = new EventApiClient(sessionManager);
 
         inicializarViews();
 
@@ -280,6 +280,7 @@ public class EventDetailActivity extends AppCompatActivity {
             connection.setRequestProperty("Authorization", "Bearer " + sessionManager.getAccessToken());
 
             int responseCode = connection.getResponseCode();
+            sessionManager.handleUnauthorized(responseCode);
             if (responseCode >= 200 && responseCode < 300) {
                 String responseBody = readBody(connection.getInputStream());
                 JSONArray jsonArray = new JSONArray(responseBody);

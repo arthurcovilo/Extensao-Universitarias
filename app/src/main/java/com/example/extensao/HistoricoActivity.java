@@ -29,7 +29,7 @@ public class HistoricoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_historico);
 
         sessionManager     = new SessionManager(this);
-        volunteerApiClient = new VolunteerApiClient();
+        volunteerApiClient = new VolunteerApiClient(sessionManager);
 
         recyclerHistorico        = findViewById(R.id.recyclerHistorico);
         txtVazio                 = findViewById(R.id.txtHistoricoVazio);

@@ -20,6 +20,12 @@ public class EventApiClient {
     private static final String TAG = "EventApiClient";
     private static final String BASE_URL = AppConfig.BASE_URL;
 
+    private final SessionManager sessionManager;
+
+    public EventApiClient(SessionManager sessionManager) {
+        this.sessionManager = sessionManager;
+    }
+
     public List<Event> getEvents() {
         List<Event> events = new ArrayList<>();
         HttpURLConnection connection = null;
@@ -77,6 +83,9 @@ public class EventApiClient {
             }
 
             int responseCode = connection.getResponseCode();
+            if (sessionManager.handleUnauthorized(responseCode)) {
+                return ApiResult.error(SessionManager.SESSION_EXPIRED_MESSAGE);
+            }
             String responseBody = readBody(responseCode >= 200 && responseCode < 300
                     ? connection.getInputStream()
                     : connection.getErrorStream());
@@ -132,6 +141,9 @@ public class EventApiClient {
             }
 
             int responseCode = connection.getResponseCode();
+            if (sessionManager.handleUnauthorized(responseCode)) {
+                return ApiResult.error(SessionManager.SESSION_EXPIRED_MESSAGE);
+            }
             String responseBody = readBody(responseCode >= 200 && responseCode < 300
                     ? connection.getInputStream()
                     : connection.getErrorStream());
@@ -183,6 +195,9 @@ public class EventApiClient {
             }
 
             int responseCode = connection.getResponseCode();
+            if (sessionManager.handleUnauthorized(responseCode)) {
+                return ApiResult.error(SessionManager.SESSION_EXPIRED_MESSAGE);
+            }
             String responseBody = readBody(responseCode >= 200 && responseCode < 300
                     ? connection.getInputStream()
                     : connection.getErrorStream());
@@ -216,6 +231,7 @@ public class EventApiClient {
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);
 
             int responseCode = connection.getResponseCode();
+            sessionManager.handleUnauthorized(responseCode);
             if (responseCode >= 200 && responseCode < 300) {
                 String body = readBody(connection.getInputStream());
                 JSONObject json = tryParseJson(body);
@@ -247,6 +263,9 @@ public class EventApiClient {
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);
 
             int responseCode = connection.getResponseCode();
+            if (sessionManager.handleUnauthorized(responseCode)) {
+                return ApiResult.error(SessionManager.SESSION_EXPIRED_MESSAGE);
+            }
             String responseBody = readBody(responseCode >= 200 && responseCode < 300
                     ? connection.getInputStream()
                     : connection.getErrorStream());
@@ -278,6 +297,7 @@ public class EventApiClient {
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);
 
             int responseCode = connection.getResponseCode();
+            sessionManager.handleUnauthorized(responseCode);
             if (responseCode >= 200 && responseCode < 300) {
                 String body = readBody(connection.getInputStream());
                 JSONObject json = tryParseJson(body);
@@ -302,6 +322,9 @@ public class EventApiClient {
             connection.setRequestProperty("Authorization", "Bearer " + accessToken);
 
             int responseCode = connection.getResponseCode();
+            if (sessionManager.handleUnauthorized(responseCode)) {
+                return ApiResult.error(SessionManager.SESSION_EXPIRED_MESSAGE);
+            }
             String responseBody = readBody(responseCode >= 200 && responseCode < 300
                     ? connection.getInputStream()
                     : connection.getErrorStream());

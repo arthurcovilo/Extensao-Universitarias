@@ -53,7 +53,7 @@ public class AdminEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_event);
 
         sessionManager = new SessionManager(this);
-        eventApiClient = new EventApiClient();
+        eventApiClient = new EventApiClient(sessionManager);
 
         // Verifica se é admin
         if (!sessionManager.isAdmin()) {
@@ -382,6 +382,7 @@ public class AdminEventActivity extends AppCompatActivity {
             connection.setRequestProperty("Authorization", "Bearer " + sessionManager.getAccessToken());
 
             int responseCode = connection.getResponseCode();
+            sessionManager.handleUnauthorized(responseCode);
             if (responseCode >= 200 && responseCode < 300) {
                 String responseBody = readBody(connection.getInputStream());
                 JSONArray jsonArray = new JSONArray(responseBody);

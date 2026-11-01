@@ -43,7 +43,7 @@ public class PerfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_perfil);
 
         sessionManager = new SessionManager(this);
-        volunteerApiClient = new VolunteerApiClient();
+        volunteerApiClient = new VolunteerApiClient(sessionManager);
 
         initializeViews();
         setupBottomNavigation();

@@ -34,7 +34,7 @@ public class EventosActivity extends AppCompatActivity implements EventAdapter.O
         setContentView(R.layout.activity_eventos);
 
         sessionManager = new SessionManager(this);
-        eventApiClient = new EventApiClient();
+        eventApiClient = new EventApiClient(sessionManager);
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         recyclerEventos = findViewById(R.id.recyclerEventos);

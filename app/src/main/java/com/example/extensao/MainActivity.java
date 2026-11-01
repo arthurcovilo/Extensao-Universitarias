@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         sessionManager = new SessionManager(this);
-        eventApiClient = new EventApiClient();
+        eventApiClient = new EventApiClient(sessionManager);
 
         inicializarViews();
         configurarNavegacao();

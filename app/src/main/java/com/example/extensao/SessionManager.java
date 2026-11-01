@@ -22,6 +22,9 @@ public class SessionManager {
     private static final String KEY_USER_NAME = "user_name";
     private static final String KEY_USER_ROLE = "user_role";
 
+    public static final String EXTRA_SESSION_EXPIRED = "session_expired";
+    public static final String SESSION_EXPIRED_MESSAGE = "Sessão expirada. Faça login novamente.";
+
     private final SharedPreferences preferences;
     private final Context context;
 
@@ -73,21 +76,26 @@ public class SessionManager {
      * Deve ser chamado após qualquer requisição autenticada que retorne 401 ou 403.
      *
      * Se o token estiver expirado, limpa a sessão e redireciona para LoginActivity.
+     * Se outra requisição já encerrou a sessão, não redireciona de novo.
      *
      * @param httpCode código de resposta HTTP recebido
-     * @return true se a sessão foi invalidada e o redirecionamento foi disparado
+     * @return true se o código indica sessão inválida (401/403)
      */
-    public boolean handleUnauthorized(int httpCode) {
-        if (httpCode == 401 || httpCode == 403) {
-            if (BuildConfig.DEBUG) {
-                Log.w(TAG, "Token inválido ou expirado (HTTP " + httpCode + "). Encerrando sessão.");
-            }
-            clearSession();
-            Intent intent = new Intent(context, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            context.startActivity(intent);
+    public synchronized boolean handleUnauthorized(int httpCode) {
+        if (httpCode != 401 && httpCode != 403) {
+            return false;
+        }
+        if (!isLoggedIn()) {
             return true;
         }
-        return false;
+        if (BuildConfig.DEBUG) {
+            Log.w(TAG, "Token inválido ou expirado (HTTP " + httpCode + "). Encerrando sessão.");
+        }
+        clearSession();
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra(EXTRA_SESSION_EXPIRED, true);
+        context.startActivity(intent);
+        return true;
     }
 }

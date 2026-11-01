@@ -101,7 +101,9 @@ public class GerenciarParticipacaoActivity extends AppCompatActivity {
             conn.setConnectTimeout(10000);
             conn.setReadTimeout(10000);
 
-            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            int code = conn.getResponseCode();
+            sessionManager.handleUnauthorized(code);
+            if (code == HttpURLConnection.HTTP_OK) {
                 BufferedReader reader = new BufferedReader(
                         new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
                 StringBuilder sb = new StringBuilder();
@@ -160,6 +162,7 @@ public class GerenciarParticipacaoActivity extends AppCompatActivity {
             os.close();
 
             int code = conn.getResponseCode();
+            sessionManager.handleUnauthorized(code);
             conn.disconnect();
             return code == HttpURLConnection.HTTP_OK;
         } catch (Exception e) {

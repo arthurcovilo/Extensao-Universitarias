@@ -40,7 +40,7 @@ public class InscricaoFormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inscricao_form);
 
         sessionManager = new SessionManager(this);
-        eventApiClient = new EventApiClient();
+        eventApiClient = new EventApiClient(sessionManager);
 
         inicializarViews();
         carregarDadosEvento();

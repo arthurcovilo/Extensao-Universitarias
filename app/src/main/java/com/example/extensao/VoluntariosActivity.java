@@ -62,7 +62,7 @@ public class VoluntariosActivity extends AppCompatActivity implements VolunteerA
         setContentView(R.layout.activity_voluntarios);
 
         sessionManager     = new SessionManager(this);
-        volunteerApiClient = new VolunteerApiClient();
+        volunteerApiClient = new VolunteerApiClient(sessionManager);
 
         recyclerVoluntarios  = findViewById(R.id.recyclerVoluntarios);
         txtContador          = findViewById(R.id.txtContadorVoluntarios);
