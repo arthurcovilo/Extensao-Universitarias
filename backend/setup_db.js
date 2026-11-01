@@ -85,6 +85,20 @@ async function setup() {
     `);
     console.log('✅ Tabela volunteer_profiles criada');
 
+    // ── Tabela posts (feed de avisos) ───────────────────────────────────────
+    // Mesmo SQL de migrate_posts.js (para bancos já existentes).
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS posts (
+        id         SERIAL PRIMARY KEY,
+        title      VARCHAR(255) NOT NULL,
+        content    TEXT NOT NULL,
+        author_id  INTEGER REFERENCES users(id) ON DELETE SET NULL,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+    `);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_posts_created_at ON posts (created_at DESC);`);
+    console.log('✅ Tabela posts criada');
+
     // ── Usuários de teste ───────────────────────────────────────────────────
     const testUsers = [
       { email: 'teste@email.com', password: '123456', name: 'Usuário Teste', role: 'USER' },

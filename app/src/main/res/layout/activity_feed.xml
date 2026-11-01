@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:paddingTop="24dp"
@@ -26,6 +27,21 @@
             android:textSize="26sp"
             android:textStyle="bold" />
 
+        <!-- Publicar aviso (apenas ADMIN) -->
+        <Button
+            android:id="@+id/btnPublicarAviso"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/bg_botao_detalhes"
+            android:text="@string/feed_publicar"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
     </LinearLayout>
 
     <!-- Divider -->
@@ -34,107 +50,85 @@
         android:layout_height="1dp"
         android:background="@color/divider" />
 
-    <!-- Banner: Em Desenvolvimento -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="#FFF8E1"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="🚧"
-            android:textSize="16sp"
-            android:layout_marginEnd="8dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Esta seção está em desenvolvimento. Em breve você verá as novidades da ONG aqui."
-            android:textSize="13sp"
-            android:textColor="#795548"
-            android:lineSpacingExtra="2dp" />
-
-    </LinearLayout>
-
-    <!-- SwipeRefreshLayout com RecyclerView -->
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <!-- Área da lista: estados vazio/erro e loading ficam centralizados sobre ela -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewPosts"
+        <!-- SwipeRefreshLayout com RecyclerView -->
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="8dp"
-            android:clipToPadding="false" />
+            android:layout_height="match_parent">
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPosts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="8dp"
+                android:clipToPadding="false" />
 
-    <!-- Estado vazio -->
-    <LinearLayout
-        android:id="@+id/layoutEmpty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:paddingTop="80dp"
-        android:paddingBottom="80dp"
-        android:visibility="gone">
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- Estado vazio / erro -->
+        <LinearLayout
+            android:id="@+id/layoutEmpty"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="📭"
-            android:textSize="48sp"
-            android:layout_marginBottom="12dp" />
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp"
+            android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/txtEmptyIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📭"
+                android:textSize="48sp"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:id="@+id/txtEmptyMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/feed_vazio"
+                android:textColor="@color/text_secondary"
+                android:textSize="16sp"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <!-- Loading -->
+        <LinearLayout
+            android:id="@+id/layoutLoading"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/feed_vazio"
-            android:textColor="@color/text_secondary"
-            android:textSize="16sp"
-            android:gravity="center" />
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
 
-    </LinearLayout>
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp" />
 
-    <!-- Loading -->
-    <LinearLayout
-        android:id="@+id/layoutLoading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:paddingTop="80dp"
-        android:paddingBottom="80dp"
-        android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/feed_carregando"
+                android:textColor="@color/text_secondary"
+                android:textSize="15sp" />
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/feed_carregando"
-            android:textColor="@color/text_secondary"
-            android:textSize="15sp" />
-
-    </LinearLayout>
+    </FrameLayout>
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

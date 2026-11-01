@@ -21,7 +21,27 @@
     <string name="feed_vazio">Nenhuma novidade no momento</string>
     <string name="feed_carregando">Carregando novidades...</string>
     <string name="feed_erro">Erro ao carregar novidades</string>
+    <string name="feed_erro_tentar_novamente">Erro ao carregar novidades.\nToque para tentar novamente.</string>
+    <string name="feed_atualizado">Feed atualizado</string>
     <string name="menu_feed">Feed</string>
+
+    <!-- Publicação de avisos (admin) -->
+    <string name="feed_publicar">+ Publicar</string>
+    <string name="post_dialog_titulo">Publicar aviso</string>
+    <string name="post_label_titulo">Título *</string>
+    <string name="post_hint_titulo">Ex: Campanha do agasalho</string>
+    <string name="post_label_texto">Texto *</string>
+    <string name="post_hint_texto">Escreva o aviso para os voluntários</string>
+    <string name="post_botao_publicar">Publicar</string>
+    <string name="post_botao_cancelar">Cancelar</string>
+    <string name="post_botao_fechar">Fechar</string>
+    <string name="post_botao_excluir">Excluir</string>
+    <string name="post_titulo_obrigatorio">Informe o título</string>
+    <string name="post_texto_obrigatorio">Informe o texto do aviso</string>
+    <string name="post_excluir_titulo">Excluir aviso</string>
+    <string name="post_excluir_mensagem">Tem certeza que deseja excluir \"%1$s\"?</string>
+    <string name="post_excluir_confirmar">Sim, excluir</string>
+    <string name="post_excluir_cancelar">Não</string>
     
     <!-- Post item strings -->
     <string name="post_titulo_placeholder">Título do Post</string>

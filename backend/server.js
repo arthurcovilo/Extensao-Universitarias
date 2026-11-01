@@ -852,6 +852,106 @@ app.get('/admin/stats', authenticateToken, requireAdmin, async (req, res) => {
   }
 });
 
+// ── Validação de post do feed (POST) ─────────────────────────────────────────
+const POST_CONTENT_MAX_LENGTH = 5000;
+const POSTS_DEFAULT_LIMIT = 50;
+const POSTS_MAX_LIMIT = 100;
+
+// Retorna { error } (mensagem para 400) ou { values } já normalizados para o SQL.
+function validatePostInput(body) {
+  const { title, content } = body || {};
+
+  if (typeof title !== 'string' || !title.trim()) {
+    return { error: 'Título é obrigatório' };
+  }
+  if (title.trim().length > 255) {
+    return { error: 'Título deve ter no máximo 255 caracteres' };
+  }
+
+  if (typeof content !== 'string' || !content.trim()) {
+    return { error: 'Texto do aviso é obrigatório' };
+  }
+  if (content.trim().length > POST_CONTENT_MAX_LENGTH) {
+    return { error: `Texto do aviso deve ter no máximo ${POST_CONTENT_MAX_LENGTH} caracteres` };
+  }
+
+  return {
+    values: {
+      title: title.trim(),
+      content: content.trim(),
+    },
+  };
+}
+
+// ── GET /posts ───────────────────────────────────────────────────────────────
+app.get('/posts', authenticateToken, async (req, res) => {
+  let limit = POSTS_DEFAULT_LIMIT;
+  if (req.query.limit !== undefined) {
+    const rawLimit = req.query.limit;
+    if (typeof rawLimit !== 'string' || !/^\d+$/.test(rawLimit)
+        || Number(rawLimit) < 1 || Number(rawLimit) > POSTS_MAX_LIMIT) {
+      return res.status(400).json({ message: `Limite deve ser um número entre 1 e ${POSTS_MAX_LIMIT}` });
+    }
+    limit = Number(rawLimit);
+  }
+
+  try {
+    const result = await pool.query(`
+      SELECT p.id, p.title, p.content, p.created_at, u.name AS author_name
+      FROM posts p
+      LEFT JOIN users u ON u.id = p.author_id
+      ORDER BY p.created_at DESC, p.id DESC
+      LIMIT $1
+    `, [limit]);
+
+    return res.json(result.rows);
+  } catch (err) {
+    console.error('Erro ao buscar posts:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
+// ── POST /posts ──────────────────────────────────────────────────────────────
+app.post('/posts', authenticateToken, requireAdmin, async (req, res) => {
+  const { error, values } = validatePostInput(req.body);
+  if (error) {
+    return res.status(400).json({ message: error });
+  }
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO posts (title, content, author_id) VALUES ($1, $2, $3) RETURNING *',
+      [values.title, values.content, req.user.sub]
+    );
+
+    return res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error('Erro ao criar post:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
+// ── DELETE /posts/:id ────────────────────────────────────────────────────────
+app.delete('/posts/:id', authenticateToken, requireAdmin, async (req, res) => {
+  const { id } = req.params;
+  if (!/^\d+$/.test(id) || Number(id) > PG_MAX_INTEGER) {
+    return res.status(400).json({ message: 'ID de post inválido' });
+  }
+
+  try {
+    const result = await pool.query('DELETE FROM posts WHERE id = $1 RETURNING id', [id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Post não encontrado' });
+    }
+
+    return res.json({ message: 'Post excluído com sucesso' });
+  } catch (err) {
+    console.error('Erro ao excluir post:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
 // ── Health check ─────────────────────────────────────────────────────────────
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });

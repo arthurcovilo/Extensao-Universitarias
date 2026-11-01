@@ -1,9 +1,13 @@
 package com.example.extensao;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,9 +32,14 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayout layoutEmpty;
     private LinearLayout layoutLoading;
+    private TextView txtEmptyIcon;
+    private TextView txtEmptyMessage;
+    private Button btnPublicarAviso;
     private BottomNavigationView bottomNavigationView;
 
     // Componentes
+    private SessionManager sessionManager;
+    private PostApiClient postApiClient;
     private PostAdapter postAdapter;
     private List<PostModel> posts;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -40,18 +49,24 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+        sessionManager = new SessionManager(this);
+        postApiClient = new PostApiClient(sessionManager);
+
         // Inicializar views
         initViews();
-        
+
         // Configurar RecyclerView
         setupRecyclerView();
-        
+
         // Configurar SwipeRefresh
         setupSwipeRefresh();
-        
+
         // Configurar Bottom Navigation
         setupBottomNavigation();
-        
+
+        // Botão de publicar aviso (apenas ADMIN)
+        setupPublicar();
+
         // Carregar posts
         loadPosts();
     }
@@ -64,6 +79,9 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         layoutEmpty = findViewById(R.id.layoutEmpty);
         layoutLoading = findViewById(R.id.layoutLoading);
+        txtEmptyIcon = findViewById(R.id.txtEmptyIcon);
+        txtEmptyMessage = findViewById(R.id.txtEmptyMessage);
+        btnPublicarAviso = findViewById(R.id.btnPublicarAviso);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
     }
 
@@ -73,7 +91,7 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
     private void setupRecyclerView() {
         posts = new ArrayList<>();
         postAdapter = new PostAdapter(posts, this);
-        
+
         recyclerViewPosts.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewPosts.setAdapter(postAdapter);
     }
@@ -82,7 +100,7 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
      * Configurar o SwipeRefreshLayout
      */
     private void setupSwipeRefresh() {
-        swipeRefreshLayout.setOnRefreshListener(this::refreshPosts);
+        swipeRefreshLayout.setOnRefreshListener(() -> refreshPosts(true));
         swipeRefreshLayout.setColorSchemeResources(R.color.primary_purple);
     }
 
@@ -121,106 +139,70 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
     }
 
     /**
-     * Carregar posts do feed
+     * Mostrar o botão "Publicar" apenas para ADMIN
+     */
+    private void setupPublicar() {
+        if (sessionManager.isAdmin()) {
+            btnPublicarAviso.setVisibility(View.VISIBLE);
+            btnPublicarAviso.setOnClickListener(v -> mostrarDialogoPublicar());
+        }
+    }
+
+    /**
+     * Carregar posts do feed (com tela de loading)
      */
     private void loadPosts() {
         showLoading(true);
-        
+
         executor.execute(() -> {
             try {
-                // Simular carregamento de dados
-                // TODO: Implementar chamada real para API
-                List<PostModel> loadedPosts = loadPostsFromApi();
-                
+                List<PostModel> loadedPosts = postApiClient.getPosts(sessionManager.getAccessToken());
+
                 runOnUiThread(() -> {
                     showLoading(false);
                     updatePosts(loadedPosts);
                 });
-                
+
             } catch (Exception e) {
                 runOnUiThread(() -> {
                     showLoading(false);
-                    showError("Erro ao carregar novidades");
+                    showError();
                 });
             }
         });
     }
 
     /**
-     * Atualizar posts via pull-to-refresh
+     * Atualizar posts via pull-to-refresh ou após publicar/excluir
      */
-    private void refreshPosts() {
+    private void refreshPosts(boolean showToast) {
         executor.execute(() -> {
             try {
-                // TODO: Implementar chamada real para API
-                List<PostModel> loadedPosts = loadPostsFromApi();
-                
+                List<PostModel> loadedPosts = postApiClient.getPosts(sessionManager.getAccessToken());
+
                 runOnUiThread(() -> {
                     swipeRefreshLayout.setRefreshing(false);
                     updatePosts(loadedPosts);
-                    Toast.makeText(this, "Feed atualizado", Toast.LENGTH_SHORT).show();
+                    if (showToast) {
+                        Toast.makeText(this, R.string.feed_atualizado, Toast.LENGTH_SHORT).show();
+                    }
                 });
-                
+
             } catch (Exception e) {
                 runOnUiThread(() -> {
                     swipeRefreshLayout.setRefreshing(false);
-                    showError("Erro ao atualizar feed");
+                    showError();
                 });
             }
         });
     }
 
     /**
-     * Simular carregamento de posts da API
-     * TODO: Substituir por implementação real
+     * Recarregar a lista depois de publicar ou excluir um aviso
      */
-    private List<PostModel> loadPostsFromApi() {
-        // Simular delay de rede
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        List<PostModel> mockPosts = new ArrayList<>();
-        
-        mockPosts.add(new PostModel(
-            "1",
-            "Nova Campanha de Arrecadação",
-            "Estamos iniciando uma nova campanha para arrecadar alimentos não perecíveis para famílias em situação de vulnerabilidade. Sua ajuda é fundamental para levarmos esperança a quem mais precisa.",
-            null,
-            "15/11/2025",
-            "Centro Comunitário - São Paulo"
-        ));
-
-        mockPosts.add(new PostModel(
-            "2",
-            "Projeto Educação Digital",
-            "Lançamos o projeto que visa ensinar informática básica para crianças e adolescentes da comunidade. As aulas acontecem aos sábados e são totalmente gratuitas.",
-            "https://example.com/image2.jpg",
-            "12/11/2025",
-            null
-        ));
-
-        mockPosts.add(new PostModel(
-            "3",
-            "Mutirão de Limpeza",
-            "Convocamos todos os voluntários para participar do mutirão de limpeza da praça central. Juntos podemos fazer a diferença no nosso bairro!",
-            null,
-            "10/11/2025",
-            "Praça Central"
-        ));
-
-        mockPosts.add(new PostModel(
-            "4",
-            "Agradecimento aos Doadores",
-            "Queremos agradecer a todos que contribuíram com nossa última campanha. Graças à generosidade de vocês, conseguimos ajudar mais de 100 famílias.",
-            "https://example.com/image4.jpg",
-            "08/11/2025",
-            null
-        ));
-
-        return mockPosts;
+    private void recarregarPosts() {
+        swipeRefreshLayout.setRefreshing(true);
+        refreshPosts(false);
     }
 
     /**
@@ -229,7 +211,7 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
     private void updatePosts(List<PostModel> newPosts) {
         this.posts = newPosts;
         postAdapter.updatePosts(newPosts);
-        
+
         // Mostrar estado vazio se não houver posts
         showEmpty(newPosts.isEmpty());
     }
@@ -239,7 +221,7 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
      */
     private void showLoading(boolean show) {
         layoutLoading.setVisibility(show ? View.VISIBLE : View.GONE);
-        recyclerViewPosts.setVisibility(show ? View.GONE : View.VISIBLE);
+        swipeRefreshLayout.setEnabled(!show);
         layoutEmpty.setVisibility(View.GONE);
     }
 
@@ -247,30 +229,138 @@ public class FeedActivity extends AppCompatActivity implements PostAdapter.OnPos
      * Mostrar/esconder estado vazio
      */
     private void showEmpty(boolean show) {
+        txtEmptyIcon.setText("📭");
+        txtEmptyMessage.setText(R.string.feed_vazio);
+        layoutEmpty.setOnClickListener(null);
+        layoutEmpty.setClickable(false);
         layoutEmpty.setVisibility(show ? View.VISIBLE : View.GONE);
-        recyclerViewPosts.setVisibility(show ? View.GONE : View.VISIBLE);
         layoutLoading.setVisibility(View.GONE);
     }
 
     /**
-     * Mostrar erro
+     * Mostrar erro: sem posts na tela, vira o estado de erro com "tentar novamente";
+     * com posts já carregados, mantém a lista e avisa com um Toast.
      */
-    private void showError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-        showEmpty(true);
+    private void showError() {
+        layoutLoading.setVisibility(View.GONE);
+        if (posts == null || posts.isEmpty()) {
+            txtEmptyIcon.setText("⚠️");
+            txtEmptyMessage.setText(R.string.feed_erro_tentar_novamente);
+            layoutEmpty.setOnClickListener(v -> loadPosts());
+            layoutEmpty.setVisibility(View.VISIBLE);
+        } else {
+            Toast.makeText(this, R.string.feed_erro, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Diálogo de publicação de aviso (ADMIN)
+     */
+    private void mostrarDialogoPublicar() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_publicar_post, null);
+        EditText editTitulo = view.findViewById(R.id.editTituloPost);
+        EditText editTexto = view.findViewById(R.id.editTextoPost);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.post_dialog_titulo)
+                .setView(view)
+                .setPositiveButton(R.string.post_botao_publicar, null)
+                .setNegativeButton(R.string.post_botao_cancelar, null)
+                .create();
+
+        // Sobrescreve o clique do "Publicar" para o diálogo não fechar quando a validação falha
+        dialog.setOnShowListener(d -> {
+            Button btnPublicar = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            btnPublicar.setOnClickListener(v -> {
+                String titulo = editTitulo.getText().toString().trim();
+                String texto = editTexto.getText().toString().trim();
+
+                if (titulo.isEmpty()) {
+                    editTitulo.setError(getString(R.string.post_titulo_obrigatorio));
+                    editTitulo.requestFocus();
+                    return;
+                }
+                if (texto.isEmpty()) {
+                    editTexto.setError(getString(R.string.post_texto_obrigatorio));
+                    editTexto.requestFocus();
+                    return;
+                }
+
+                // Evita publicar duas vezes com toque duplo
+                btnPublicar.setEnabled(false);
+                executor.execute(() -> {
+                    EventApiClient.ApiResult result = postApiClient.createPost(
+                            titulo, texto, sessionManager.getAccessToken());
+                    runOnUiThread(() -> {
+                        if (isFinishing() || isDestroyed()) return;
+                        if (result.success) {
+                            dialog.dismiss();
+                            Toast.makeText(this, result.message, Toast.LENGTH_SHORT).show();
+                            recarregarPosts();
+                        } else {
+                            btnPublicar.setEnabled(true);
+                            Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
+                        }
+                    });
+                });
+            });
+        });
+
+        dialog.show();
+    }
+
+    /**
+     * Diálogo com o texto completo do aviso; ADMIN também pode excluir
+     */
+    private void mostrarDetalhes(PostModel post) {
+        String mensagem = post.getDescricao();
+        if (post.getData() != null && !post.getData().isEmpty()) {
+            mensagem += "\n\n" + getString(R.string.icone_data) + " " + post.getData();
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(post.getTitulo())
+                .setMessage(mensagem)
+                .setPositiveButton(R.string.post_botao_fechar, null);
+
+        if (sessionManager.isAdmin()) {
+            builder.setNegativeButton(R.string.post_botao_excluir, (d, which) -> confirmarExclusao(post));
+        }
+
+        builder.show();
+    }
+
+    private void confirmarExclusao(PostModel post) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.post_excluir_titulo)
+                .setMessage(getString(R.string.post_excluir_mensagem, post.getTitulo()))
+                .setPositiveButton(R.string.post_excluir_confirmar, (dialog, which) -> {
+                    executor.execute(() -> {
+                        EventApiClient.ApiResult result = postApiClient.deletePost(
+                                post.getId(), sessionManager.getAccessToken());
+                        runOnUiThread(() -> {
+                            if (isFinishing() || isDestroyed()) return;
+                            Toast.makeText(this, result.message,
+                                    result.success ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG).show();
+                            if (result.success) {
+                                recarregarPosts();
+                            }
+                        });
+                    });
+                })
+                .setNegativeButton(R.string.post_excluir_cancelar, null)
+                .show();
     }
 
     // Implementação dos callbacks do PostAdapter
     @Override
     public void onPostClick(PostModel post) {
-        // TODO: Implementar navegação para tela de detalhes do post
-        Toast.makeText(this, "Post clicado: " + post.getTitulo(), Toast.LENGTH_SHORT).show();
+        mostrarDetalhes(post);
     }
 
     @Override
     public void onVerDetalhesClick(PostModel post) {
-        // TODO: Implementar navegação para tela de detalhes do post
-        Toast.makeText(this, "Ver detalhes: " + post.getTitulo(), Toast.LENGTH_SHORT).show();
+        mostrarDetalhes(post);
     }
 
     @Override

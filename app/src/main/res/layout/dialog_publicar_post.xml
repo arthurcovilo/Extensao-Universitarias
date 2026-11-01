@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="12dp">
+
+    <!-- Título -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/post_label_titulo"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_secondary"
+        android:layout_marginBottom="6dp" />
+
+    <EditText
+        android:id="@+id/editTituloPost"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:hint="@string/post_hint_titulo"
+        android:inputType="textCapSentences"
+        android:maxLength="255"
+        android:background="@drawable/bg_input_field"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textSize="15sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Texto -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/post_label_texto"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_secondary"
+        android:layout_marginBottom="6dp" />
+
+    <EditText
+        android:id="@+id/editTextoPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minLines="4"
+        android:maxLines="8"
+        android:gravity="top|start"
+        android:hint="@string/post_hint_texto"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLength="5000"
+        android:background="@drawable/bg_input_field"
+        android:padding="16dp"
+        android:textSize="15sp" />
+
+</LinearLayout>
