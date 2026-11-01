@@ -295,10 +295,14 @@ app.post('/events/:id/register', authenticateToken, async (req, res) => {
     }
 
     const existingRegistration = await client.query(
-      'SELECT id FROM event_registrations WHERE user_id = $1 AND event_id = $2',
+      'SELECT id, participation_status FROM event_registrations WHERE user_id = $1 AND event_id = $2',
       [userId, id]
     );
-    if (existingRegistration.rows.length > 0) {
+    // Inscrição cancelada não bloqueia: a mesma linha é reativada abaixo (UNIQUE(user_id, event_id)).
+    const cancelledRegistration = existingRegistration.rows.find(
+      r => r.participation_status === 'CANCELADO'
+    );
+    if (existingRegistration.rows.length > 0 && !cancelledRegistration) {
       await client.query('ROLLBACK');
       return res.status(400).json({ message: 'Você já está inscrito neste evento' });
     }
@@ -316,10 +320,25 @@ app.post('/events/:id/register', authenticateToken, async (req, res) => {
       }
     }
 
-    await client.query(
-      'INSERT INTO event_registrations (user_id, event_id, nome, telefone, primeiro_evento) VALUES ($1, $2, $3, $4, $5)',
-      [userId, id, nome.trim(), telefone.trim(), primeiro_evento === true || primeiro_evento === 'true']
-    );
+    const primeiroEvento = primeiro_evento === true || primeiro_evento === 'true';
+    if (cancelledRegistration) {
+      const reactivated = await client.query(
+        `UPDATE event_registrations
+         SET participation_status = 'INSCRITO', nome = $1, telefone = $2, primeiro_evento = $3, registered_at = NOW()
+         WHERE id = $4 AND participation_status = 'CANCELADO'
+         RETURNING id`,
+        [nome.trim(), telefone.trim(), primeiroEvento, cancelledRegistration.id]
+      );
+      if (reactivated.rows.length === 0) {
+        await client.query('ROLLBACK');
+        return res.status(400).json({ message: 'Você já está inscrito neste evento' });
+      }
+    } else {
+      await client.query(
+        'INSERT INTO event_registrations (user_id, event_id, nome, telefone, primeiro_evento) VALUES ($1, $2, $3, $4, $5)',
+        [userId, id, nome.trim(), telefone.trim(), primeiroEvento]
+      );
+    }
 
     await client.query('COMMIT');
     return res.json({ message: 'Inscrição realizada com sucesso' });
@@ -344,13 +363,26 @@ app.delete('/events/:id/register', authenticateToken, async (req, res) => {
   const userId = req.user.sub;
 
   try {
+    // Mantém a linha para o histórico; só inscrições ainda ativas podem ser canceladas.
     const result = await pool.query(
-      'DELETE FROM event_registrations WHERE user_id = $1 AND event_id = $2 RETURNING id',
+      `UPDATE event_registrations SET participation_status = 'CANCELADO'
+       WHERE user_id = $1 AND event_id = $2 AND COALESCE(participation_status, 'INSCRITO') = 'INSCRITO'
+       RETURNING id`,
       [userId, id]
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ message: 'Inscrição não encontrada' });
+      const current = await pool.query(
+        'SELECT participation_status FROM event_registrations WHERE user_id = $1 AND event_id = $2',
+        [userId, id]
+      );
+      if (current.rows.length === 0) {
+        return res.status(404).json({ message: 'Inscrição não encontrada' });
+      }
+      if (current.rows[0].participation_status === 'CANCELADO') {
+        return res.status(400).json({ message: 'Inscrição já cancelada' });
+      }
+      return res.status(400).json({ message: 'Não é possível cancelar: participação já registrada' });
     }
 
     return res.json({ message: 'Inscrição cancelada com sucesso' });
@@ -365,7 +397,8 @@ app.get('/user/registrations', authenticateToken, async (req, res) => {
   const userId = req.user.sub;
   try {
     const result = await pool.query(
-      'SELECT event_id FROM event_registrations WHERE user_id = $1',
+      `SELECT event_id FROM event_registrations
+       WHERE user_id = $1 AND COALESCE(participation_status, 'INSCRITO') <> 'CANCELADO'`,
       [userId]
     );
     const eventIds = result.rows.map(r => r.event_id);
@@ -383,7 +416,8 @@ app.get('/events/:id/is-registered', authenticateToken, async (req, res) => {
 
   try {
     const result = await pool.query(
-      'SELECT id FROM event_registrations WHERE user_id = $1 AND event_id = $2',
+      `SELECT id FROM event_registrations
+       WHERE user_id = $1 AND event_id = $2 AND COALESCE(participation_status, 'INSCRITO') <> 'CANCELADO'`,
       [userId, id]
     );
     return res.json({ registered: result.rows.length > 0 });
@@ -406,7 +440,7 @@ app.get('/events/:id/registrations', authenticateToken, requireAdmin, async (req
         u.email
       FROM event_registrations er
       JOIN users u ON er.user_id = u.id
-      WHERE er.event_id = $1
+      WHERE er.event_id = $1 AND COALESCE(er.participation_status, 'INSCRITO') <> 'CANCELADO'
       ORDER BY er.registered_at ASC
     `, [id]);
 
@@ -499,7 +533,7 @@ app.get('/volunteers', authenticateToken, requireAdmin, async (req, res) => {
         u.email,
         COALESCE(vp.areas, '{}') as areas,
         COALESCE(vp.availability_days, '{}') as availability_days,
-        COUNT(er.id) as events_participated
+        COUNT(er.id) FILTER (WHERE COALESCE(er.participation_status, 'INSCRITO') <> 'CANCELADO') as events_participated
       FROM users u
       LEFT JOIN volunteer_profiles vp ON u.id = vp.user_id
       LEFT JOIN event_registrations er ON u.id = er.user_id
@@ -522,7 +556,8 @@ app.get('/user/stats', authenticateToken, async (req, res) => {
   try {
     // Conta eventos participados
     const eventsResult = await pool.query(
-      'SELECT COUNT(*) as count FROM event_registrations WHERE user_id = $1',
+      `SELECT COUNT(*) as count FROM event_registrations
+       WHERE user_id = $1 AND COALESCE(participation_status, 'INSCRITO') <> 'CANCELADO'`,
       [userId]
     );
 
@@ -532,6 +567,7 @@ app.get('/user/stats', authenticateToken, async (req, res) => {
       FROM events e
       JOIN event_registrations er ON e.id = er.event_id
       WHERE er.user_id = $1 AND e.event_date >= CURRENT_DATE
+        AND COALESCE(er.participation_status, 'INSCRITO') <> 'CANCELADO'
       ORDER BY e.event_date ASC
       LIMIT 1
     `, [userId]);
@@ -654,7 +690,7 @@ app.get('/volunteers/:email/history', authenticateToken, requireAdmin, async (re
         er.registered_at
       FROM event_registrations er
       JOIN events e ON er.event_id = e.id
-      WHERE er.user_id = $1
+      WHERE er.user_id = $1 AND COALESCE(er.participation_status, 'INSCRITO') <> 'CANCELADO'
       ORDER BY e.event_date DESC
     `, [user.id]);
 
