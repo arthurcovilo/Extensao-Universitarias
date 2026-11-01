@@ -179,7 +179,7 @@ public class PerfilActivity extends AppCompatActivity {
             VolunteerApiClient.UserStats stats = volunteerApiClient.getUserStats(sessionManager.getAccessToken());
             runOnUiThread(() -> {
                 if (stats != null) {
-                    txtEventosParticipados.setText(stats.eventsParticipated + " eventos realizados");
+                    txtEventosParticipados.setText(stats.eventsParticipated + " eventos participados");
                     txtProgressoPerfil.setText("Perfil " + stats.profileProgress + "% completo");
 
                     if (stats.nextEventTitle != null && !stats.nextEventTitle.isEmpty()

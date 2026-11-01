@@ -249,7 +249,6 @@ public class VolunteerApiClient {
                     v.name = obj.optString("name");
                     v.email = obj.optString("email");
                     v.eventsParticipated = obj.optInt("events_participated", 0);
-                    v.totalHours = obj.optInt("total_hours", 0);
 
                     JSONArray areasArray = obj.optJSONArray("areas");
                     v.areas = new ArrayList<>();

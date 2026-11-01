@@ -139,7 +139,7 @@
                     android:id="@+id/txtEventosParticipados"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 eventos realizados"
+                    android:text="0 eventos participados"
                     android:textSize="15sp"
                     android:textColor="@color/text_secondary"
                     android:layout_marginBottom="6dp" />

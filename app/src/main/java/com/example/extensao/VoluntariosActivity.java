@@ -339,7 +339,6 @@ public class VoluntariosActivity extends AppCompatActivity implements VolunteerA
         intent.putExtra("volunteer_name",   volunteer.name);
         intent.putExtra("volunteer_email",  volunteer.email);
         intent.putExtra("volunteer_events", volunteer.eventsParticipated);
-        intent.putExtra("volunteer_hours",  volunteer.totalHours);
         intent.putExtra("volunteer_areas",
                 volunteer.areas != null ? String.join(", ", volunteer.areas) : "");
         intent.putExtra("volunteer_days",

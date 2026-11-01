@@ -9,5 +9,4 @@ public class Volunteer {
     public List<String> areas;
     public List<String> availabilityDays;
     public int eventsParticipated;
-    public int totalHours;
 }

@@ -533,7 +533,7 @@ app.get('/volunteers', authenticateToken, requireAdmin, async (req, res) => {
         u.email,
         COALESCE(vp.areas, '{}') as areas,
         COALESCE(vp.availability_days, '{}') as availability_days,
-        COUNT(er.id) FILTER (WHERE COALESCE(er.participation_status, 'INSCRITO') <> 'CANCELADO') as events_participated
+        COUNT(er.id) FILTER (WHERE er.participation_status = 'PARTICIPOU') as events_participated
       FROM users u
       LEFT JOIN volunteer_profiles vp ON u.id = vp.user_id
       LEFT JOIN event_registrations er ON u.id = er.user_id
@@ -554,10 +554,10 @@ app.get('/user/stats', authenticateToken, async (req, res) => {
   const userId = req.user.sub;
 
   try {
-    // Conta eventos participados
+    // Conta eventos participados (presença confirmada pelo admin)
     const eventsResult = await pool.query(
       `SELECT COUNT(*) as count FROM event_registrations
-       WHERE user_id = $1 AND COALESCE(participation_status, 'INSCRITO') <> 'CANCELADO'`,
+       WHERE user_id = $1 AND participation_status = 'PARTICIPOU'`,
       [userId]
     );
 
