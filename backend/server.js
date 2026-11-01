@@ -570,11 +570,11 @@ app.get('/user/stats', authenticateToken, async (req, res) => {
       SELECT e.title, e.event_date
       FROM events e
       JOIN event_registrations er ON e.id = er.event_id
-      WHERE er.user_id = $1 AND e.event_date >= CURRENT_DATE
+      WHERE er.user_id = $1 AND e.event_date >= (NOW() AT TIME ZONE $2)::date
         AND COALESCE(er.participation_status, 'INSCRITO') <> 'CANCELADO'
       ORDER BY e.event_date ASC
       LIMIT 1
-    `, [userId]);
+    `, [userId, APP_TIMEZONE]);
 
     // Verifica se tem perfil de voluntário
     const profileResult = await pool.query(
