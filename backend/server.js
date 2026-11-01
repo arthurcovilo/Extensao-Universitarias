@@ -193,31 +193,109 @@ app.get('/events', async (req, res) => {
   }
 });
 
-// ── POST /events ─────────────────────────────────────────────────────────────
-app.post('/events', authenticateToken, requireAdmin, async (req, res) => {
-  const { title, description, event_date, location, max_participants, event_type } = req.body;
+// ── Validação de evento (POST e PUT) ─────────────────────────────────────────
+const EVENT_TYPES = ['Presencial', 'Online', 'Retirada de Itens', 'Doação'];
+const EVENT_STATUSES = ['ABERTO', 'ENCERRADO', 'CANCELADO'];
+const PG_MAX_INTEGER = 2147483647;
 
-  if (!title || !event_date) {
-    return res.status(400).json({ message: 'Título e data são obrigatórios' });
+// Retorna { error } (mensagem para 400) ou { values } já normalizados para o SQL.
+// isUpdate: o PUT substitui todos os campos, então status também é obrigatório.
+function validateEventInput(body, { isUpdate = false } = {}) {
+  const { title, description, event_date, location, status, max_participants, event_type } = body || {};
+
+  if (typeof title !== 'string' || !title.trim()) {
+    return { error: 'Título é obrigatório' };
+  }
+  if (title.trim().length > 255) {
+    return { error: 'Título deve ter no máximo 255 caracteres' };
+  }
+
+  if (description != null && typeof description !== 'string') {
+    return { error: 'Descrição inválida' };
+  }
+
+  // Aceita "AAAA-MM-DD" e também o ISO completo que o app reenvia na edição
+  // (o GET devolve event_date como "2026-05-15T03:00:00.000Z"). Grava só a data,
+  // que é o mesmo que o Postgres já fazia ao converter a string para DATE.
+  const dateMatch = typeof event_date === 'string'
+    && event_date.match(/^(\d{4})-(\d{2})-(\d{2})(T.*)?$/);
+  if (!dateMatch) {
+    return { error: 'Data inválida (use AAAA-MM-DD)' };
+  }
+  const year = Number(dateMatch[1]);
+  const month = Number(dateMatch[2]);
+  const day = Number(dateMatch[3]);
+  const parsedDate = new Date(Date.UTC(year, month - 1, day));
+  if (parsedDate.getUTCFullYear() !== year
+      || parsedDate.getUTCMonth() !== month - 1
+      || parsedDate.getUTCDate() !== day) {
+    return { error: 'Data inválida (use AAAA-MM-DD)' };
   }
 
   if (!event_type) {
-    return res.status(400).json({ message: 'Tipo do evento é obrigatório' });
+    return { error: 'Tipo do evento é obrigatório' };
+  }
+  if (!EVENT_TYPES.includes(event_type)) {
+    return { error: 'Tipo de evento inválido' };
   }
 
-  const validTypes = ['Presencial', 'Online', 'Retirada de Itens', 'Doação'];
-  if (!validTypes.includes(event_type)) {
-    return res.status(400).json({ message: 'Tipo de evento inválido' });
+  // location é NOT NULL no banco: evento Online sem local é gravado como "".
+  if (location != null && typeof location !== 'string') {
+    return { error: 'Local inválido' };
+  }
+  const trimmedLocation = (location || '').trim();
+  if (event_type !== 'Online' && !trimmedLocation) {
+    return { error: 'Informe o local do evento' };
+  }
+  if (trimmedLocation.length > 255) {
+    return { error: 'Local deve ter no máximo 255 caracteres' };
   }
 
-  if (event_type !== 'Online' && !location) {
-    return res.status(400).json({ message: 'Informe o local do evento' });
+  // Ausente/null/"" = sem limite (é assim que o app remove o limite na edição).
+  let maxParticipants = null;
+  if (max_participants != null && max_participants !== '') {
+    const parsedMax = typeof max_participants === 'string' && /^\d+$/.test(max_participants.trim())
+      ? Number(max_participants.trim())
+      : max_participants;
+    if (!Number.isInteger(parsedMax) || parsedMax < 1 || parsedMax > PG_MAX_INTEGER) {
+      return { error: 'Limite de participantes deve ser um número inteiro positivo' };
+    }
+    maxParticipants = parsedMax;
+  }
+
+  if (isUpdate) {
+    if (!status) {
+      return { error: 'Status é obrigatório' };
+    }
+    if (!EVENT_STATUSES.includes(status)) {
+      return { error: 'Status inválido' };
+    }
+  }
+
+  return {
+    values: {
+      title: title.trim(),
+      description: description == null ? null : description,
+      event_date: event_date.slice(0, 10),
+      location: trimmedLocation,
+      status,
+      max_participants: maxParticipants,
+      event_type,
+    },
+  };
+}
+
+// ── POST /events ─────────────────────────────────────────────────────────────
+app.post('/events', authenticateToken, requireAdmin, async (req, res) => {
+  const { error, values } = validateEventInput(req.body);
+  if (error) {
+    return res.status(400).json({ message: error });
   }
 
   try {
     const result = await pool.query(
       'INSERT INTO events (title, description, event_date, location, max_participants, created_by, event_type) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-      [title, description, event_date, location, max_participants, req.user.sub, event_type]
+      [values.title, values.description, values.event_date, values.location, values.max_participants, req.user.sub, values.event_type]
     );
 
     return res.status(201).json(result.rows[0]);
@@ -230,12 +308,19 @@ app.post('/events', authenticateToken, requireAdmin, async (req, res) => {
 // ── PUT /events/:id ──────────────────────────────────────────────────────────
 app.put('/events/:id', authenticateToken, requireAdmin, async (req, res) => {
   const { id } = req.params;
-  const { title, description, event_date, location, status, max_participants, event_type } = req.body;
+  if (!/^\d+$/.test(id) || Number(id) > PG_MAX_INTEGER) {
+    return res.status(400).json({ message: 'ID de evento inválido' });
+  }
+
+  const { error, values } = validateEventInput(req.body, { isUpdate: true });
+  if (error) {
+    return res.status(400).json({ message: error });
+  }
 
   try {
     const result = await pool.query(
       'UPDATE events SET title = $1, description = $2, event_date = $3, location = $4, status = $5, max_participants = $6, event_type = $7 WHERE id = $8 RETURNING *',
-      [title, description, event_date, location, status, max_participants, event_type, id]
+      [values.title, values.description, values.event_date, values.location, values.status, values.max_participants, values.event_type, id]
     );
 
     if (result.rows.length === 0) {
