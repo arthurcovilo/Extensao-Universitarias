@@ -171,7 +171,7 @@ app.get('/events', async (req, res) => {
       SELECT 
         e.*,
         u.name as created_by_name,
-        COUNT(er.id) as registered_count
+        COUNT(er.id) FILTER (WHERE COALESCE(er.participation_status, 'INSCRITO') <> 'CANCELADO') as registered_count
       FROM events e
       LEFT JOIN users u ON e.created_by = u.id
       LEFT JOIN event_registrations er ON e.id = er.event_id
@@ -273,42 +273,65 @@ app.post('/events/:id/register', authenticateToken, async (req, res) => {
     return res.status(400).json({ message: 'Informe seu telefone' });
   }
 
+  let client;
   try {
-    const eventResult = await pool.query('SELECT * FROM events WHERE id = $1', [id]);
+    client = await pool.connect();
+    await client.query('BEGIN');
+
+    // Trava a linha do evento: inscrições concorrentes no mesmo evento esperam aqui,
+    // então a contagem abaixo enxerga as inscrições já confirmadas pelas outras.
+    const eventResult = await client.query('SELECT * FROM events WHERE id = $1 FOR UPDATE', [id]);
     if (eventResult.rows.length === 0) {
+      await client.query('ROLLBACK');
       return res.status(404).json({ message: 'Evento não encontrado' });
     }
     const event = eventResult.rows[0];
     if (event.status !== 'ABERTO') {
+      await client.query('ROLLBACK');
       return res.status(400).json({ message: 'Evento não está aberto para inscrições' });
     }
 
-    const existingRegistration = await pool.query(
+    const existingRegistration = await client.query(
       'SELECT id FROM event_registrations WHERE user_id = $1 AND event_id = $2',
       [userId, id]
     );
     if (existingRegistration.rows.length > 0) {
+      await client.query('ROLLBACK');
       return res.status(400).json({ message: 'Você já está inscrito neste evento' });
     }
 
     if (event.max_participants) {
-      const registrationCount = await pool.query(
-        'SELECT COUNT(*) as count FROM event_registrations WHERE event_id = $1', [id]
+      // Só CANCELADO libera vaga; NAO_COMPARECEU e PARTICIPOU continuam ocupando.
+      const registrationCount = await client.query(
+        `SELECT COUNT(*) as count FROM event_registrations
+         WHERE event_id = $1 AND COALESCE(participation_status, 'INSCRITO') <> 'CANCELADO'`,
+        [id]
       );
       if (parseInt(registrationCount.rows[0].count) >= event.max_participants) {
+        await client.query('ROLLBACK');
         return res.status(400).json({ message: 'Evento lotado' });
       }
     }
 
-    await pool.query(
+    await client.query(
       'INSERT INTO event_registrations (user_id, event_id, nome, telefone, primeiro_evento) VALUES ($1, $2, $3, $4, $5)',
       [userId, id, nome.trim(), telefone.trim(), primeiro_evento === true || primeiro_evento === 'true']
     );
 
+    await client.query('COMMIT');
     return res.json({ message: 'Inscrição realizada com sucesso' });
   } catch (err) {
+    if (client) {
+      await client.query('ROLLBACK').catch(() => {});
+    }
+    // UNIQUE(user_id, event_id): duas requisições simultâneas do mesmo usuário
+    if (err.code === '23505') {
+      return res.status(400).json({ message: 'Você já está inscrito neste evento' });
+    }
     console.error('Erro ao se inscrever no evento:', err.message);
     return res.status(500).json({ message: 'Erro interno do servidor' });
+  } finally {
+    if (client) client.release();
   }
 });
 
