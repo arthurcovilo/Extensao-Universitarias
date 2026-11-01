@@ -346,6 +346,43 @@ public class EventApiClient {
         }
     }
 
+    public ApiResult markAllParticipated(int eventId, String accessToken) {
+        HttpURLConnection connection = null;
+
+        try {
+            URL url = new URL(BASE_URL + "/events/" + eventId + "/registrations/mark-all-participated");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setConnectTimeout(10000);
+            connection.setReadTimeout(10000);
+            connection.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+            int responseCode = connection.getResponseCode();
+            if (sessionManager.handleUnauthorized(responseCode)) {
+                return ApiResult.error(SessionManager.SESSION_EXPIRED_MESSAGE);
+            }
+            String responseBody = readBody(responseCode >= 200 && responseCode < 300
+                    ? connection.getInputStream()
+                    : connection.getErrorStream());
+
+            JSONObject json = tryParseJson(responseBody);
+            if (responseCode >= 200 && responseCode < 300) {
+                return ApiResult.success(json != null
+                        ? json.optString("message", "Presenças atualizadas!")
+                        : "Presenças atualizadas!");
+            } else {
+                return ApiResult.error(json != null
+                        ? json.optString("message", "Erro ao marcar presenças")
+                        : "Erro ao marcar presenças");
+            }
+
+        } catch (Exception e) {
+            return ApiResult.error("Falha de conexão. Verifique sua internet.");
+        } finally {
+            if (connection != null) connection.disconnect();
+        }
+    }
+
     private String readBody(InputStream stream) throws Exception {
         if (stream == null) return "";
 

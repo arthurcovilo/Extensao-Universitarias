@@ -60,6 +60,21 @@
         android:background="@color/divider"
         android:layout_marginBottom="8dp" />
 
+    <!-- Marcar todos como participou -->
+    <Button
+        android:id="@+id/btnMarcarTodosParticipou"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Marcar todos como participou"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_botao_inscrever"
+        android:visibility="gone" />
+
     <!-- Mensagem vazia -->
     <TextView
         android:id="@+id/txtGerenciarVazio"

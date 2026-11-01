@@ -13,6 +13,10 @@ app.use(express.json());
 const WEB_CLIENT_ID = '487621614650-ekd8795v6uu6ac2uco886h95f09lrta4.apps.googleusercontent.com';
 const googleClient = new OAuth2Client(WEB_CLIENT_ID);
 
+// Fuso usado para decidir "hoje" nas comparações com event_date (DATE),
+// independente do fuso do servidor ou da sessão do Postgres.
+const APP_TIMEZONE = 'America/Sao_Paulo';
+
 // ── Rate limiting — protege contra força bruta no login ──────────────────────
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // janela de 15 minutos
@@ -660,6 +664,45 @@ app.patch('/events/:id/registrations/:userId/status', authenticateToken, require
     return res.json({ message: 'Status atualizado com sucesso' });
   } catch (err) {
     console.error('Erro ao atualizar status:', err.message);
+    return res.status(500).json({ message: 'Erro interno do servidor' });
+  }
+});
+
+// ── POST /events/:id/registrations/mark-all-participated ────────────────
+app.post('/events/:id/registrations/mark-all-participated', authenticateToken, requireAdmin, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Só inscrições ainda ativas; CANCELADO, NAO_COMPARECEU e PARTICIPOU não mudam.
+    const result = await pool.query(
+      `UPDATE event_registrations er
+       SET participation_status = 'PARTICIPOU'
+       FROM events e
+       WHERE er.event_id = e.id AND e.id = $1
+         AND e.event_date <= (NOW() AT TIME ZONE $2)::date
+         AND COALESCE(er.participation_status, 'INSCRITO') = 'INSCRITO'`,
+      [id, APP_TIMEZONE]
+    );
+
+    if (result.rowCount === 0) {
+      const event = await pool.query(
+        'SELECT event_date <= (NOW() AT TIME ZONE $2)::date AS ja_ocorreu FROM events WHERE id = $1',
+        [id, APP_TIMEZONE]
+      );
+      if (event.rows.length === 0) {
+        return res.status(404).json({ message: 'Evento não encontrado' });
+      }
+      if (!event.rows[0].ja_ocorreu) {
+        return res.status(400).json({ message: 'Só é possível marcar presença em eventos que já aconteceram ou acontecem hoje' });
+      }
+    }
+
+    return res.json({
+      message: `${result.rowCount} inscrição(ões) marcada(s) como participou`,
+      updated_count: result.rowCount
+    });
+  } catch (err) {
+    console.error('Erro ao marcar todos como participou:', err.message);
     return res.status(500).json({ message: 'Erro interno do servidor' });
   }
 });

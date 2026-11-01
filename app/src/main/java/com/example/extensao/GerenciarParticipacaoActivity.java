@@ -1,8 +1,10 @@
 package com.example.extensao;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +33,10 @@ public class GerenciarParticipacaoActivity extends AppCompatActivity {
     private RecyclerView recyclerInscritos;
     private InscritosParticipacaoAdapter adapter;
     private TextView txtVazio, txtNomeEvento;
+    private Button btnMarcarTodos;
 
     private SessionManager sessionManager;
+    private EventApiClient eventApiClient;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private int eventId;
@@ -51,9 +55,12 @@ public class GerenciarParticipacaoActivity extends AppCompatActivity {
             return;
         }
 
+        eventApiClient = new EventApiClient(sessionManager);
+
         recyclerInscritos = findViewById(R.id.recyclerInscritos);
         txtVazio          = findViewById(R.id.txtGerenciarVazio);
         txtNomeEvento     = findViewById(R.id.txtNomeEventoGerenciar);
+        btnMarcarTodos    = findViewById(R.id.btnMarcarTodosParticipou);
 
         eventId = getIntent().getIntExtra("event_id", -1);
         String nomeEvento = getIntent().getStringExtra("event_title");
@@ -71,6 +78,7 @@ public class GerenciarParticipacaoActivity extends AppCompatActivity {
         recyclerInscritos.setAdapter(adapter);
 
         findViewById(R.id.btnVoltarGerenciar).setOnClickListener(v -> finish());
+        btnMarcarTodos.setOnClickListener(v -> confirmarMarcarTodos());
 
         carregarInscritos();
     }
@@ -82,9 +90,11 @@ public class GerenciarParticipacaoActivity extends AppCompatActivity {
                 if (inscritos.isEmpty()) {
                     txtVazio.setVisibility(View.VISIBLE);
                     recyclerInscritos.setVisibility(View.GONE);
+                    btnMarcarTodos.setVisibility(View.GONE);
                 } else {
                     txtVazio.setVisibility(View.GONE);
                     recyclerInscritos.setVisibility(View.VISIBLE);
+                    btnMarcarTodos.setVisibility(View.VISIBLE);
                     adapter.updateInscritos(inscritos);
                 }
             });
@@ -138,6 +148,38 @@ public class GerenciarParticipacaoActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "Erro ao salvar status", Toast.LENGTH_SHORT).show();
                 }
+            });
+        });
+    }
+
+    private void confirmarMarcarTodos() {
+        int pendentes = 0;
+        for (InscritoParticipacao inscrito : adapter.getInscritos()) {
+            if ("INSCRITO".equals(inscrito.participationStatus)) pendentes++;
+        }
+
+        if (pendentes == 0) {
+            Toast.makeText(this, "Nenhum inscrito pendente", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle("Marcar todos como participou")
+                .setMessage("Marcar " + pendentes + " inscritos como participou?")
+                .setPositiveButton("Confirmar", (dialog, which) -> marcarTodos())
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
+    private void marcarTodos() {
+        btnMarcarTodos.setEnabled(false);
+        executor.execute(() -> {
+            EventApiClient.ApiResult result =
+                    eventApiClient.markAllParticipated(eventId, sessionManager.getAccessToken());
+            runOnUiThread(() -> {
+                btnMarcarTodos.setEnabled(true);
+                Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
+                if (result.success) carregarInscritos();
             });
         });
     }

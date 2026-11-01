@@ -32,6 +32,10 @@ public class InscritosParticipacaoAdapter
         notifyDataSetChanged();
     }
 
+    public List<InscritoParticipacao> getInscritos() {
+        return inscritos;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
