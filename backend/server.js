@@ -29,7 +29,10 @@ const pool = new Pool({
 });
 
 pool.connect()
-  .then(() => console.log('✅ Conectado ao PostgreSQL'))
+  .then(client => {
+    client.release();
+    console.log('✅ Conectado ao PostgreSQL');
+  })
   .catch(err => {
     console.error('❌ Falha ao conectar ao PostgreSQL:', err.message);
     console.error('   Verifique DATABASE_URL no .env e se o banco está rodando.');
