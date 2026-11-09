@@ -138,10 +138,7 @@ Este projeto foi desenvolvido para fins educacionais e uso por ONGs.
 
 Desenvolvido por estudantes de Ciência da Computação para projeto de extensão universitária.
 
-Arthur Covilo
-Allan Barbosa
-Cauan Beserra
-João Furtuozo
-
-
-
+- Arthur Covilo
+- Allan Barbosa
+- Cauan Beserra
+- João Furtuozo
