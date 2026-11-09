@@ -130,22 +130,18 @@ A validação é feita tanto no frontend (UX) quanto no backend (segurança).
 - `DELETE /events/:id` - Excluir evento
 - `GET /events/:id/registrations` - Ver inscritos
 
-## 🤝 Contribuindo
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
-4. Push para a branch (`git push origin feature/nova-funcionalidade`)
-5. Abra um Pull Request
-
 ## 📝 Licença
 
 Este projeto foi desenvolvido para fins educacionais e uso por ONGs.
 
 ## 👨‍💻 Equipe
 
-Desenvolvido por estudantes de Engenharia de Software para projeto de extensão universitária.
+Desenvolvido por estudantes de Ciência da Computação para projeto de extensão universitária.
 
----
+Arthur Covilo
+Allan Barbosa
+Cauan Beserra
+João Furtuozo
 
-**Dúvidas?** Consulte o [SETUP_EQUIPE.md](SETUP_EQUIPE.md) ou entre em contato com a equipe.
+
+
